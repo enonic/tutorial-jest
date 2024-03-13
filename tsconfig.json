@@ -42,15 +42,30 @@
 		//──────────────────────────────────────────────────────────────────────
 		"skipLibCheck": true,
 	},
+
+	// Specifies an array of filenames or patterns that should be skipped when
+	// resolving include.
+	// Important: exclude only changes which files are included as a result of
+	// the include setting. A file specified by exclude can still become part of
+	// your codebase due to an import statement in your code, a types inclusion,
+	// a /// <reference directive, or being specified in the files list.
+	// It is not a mechanism that prevents a file from being included in the
+	// codebase - it simply changes what the include setting finds.
 	"exclude": [
 		"src/main/resources/assets/**/*.*",
 		"src/main/resources/static/**/*.*",
+		"src/main/resources/**/*.spec.ts",
+		"src/main/resources/**/*.test.ts"
 	],
+
+	// Specifies an array of filenames or patterns to include in the program.
+	// These filenames are resolved relative to the directory containing the
+	// tsconfig.json file.
 	"include": [
 		// Make sure default types matches Nashorn
 		"node_modules/typescript/lib/lib.es5.d.ts",
 
-		"src/main/resources/**/*.tsx",
-		"src/main/resources/**/*.ts"
+		"src/main/resources/**/*.ts",
+		"src/main/resources/**/*.tsx"
 	]
 }

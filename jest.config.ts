@@ -1,17 +1,22 @@
 import type { Config } from '@jest/types';
 
-const RESOURCES = 'src/main/resources';
-const AND_BELOW = '**';
-const EXT = '{ts,tsx}';
-const SOURCE_FILES = `*.${EXT}`;
-const TEST_EXT = `(spec|test).${EXT}`;
+
+import {
+    AND_BELOW,
+    DIR_SRC,
+    DIR_DST_ASSETS,
+    TEST_EXT
+} from './tsup/constants';
+
+
+const SOURCE_FILES = `*.{ts,tsx}`;
 const TEST_FILES = `*.${TEST_EXT}`;
-const TEST_MATCH_ASSETS = `<rootDir>/${RESOURCES}/assets/${AND_BELOW}/${TEST_FILES}`;
+const TEST_MATCH_ASSETS = `<rootDir>/${DIR_DST_ASSETS}/${AND_BELOW}/${TEST_FILES}`;
 
 
 const commonConfig: Config.InitialProjectOptions = {
     collectCoverageFrom: [
-        `${RESOURCES}/${AND_BELOW}/${SOURCE_FILES}`,
+        `${DIR_SRC}/${AND_BELOW}/${SOURCE_FILES}`,
     ],
     injectGlobals: false,
 };
@@ -23,7 +28,7 @@ const customJestConfig: Config.InitialOptions = {
         ...commonConfig,
         testEnvironment: 'node', // Run serverside tests without DOM globals such as document and window
         testMatch: [
-            `<rootDir>/${RESOURCES}/${AND_BELOW}/${TEST_FILES}`, // Every test file in src/main/resources
+            `<rootDir>/${DIR_SRC}/${AND_BELOW}/${TEST_FILES}`, // Every test file in src/main/resources
             `!${TEST_MATCH_ASSETS}`, // Except the ones under assets
             `<rootDir>/test/server/${AND_BELOW}/${TEST_FILES}`
         ],

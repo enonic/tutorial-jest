@@ -85,4 +85,21 @@ tasks.register('npmTest', NpmTask) {
 test.dependsOn npmTest
 ----
 
+=== tsup/server.ts
 
+In order to avoid the build system compiling the test files, which are in the source directory (src/main/resources), into the build directory (build/resources/main), an ignore pattern needs to be added to the tsup/server.ts file:
+
+.tsup/server.ts
+[source, typescript]
+----
+const FILES_SERVER = globSync(
+  `${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,
+  {
+    absolute: false,
+    ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`).concat(
+      globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
+      globSync(`${DIR_SRC}/${AND_BELOW}/*.${TEST_EXT}`), // Avoid compiling test files
+    )
+  }
+).map(s => s.replaceAll('\\', '/')); // Windows compatibility
+----

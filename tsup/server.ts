@@ -1,23 +1,26 @@
 import type { Options } from '.';
 import { globSync } from 'glob';
 import {
+	AND_BELOW,
 	DIR_SRC,
 	DIR_SRC_ASSETS,
-	DIR_SRC_STATIC
+	DIR_SRC_STATIC,
+	TEST_EXT
 } from './constants';
 
 
 export default function buildServerConfig(): Options {
 	const GLOB_EXTENSIONS_SERVER = '{ts,js}';
 	const FILES_SERVER = globSync(
-		`${DIR_SRC}/**/*.${GLOB_EXTENSIONS_SERVER}`,
+		`${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,
 		{
 			absolute: false,
-			ignore: globSync(`${DIR_SRC_ASSETS}/**/*.${GLOB_EXTENSIONS_SERVER}`).concat(
-				globSync(`${DIR_SRC_STATIC}/**/*.${GLOB_EXTENSIONS_SERVER}`)
+			ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`).concat(
+				globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
+				globSync(`${DIR_SRC}/${AND_BELOW}/*.${TEST_EXT}`), // Avoid compiling test files
 			)
 		}
-	).map(s => s.replaceAll('\\', '/'));
+	).map(s => s.replaceAll('\\', '/')); // Windows compatibility
 
 	return {
 		bundle: true, // Needed to bundle @enonic/js-utils
