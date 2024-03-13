@@ -5,7 +5,7 @@
 
 In order to write tests in typescript and run them a bunch of node modules needs to be installed:
 
-[source, bash]
+[source, shell]
 ----
 npm install --save-dev jest-environment-jsdom ts-node ts-jest
 ----

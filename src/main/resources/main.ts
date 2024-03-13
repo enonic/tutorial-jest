@@ -5,6 +5,9 @@ import { isMaster } from '/lib/xp/cluster';
 import { executeFunction } from '/lib/xp/task';
 import { importNodes } from '/lib/xp/export';
 
+import {sanitize} from '/lib/xp/common';
+log.info(sanitize("Piña CØLADÆ <script>alert('hi!');</script>"));
+
 const projectData = {
     id: 'intro',
     displayName: 'Intro Project',

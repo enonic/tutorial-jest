@@ -6,7 +6,11 @@
       },
       {
         "title": "2 - Simple test",
-        "document": "pureJs"
+        "document": "simple"
+      },
+      {
+        "title": "3 - Simple mock",
+        "document": "mock"
       }
     ]
 }

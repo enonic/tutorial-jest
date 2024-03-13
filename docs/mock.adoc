@@ -1,0 +1,53 @@
+= Simple mock
+:sourcedir: ../
+
+== Source code
+
+To demonstrate the power of mocking, we'll make a simple typescript wrapper around an Enonic Java library:
+
+.src/main/resources/lib/tutorial-jest/sanitize.ts
+[source, typescript]
+----
+include::{sourcedir}src/main/resources/lib/tutorial-jest/sanitize.ts[]
+----
+
+== Test without mock
+
+If you try running this simple test:
+
+[source, typescript]
+----
+import {
+    describe,
+    expect,
+    test as it
+} from '@jest/globals';
+import { sanitize } from './sanitize';
+
+
+describe('sanitize', () => {
+    it('should return the first 10 numbers in the fibonacci sequence', () => {
+        expect(sanitize("Piña CØLADÆ <script>alert('hi!');</script>"))
+            .toEqual('pina-coladae-script-alerthi-script');
+    });
+});
+----
+
+It will fail with the following error message:
+
+[source, shell]
+----
+Cannot find module '/lib/xp/common' from 'src/main/resources/lib/tutorial-jest/sanitize.ts'
+----
+
+This happens because the module file `/lib/xp/common` isn't available in the test environment. It only exists inside the application jar file, which is used at runtime in the Enonic XP server.
+
+So we have to "fake" it.
+
+== Test with mock
+
+.src/main/resources/lib/tutorial-jest/sanitize.test.ts
+[source, typescript]
+----
+include::{sourcedir}src/main/resources/lib/tutorial-jest/sanitize.test.ts[]
+----

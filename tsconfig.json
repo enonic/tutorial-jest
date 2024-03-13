@@ -4,9 +4,19 @@
 		// Modules
 		//──────────────────────────────────────────────────────────────────────
 		"allowUmdGlobalAccess": true,
-		"baseUrl": "./",
+
+		// Sets a base directory from which to resolve bare specifier module names.
+		// This resolution has higher priority than lookups from node_modules.
+		// This feature was designed for use in conjunction with AMD module
+		// loaders in the browser, and is not recommended in any other context.
+		// As of TypeScript 4.1, baseUrl is no longer required to be set when
+		// using paths.
+		"baseUrl": ".",
+
 		"moduleResolution": "node",
 
+		// A series of entries which re-map imports to lookup locations relative
+		// to the baseUrl if set, or to the tsconfig file itself otherwise.
 		"paths": {
 			"/lib/xp/*": ["node_modules/@enonic-types/lib-*"],
 			"/*": ["src/main/resources/*"], // So one can import local files using absolute path (same as Enonic does during runtime).
@@ -43,6 +53,17 @@
 		"skipLibCheck": true,
 	},
 
+	// Specifies an array of filenames or patterns to include in the program.
+	// These filenames are resolved relative to the directory containing the
+	// tsconfig.json file.
+	"include": [
+		// Make sure default types matches Nashorn
+		"node_modules/typescript/lib/lib.es5.d.ts",
+
+		"src/main/resources/**/*.ts",
+		"src/main/resources/**/*.tsx"
+	],
+
 	// Specifies an array of filenames or patterns that should be skipped when
 	// resolving include.
 	// Important: exclude only changes which files are included as a result of
@@ -57,15 +78,4 @@
 		"src/main/resources/**/*.spec.ts",
 		"src/main/resources/**/*.test.ts"
 	],
-
-	// Specifies an array of filenames or patterns to include in the program.
-	// These filenames are resolved relative to the directory containing the
-	// tsconfig.json file.
-	"include": [
-		// Make sure default types matches Nashorn
-		"node_modules/typescript/lib/lib.es5.d.ts",
-
-		"src/main/resources/**/*.ts",
-		"src/main/resources/**/*.tsx"
-	]
 }
