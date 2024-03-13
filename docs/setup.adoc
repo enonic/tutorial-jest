@@ -1,0 +1,88 @@
+= Setup
+:sourcedir: ../
+
+== Node modules
+
+In order to write tests in typescript and run them a bunch of node modules needs to be installed:
+
+[source, bash]
+----
+npm install --save-dev jest-environment-jsdom ts-node ts-jest
+----
+
+== Configuration
+
+=== jest.config.ts
+
+Jest needs to be configured to run typescript tests. This is done by creating a jest.config.ts file in the root of the project:
+
+.jest.config.ts
+[source, typescript]
+----
+include::{sourcedir}/jest.config.ts[]
+----
+
+Read more about configuring Jest here: https://jestjs.io/docs/configuration
+
+=== test/tsconfig.json
+
+In an Enonic typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple tsconfig.json files are used.
+
+When running tests "outside" the Enonic XP server, the typescript configuration files might need to look slightly different. This is the case for the test/tsconfig.json file:
+
+==== test/client/tsconfig.json
+
+.test/client/tsconfig.json
+[source, json]
+----
+include::{sourcedir}/test/client/tsconfig.json[]
+----
+
+==== test/server/tsconfig.json
+
+.test/server/tsconfig.json
+[source, json]
+----
+include::{sourcedir}/test/server/tsconfig.json[]
+----
+
+== Running
+
+=== package.json
+
+In order to run tests the following needs to be added to the package.json file:
+
+.package.json
+[source, json]
+----
+{
+  "scripts": {
+    "test": "jest --no-cache --coverage"
+  }
+}
+----
+
+=== build.gradle
+
+In order to run the tests on every build, add the following to the build.gradle file:
+
+.build.gradle
+[source, gradle]
+----
+tasks.register('npmTest', NpmTask) {
+    args = [
+        'run',
+        'test'
+    ]
+    dependsOn npmInstall
+    environment = [
+        'FORCE_COLOR': 'true',
+    ]
+    inputs.dir 'test'
+    outputs.dir 'coverage'
+}
+
+test.dependsOn npmTest
+----
+
+

@@ -1,0 +1,6 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "sourceMap": true // Important to get correct line numbers when running coverage tests
+    },
+}

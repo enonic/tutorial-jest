@@ -1,0 +1,41 @@
+= Simple test
+:sourcedir: ../
+
+== Source code
+
+.src/main/resources/lib/tutorial-jest/fibonacci.ts
+[source, typescript]
+----
+include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.ts[]
+----
+
+== The test
+
+.src/main/resources/lib/tutorial-jest/fibonacci.test.ts
+[source, typescript]
+----
+include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.test.ts[]
+----
+
+== Running
+
+=== All tests
+
+[source, shell]
+----
+npm test
+----
+
+or via gradle
+
+[source, shell]
+----
+enonic project gradle test
+----
+
+=== A specific test
+
+[source, shell]
+----
+npm test src/main/resources/lib/tutorial-jest/fibonacci.test.ts
+----

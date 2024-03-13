@@ -1,0 +1,12 @@
+{
+    "menuItems": [
+      {
+        "title": "1 - Setup",
+        "document": "setup"
+      },
+      {
+        "title": "2 - Simple test",
+        "document": "pureJs"
+      }
+    ]
+}

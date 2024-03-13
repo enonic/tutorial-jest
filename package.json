@@ -20,8 +20,11 @@
     "eslint": "^8",
     "eslint-plugin-jsx-a11y": "^6",
     "glob": "^10.3.10",
+    "jest-environment-jsdom": "^29.7.0",
     "rimraf": "^5",
     "sass": "^1.71.1",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
     "tsup": "^8"
   },
   "directories": {
@@ -44,7 +47,7 @@
     "watch:sass": "npm run build:sass -- --watch",
     "watch:server": "npm run build:server -- --watch",
     "watch:static": "npm run build:static -- --watch",
-    "test": "npm run lint"
+    "test": "jest --no-cache --coverage"
   },
   "repository": {
     "type": "git",
