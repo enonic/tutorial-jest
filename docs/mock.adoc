@@ -51,3 +51,5 @@ So we have to "fake" it.
 ----
 include::{sourcedir}src/main/resources/lib/tutorial-jest/sanitize.test.ts[]
 ----
+
+Obviously this mock doesn't cover asciifolding for the whole unicode range, but is sufficient enough to run this test.
