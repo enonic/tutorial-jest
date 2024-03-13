@@ -19,7 +19,7 @@ Jest needs to be configured to run typescript tests. This is done by creating a 
 .jest.config.ts
 [source, typescript]
 ----
-include::{sourcedir}/jest.config.ts[]
+include::{sourcedir}jest.config.ts[]
 ----
 
 Read more about configuring Jest here: https://jestjs.io/docs/configuration
@@ -35,7 +35,7 @@ When running tests "outside" the Enonic XP server, the typescript configuration 
 .test/client/tsconfig.json
 [source, json]
 ----
-include::{sourcedir}/test/client/tsconfig.json[]
+include::{sourcedir}test/client/tsconfig.json[]
 ----
 
 ==== test/server/tsconfig.json
@@ -43,7 +43,7 @@ include::{sourcedir}/test/client/tsconfig.json[]
 .test/server/tsconfig.json
 [source, json]
 ----
-include::{sourcedir}/test/server/tsconfig.json[]
+include::{sourcedir}test/server/tsconfig.json[]
 ----
 
 == Running
