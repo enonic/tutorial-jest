@@ -15,6 +15,10 @@
       {
         "title": "4 - Simple mock",
         "document": "mock"
+      },
+      {
+        "title": "5 - Mock XP",
+        "document": "mock-xp"
       }
     ]
 }

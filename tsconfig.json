@@ -3,6 +3,7 @@
 		//──────────────────────────────────────────────────────────────────────
 		// Modules
 		//──────────────────────────────────────────────────────────────────────
+		"allowJs": true,
 		"allowUmdGlobalAccess": true,
 
 		// Sets a base directory from which to resolve bare specifier module names.

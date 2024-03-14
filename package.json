@@ -12,6 +12,7 @@
     "@enonic-types/lib-portal": "^7",
     "@enonic-types/lib-project": "^7",
     "@enonic-types/lib-task": "^7",
+    "@enonic/mock-xp": "^0.10.0",
     "@swc/core": "^1.4.6",
     "@typescript-eslint/eslint-plugin": "^7",
     "browser-sync": "^3",

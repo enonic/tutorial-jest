@@ -1,4 +1,4 @@
-function globalSetup(globalConfig, projectConfig) {
+function globalSetup(_globalConfig, projectConfig) {
     projectConfig.globals.log = {
         debug: globalThis.console.debug,
         info: globalThis.console.info,
