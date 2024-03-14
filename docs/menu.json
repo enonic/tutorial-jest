@@ -9,7 +9,11 @@
         "document": "simple"
       },
       {
-        "title": "3 - Simple mock",
+        "title": "3 - Mocking globals",
+        "document": "globals"
+      },
+      {
+        "title": "4 - Simple mock",
         "document": "mock"
       }
     ]

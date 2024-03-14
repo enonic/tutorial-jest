@@ -2,7 +2,7 @@
     "extends": "../../tsconfig.json",
 
     "compilerOptions": {
-        "sourceMap": true // Important to get correct line numbers when running coverage tests
+        "sourceMap": true, // Important to get correct line numbers when running coverage tests
     },
 
     // Specifies an array of filenames or patterns to include in the program.

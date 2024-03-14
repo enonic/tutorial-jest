@@ -21,11 +21,35 @@ const commonConfig: Config.InitialProjectOptions = {
     injectGlobals: false,
 };
 
+const clientSideConfig: Config.InitialProjectOptions = {
+    ...commonConfig,
+    testEnvironment: 'jsdom', // Run clientside tests with DOM globals such as document and window
+    testMatch: [
+        TEST_MATCH_ASSETS, // Every test file in the assets folder
+        `<rootDir>/test/client/${AND_BELOW}/${TEST_FILES}`
+    ],
+    transform: {
+        "^.+\\.(ts|js)x?$": [
+            'ts-jest',
+            {
+                tsconfig: 'test/client/tsconfig.json'
+            }
+        ]
+    }
+};
 
-const customJestConfig: Config.InitialOptions = {
-    coverageProvider: 'v8', // To get correct line numbers under jsdom
-    projects: [{
-        ...commonConfig,
+const serverSideConfig: Config.InitialProjectOptions = {
+    ...commonConfig,
+        globals: {
+            app: {
+                name: 'com.example.tutorial.jest',
+                config: {
+                    default: true,
+                },
+                version: '1.0.0'
+            },
+        },
+        globalSetup: '<rootDir>/test/server/globalSetup.ts',
         testEnvironment: 'node', // Run serverside tests without DOM globals such as document and window
         testMatch: [
             `<rootDir>/${DIR_SRC}/${AND_BELOW}/${TEST_FILES}`, // Every test file in src/main/resources
@@ -40,22 +64,11 @@ const customJestConfig: Config.InitialOptions = {
                 }
             ]
         }
-    }, {
-        ...commonConfig,
-        testEnvironment: 'jsdom', // Run clientside tests with DOM globals such as document and window
-        testMatch: [
-            TEST_MATCH_ASSETS, // Every test file in the assets folder
-            `<rootDir>/test/client/${AND_BELOW}/${TEST_FILES}`
-        ],
-        transform: {
-            "^.+\\.(ts|js)x?$": [
-                'ts-jest',
-                {
-                    tsconfig: 'test/client/tsconfig.json'
-                }
-            ]
-        }
-    }],
+};
+
+const customJestConfig: Config.InitialOptions = {
+    coverageProvider: 'v8', // To get correct line numbers under jsdom
+    projects: [clientSideConfig, serverSideConfig],
     // silent: false
 };
 

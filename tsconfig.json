@@ -27,11 +27,22 @@
 		// For example, that means packages within ./node_modules/@types/,
 		// ../node_modules/@types/, ../../node_modules/@types/, and so on.
 		// If typeRoots is specified, only packages under typeRoots will be included.
+		// All paths are relative to the tsconfig.json
 		"typeRoots": [
-			"node_modules/@types",
-			"node_modules/@enonic-types"
+			"./node_modules/@types",
+			"./node_modules/@enonic-types"
 		],
 
+		// By default all visible ”@types” packages are included in your
+		// compilation. Packages in node_modules/@types of any enclosing folder
+		// are considered visible. For example, that means packages within
+		// ./node_modules/@types/, ../node_modules/@types/,
+		// ../../node_modules/@types/, and so on.
+		// If types is specified, only packages listed will be included in the
+		// global scope.
+		// This feature differs from typeRoots in that it is about specifying
+		// only the exact types you want included, whereas typeRoots supports
+		// saying you want particular folders.
 		"types": [
 			"global" // Already added via typeRoots? nope, doesn't work that way
 		],

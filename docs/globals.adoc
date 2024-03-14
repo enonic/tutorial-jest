@@ -1,0 +1,110 @@
+= Globals
+:sourcedir: ../
+
+When programming in Javascript there is always a global scope.
+Depeding upon which Javascript engine/environment you are in, the global scope is different.
+
+Useful reading:
+
+* https://developer.mozilla.org/en-US/docs/Glossary/Global_object
+
+== Browser
+
+In the browser, the global scope is the window object. The window object contains the document object that represents the current web page. The document object contains functions and properties that allow you to inspect and manipulate the web page.
+
+== Enonic XP Framework
+
+In the Enonix XP Framework the global scope contains a bunch of objects and functions that are useful when developing applications.
+
+You can read about them here:
+https://developer.enonic.com/docs/xp/stable/framework/globals
+
+== Source code
+
+Considering the following function:
+
+.src/main/resources/lib/tutorial-jest/getAppConfig.ts
+[source, typescript]
+----
+include::{sourcedir}src/main/resources/lib/tutorial-jest/getAppConfig.ts[]
+----
+
+== Test without mock
+
+Let's try to write a simple test for it
+
+[source, typescript]
+----
+import {
+    describe,
+    expect,
+    test as it
+} from '@jest/globals';
+import { getAppConfig } from './getAppConfig';
+
+
+describe('getAppConfig', () => {
+    it('should return the application config', () => {
+        expect(getAppConfig()).toEqual({});
+    });
+});
+----
+
+If you try to run that test, without mocking some props on the global object it will fail with the following error message:
+
+[source, shell]
+----
+ReferenceError: log is not defined
+----
+
+== Test with mock
+
+To fix that, the log object must be mocked. You'll also have to mock the app object.
+
+This can be achieved in multiple ways. When it comed to static values like the global app object we can add the following to the serverSideConfig in jest.config.ts file:
+
+[source, typescript]
+----
+globals: {
+    app: {
+        name: 'com.example.tutorial.jest',
+        config: {
+            default: true,
+        },
+        version: '1.0.0'
+    },
+},
+----
+
+But when it comes to functions like log.info we can use a globalSetup file:
+
+.test/server/globalSetup.ts
+[source, typescript]
+----
+include::{sourcedir}test/server/globalSetup.ts[]
+----
+
+Then add the following to the serverSideConfig in jest.config.ts file:
+
+[source, typescript]
+----
+globalSetup: '<rootDir>/test/server/globalSetup.ts',
+----
+
+The above will mock default values for the global app and log objects, which we can augment in the tests.
+
+To avoid type errors when accessing those objects, you can make a type declaration file referencing @enonic-types/global 
+
+.test/server/global.d.ts
+[source, typescript]
+----
+include::{sourcedir}test/server/global.d.ts[]
+----
+
+Then you can import and use those types in the test file:
+
+.src/main/resources/lib/tutorial-jest/getAppConfig.test.ts
+[source, typescript]
+----
+include::{sourcedir}src/main/resources/lib/tutorial-jest/getAppConfig.test.ts[]
+----
