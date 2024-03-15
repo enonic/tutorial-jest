@@ -3,6 +3,10 @@
 
     "compilerOptions": {
         "sourceMap": true, // Important to get correct line numbers when running coverage tests
+        "types": [
+            "global", // Already added via typeRoots? nope, doesn't work that way
+            "node", // console
+        ],
     },
 
     // Specifies an array of filenames or patterns to include in the program.

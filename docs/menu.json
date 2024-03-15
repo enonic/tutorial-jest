@@ -19,6 +19,10 @@
       {
         "title": "5 - Mock XP",
         "document": "mock-xp"
+      },
+      {
+        "title": "6 - Client side",
+        "document": "clientSide"
       }
     ]
 }

@@ -45,7 +45,7 @@
 		// only the exact types you want included, whereas typeRoots supports
 		// saying you want particular folders.
 		"types": [
-			"global" // Already added via typeRoots? nope, doesn't work that way
+			"global", // Already added via typeRoots? nope, doesn't work that way
 		],
 
 		//──────────────────────────────────────────────────────────────────────

@@ -46,6 +46,8 @@ So we have to "fake" it.
 
 == Test with mock
 
+Notice that sanitize is no longer "statically" imported at the beginning of the file. This is because the mock must be setup before the import is done. That's why a dynamic import in each test is used instead.
+
 .src/main/resources/lib/tutorial-jest/sanitize.test.ts
 [source, typescript]
 ----

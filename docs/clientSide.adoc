@@ -1,0 +1,31 @@
+= Client side
+:sourcedir: ../
+
+== Install Node modules
+
+[source, shell]
+----
+npm install --savedev react react-dom react-test-renderer @types/react
+----
+
+== Configuration
+
+// TODO "jsx": "react-jsx",
+
+== Source code
+
+Let's write a test for the following functional React component:
+
+.src/main/resources/assets/js/HelloWorld.tsx
+[source, typescript]
+----
+include::{sourcedir}src/main/resources/assets/js/HelloWorld.tsx[]
+----
+
+== Test
+
+.src/main/resources/assets/js/HelloWorld.test.tsx
+[source, typescript]
+----
+include::{sourcedir}src/main/resources/assets/js/HelloWorld.test.tsx[]
+----

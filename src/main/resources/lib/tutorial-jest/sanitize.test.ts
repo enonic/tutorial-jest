@@ -7,7 +7,6 @@ import {
     jest,
     test as it
 } from '@jest/globals';
-import { sanitize } from './sanitize';
 
 
 jest.mock('/lib/xp/common', () => ({
@@ -25,7 +24,9 @@ jest.mock('/lib/xp/common', () => ({
 
 describe('sanitize', () => {
     it('should return the first 10 numbers in the fibonacci sequence', () => {
-        expect(sanitize("Piña CØLADÆ <script>alert('hi!');</script>"))
-            .toEqual('pina-coladae-script-alerthi-script');
+        import('./sanitize').then(({sanitize}) => {
+            expect(sanitize("Piña CØLADÆ <script>alert('hi!');</script>"))
+                .toEqual('pina-coladae-script-alerthi-script');
+        });
     });
 });

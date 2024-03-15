@@ -24,11 +24,11 @@ include::{sourcedir}jest.config.ts[]
 
 Read more about configuring Jest here: https://jestjs.io/docs/configuration
 
-=== test/tsconfig.json
+=== tsconfig.json
 
 In an Enonic typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple tsconfig.json files are used.
 
-When running tests "outside" the Enonic XP server, the typescript configuration files might need to look slightly different. This is the case for the test/tsconfig.json file:
+When running tests the typescript configuration files might need to look slightly different. This is the case for the test/client/tsconfig.json and test/server/tsconfig.json files:
 
 ==== test/client/tsconfig.json
 

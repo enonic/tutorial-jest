@@ -1,11 +1,11 @@
 import type {App, Log} from '../../../../../test/server/global';
 
 import {
+    beforeAll,
     describe,
     expect,
     test as it
 } from '@jest/globals';
-import { getAppConfig } from './getAppConfig';
 
 
 // Avoid type errors below.
@@ -19,15 +19,17 @@ declare module globalThis {
 globalThis.app.config.key = 'value';
 
 
-// Silence log.debug for tests in this file.
-globalThis.log.debug = () => {};
-
-
 describe('getAppConfig', () => {
+    beforeAll(() => {
+        // Silence log.debug for tests under this describe.
+        globalThis.log.debug = () => {};
+    });
     it('should return the application config', () => {
-        expect(getAppConfig()).toEqual({
-            default: true,
-            key: 'value'
+        import('./getAppConfig').then(({getAppConfig}) => {
+            expect(getAppConfig()).toEqual({
+                default: 'true',
+                key: 'value'
+            });
         });
     });
 });

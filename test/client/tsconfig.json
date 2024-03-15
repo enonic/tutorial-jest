@@ -1,5 +1,5 @@
 {
-    "extends": "../../src/main/resources/static/tsconfig.json",
+    "extends": "../../src/main/resources/assets/tsconfig.json",
     "compilerOptions": {
         "sourceMap": true // Important to get correct line numbers when running coverage tests
     },

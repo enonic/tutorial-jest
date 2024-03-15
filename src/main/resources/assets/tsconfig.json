@@ -1,0 +1,22 @@
+{
+	"extends": "../../../../tsconfig.json",
+	"exclude": [
+		"../../../../node_modules/typescript/lib/lib.es5.d.ts",
+	],
+	"include": [
+		"./**/*.tsx",
+		"./**/*.ts"
+	],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"jsx": "react",
+		"moduleResolution": "node",
+		"lib": [
+			"DOM",
+			"ES2020",
+		],
+		"paths": {},
+		"rootDir": ".",
+		"target": "ES2020" // Modern browsers
+	}
+}

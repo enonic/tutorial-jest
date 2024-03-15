@@ -61,7 +61,7 @@ ReferenceError: log is not defined
 
 To fix that, the log object must be mocked. You'll also have to mock the app object.
 
-This can be achieved in multiple ways. When it comed to static values like the global app object we can add the following to the serverSideConfig in jest.config.ts file:
+This can be achieved in multiple ways. When it comes to static values like the global app object we can add the following to the serverSideConfig in jest.config.ts file:
 
 [source, typescript]
 ----
@@ -76,19 +76,19 @@ globals: {
 },
 ----
 
-But when it comes to functions like log.info we can use a globalSetup file:
+But when it comes to functions like log.info we can use a setupFile file which is run before each test file:
 
-.test/server/globalSetup.ts
+.test/server/setupFile.ts
 [source, typescript]
 ----
-include::{sourcedir}test/server/globalSetup.ts[]
+include::{sourcedir}test/server/setupFile.ts[]
 ----
 
 Then add the following to the serverSideConfig in jest.config.ts file:
 
 [source, typescript]
 ----
-globalSetup: '<rootDir>/test/server/globalSetup.ts',
+setupFiles: ['<rootDir>/test/server/setupFile.ts'],
 ----
 
 The above will mock default values for the global app and log objects, which we can augment in the tests.
