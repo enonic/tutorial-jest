@@ -14,8 +14,6 @@ describe('HelloWorld', () => {
             <HelloWorld/>,
           );
         const tree = component.toJSON();
-        // console.debug(tree);
-        // expect(tree).toEqual(<h1>Hello, World!</h1>)
         expect(tree).toEqual({ type: 'h1', props: {}, children: [ 'Hello, World!' ] });
     });
 });
