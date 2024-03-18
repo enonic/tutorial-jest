@@ -5,6 +5,7 @@
         "sourceMap": true, // Important to get correct line numbers when running coverage tests
         "types": [
             "global", // Already added via typeRoots? nope, doesn't work that way
+            "jest", // This only works for test files in this folder
             "node", // console
         ],
     },

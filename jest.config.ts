@@ -18,7 +18,6 @@ const commonConfig: Config.InitialProjectOptions = {
     collectCoverageFrom: [
         `${DIR_SRC}/${AND_BELOW}/${SOURCE_FILES}`,
     ],
-    injectGlobals: false, // Import from '@jest/globals' in each test file instead.
 };
 
 const clientSideConfig: Config.InitialProjectOptions = {

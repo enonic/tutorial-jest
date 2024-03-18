@@ -1,41 +1,63 @@
-export type StringObject = Record<string, string>;
-
-export interface DefaultHeaders extends Headers {
-	accept?: string
-	'accept-charset'?: string
-	'accept-encoding'?: string
-	authorization?: string
-	cookies?: string
-	'if-none-match'?: string
-	language?: string
-	'user-agent'?: string
+export declare interface DefaultCookies {
+	enonic_xp_tour?: string
+	JSESSIONID?: string
+	[key: string]: string|undefined
 }
 
-export type Method = 'GET'|'POST'|'HEAD'|'PUT'|'DELETE'|'PATCH'
-
-export type Mode = 'edit'|'inline'|'live'|'preview'
-
-export type Request<
-	Body = string,
-	Cookies extends StringObject = StringObject,
-	Headers extends StringObject = DefaultHeaders,
-	Params extends StringObject = StringObject,
-	PathParams extends StringObject = StringObject
-> = {
-	body?: Body
-	branch?: string
-	contextPath?: string
-	cookies?: Cookies
-	headers?: Headers
+export declare interface DefaultHeaders {
+	accept?: string // text/html
+	'accept-charset'?: string
+	'accept-encoding'?: string
+	'accept-language'?: string
+	authorization?: string
+	'cache-control'?: string // no-cache
+	connection?: string // keep-alive
+	'content-length'?: string
+	'content-type'?: string // application/json
+	cookie?: string
+	language?: string
 	host?: string
-	method?: Method
-	mode?: Mode
-	params?: Params
-	path?: string
-	pathParams?: PathParams
-	port?: string|number
-	rawPath?: string
-	remoteAddress?: string
-	scheme?: string
-	url?: string
-} // Request
+	'if-none-match'?: string
+	'sec-ch-ua'?: string
+	'sec-ch-ua-mobile'?: string
+	'sec-ch-ua-platform'?: string
+	'sec-fetch-dest'?: string
+	'sec-fetch-mode'?: string
+	'sec-fetch-site'?: string
+	'sec-fetch-user'?: string
+	'upgrade-insecure-requests'?: string
+	'user-agent'?: string
+	'x-forwarded-for'?: string
+	'x-forwarded-host'?: string
+	'x-forwarded-proto'?: string
+	'x-forwarded-server'?: string
+	[headerName: string]: string|undefined
+}
+
+export declare type StringObject = Record<string, string>;
+
+export declare type Request<
+	T extends Record<string, unknown> = {
+		body?: string // Often JSON
+		contextPath?: string
+		contentType?: string
+		cookies?: DefaultCookies
+		followRedirects?: boolean
+		headers?: DefaultHeaders
+		params?: StringObject
+		pathParams?: StringObject
+		rawPath?: string
+		repositoryId?: string
+		remoteAddress?: string
+		webSocket?: boolean
+	}
+> = {
+	branch: 'draft'|'master' // string
+	host: string
+	method: 'GET'|'POST'|'PUT'|'DELETE'|'HEAD'|'OPTIONS'|'PATCH'
+	mode: 'edit'|'inline'|'live'|'preview'
+	path: string
+	port: number|string
+	scheme: 'http'|'https' // string
+	url: string
+} & T
