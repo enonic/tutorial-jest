@@ -1,4 +1,4 @@
-import type {Request, Response } from '/index.d';
+import type {Request, Response} from '/index.d';
 
 
 // import {toStr} from '@enonic/js-utils/value/toStr';
@@ -7,25 +7,27 @@ import { getContent, imageUrl, assetUrl } from '/lib/xp/portal';
 import { render } from '/lib/thymeleaf';
 
 
+const VIEW = resolve('preview.html');
+
+
 export function get(request: Request): Response {
-    // log.info('request:%s', toStr(request));
+  // log.info('request:%s', toStr(request));
 
-    const content = getContent();
-    const photoId = (Array.isArray(content.data.photos)) ? content.data.photos[0] : content.data.photos;
-    const view = resolve('preview.html');
-    const model = {
-      cssUrl: assetUrl({path: 'styles.css'}),
-      displayName: (content.displayName) ? content.displayName : null,
-      imageUrl: (photoId)
-        ? imageUrl({
-          id: photoId,
-          scale: "width(500)",
-        })
-        : null
-    };
-    // log.info('model:%s', toStr(model));
+  const content = getContent();
+  const photoId = (Array.isArray(content.data.photos)) ? content.data.photos[0] : content.data.photos;
+  const model = {
+    cssUrl: assetUrl({path: 'styles.css'}),
+    displayName: (content.displayName) ? content.displayName : null,
+    imageUrl: (photoId)
+      ? imageUrl({
+        id: photoId,
+        scale: "width(500)",
+      })
+      : null
+  };
+  // log.info('model:%s', toStr(model));
 
-   return {
-    body: render(view, model),
-   }
+  return {
+    body: render(VIEW, model),
+  }
 };

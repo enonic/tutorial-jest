@@ -23,6 +23,10 @@
       {
         "title": "6 - Client side",
         "document": "clientSide"
+      },
+      {
+        "title": "7 - Coverage",
+        "document": "coverage"
       }
     ]
 }

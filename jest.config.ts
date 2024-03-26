@@ -18,6 +18,7 @@ const commonConfig: Config.InitialProjectOptions = {
     collectCoverageFrom: [
         `${DIR_SRC}/${AND_BELOW}/${SOURCE_FILES}`,
     ],
+    injectGlobals: false,
 };
 
 const clientSideConfig: Config.InitialProjectOptions = {

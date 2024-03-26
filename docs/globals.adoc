@@ -4,9 +4,7 @@
 When programming in Javascript there is always a global scope.
 Depeding upon which Javascript engine/environment you are in, the global scope is different.
 
-Useful reading:
-
-* https://developer.mozilla.org/en-US/docs/Glossary/Global_object
+TIP: Useful reading: https://developer.mozilla.org/en-US/docs/Glossary/Global_object
 
 == Browser
 
@@ -16,8 +14,7 @@ In the browser, the global scope is the window object. The window object contain
 
 In the Enonix XP Framework the global scope contains a bunch of objects and functions that are useful when developing applications.
 
-You can read about them here:
-https://developer.enonic.com/docs/xp/stable/framework/globals
+TIP: You can read about them here: https://developer.enonic.com/docs/xp/stable/framework/globals
 
 == Source code
 

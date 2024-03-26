@@ -1,0 +1,79 @@
+= Coverage
+:toc: right
+
+== Command line
+
+To get a nice test coverage report when running a test, simply add the `--coverage` option:
+
+[source, shell]
+----
+npx jest --coverage
+----
+
+== package.json
+
+To get test coverage report everytime you run
+
+[source, shell]
+----
+npm test
+----
+
+Just add the `--coverage` option in the package.json scripts section like this:
+
+.package.json
+[source, json]
+----
+{
+  "scripts": {
+    "test": "jest --no-cache --coverage"
+  }
+}
+----
+
+This also enables the `npm test` in the <<#_github_action>> below to produce a coverage report for <<#_codecov>>.
+
+== Codecov
+
+Codecov is a nice reporting tool that can be used to visualize your test coverage across multiple projects. It integrates nicely with GitHub and other CI/CD tools.
+
+https://about.codecov.io/
+
+== GitHub action
+
+Here is an example of how to setup a GitHub action to automatically send your test coverage to Codecov:
+
+CAUTION: Make sure the `npm test` command produces a coverage report. This is done by adding the `--coverage` option to the `jest` command. See <<#_package_json>>
+
+..github/workflows/coverage.yml
+[source, yaml]
+----
+name: Coverage
+
+on: [ push ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Test
+        run: npm test
+
+      - uses: codecov/codecov-action@v4
+----
