@@ -26,7 +26,7 @@ In this test mock-xp is used to setup a project repo, a person folder, a couple 
 
 In addition mock-xp's Log is used to get nice colorful logging.
 
-In order to mock getContent from '/lib/xp/portal', mock-xp's context get and run is utilized.
+In order for libPortal.getContent() to work, a request is set on the libPortal object.
 
 Finally the '/lib/thymeleaf' render mock, simply returns the model object, so the actual html rendering is not tested.
 
