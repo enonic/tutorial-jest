@@ -1,7 +1,6 @@
 import type {Request, Response} from '/index.d';
 
 
-// import {toStr} from '@enonic/js-utils/value/toStr';
 import { getContent, imageUrl, assetUrl } from '/lib/xp/portal';
 // @ts-expect-error no-types
 import { render } from '/lib/thymeleaf';
@@ -11,8 +10,6 @@ const VIEW = resolve('preview.html');
 
 
 export function get(request: Request): Response {
-  // log.info('request:%s', toStr(request));
-
   const content = getContent();
   const photoId = (Array.isArray(content.data.photos)) ? content.data.photos[0] : content.data.photos;
   const model = {
@@ -25,7 +22,6 @@ export function get(request: Request): Response {
       })
       : null
   };
-  // log.info('model:%s', toStr(model));
 
   return {
     body: render(VIEW, model),
