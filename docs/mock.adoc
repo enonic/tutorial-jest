@@ -3,7 +3,7 @@
 
 == Source code
 
-To demonstrate the power of mocking, we'll make a simple typescript wrapper around an Enonic Java library:
+To demonstrate the power of mocking, we'll make a simple Typescript wrapper around an Enonic Java library:
 
 .src/main/resources/lib/tutorial-jest/sanitize.ts
 [source, typescript]
@@ -33,7 +33,7 @@ describe('sanitize', () => {
 });
 ----
 
-It will fail with the following error message:
+it will fail with the following error message:
 
 [source, shell]
 ----
@@ -46,12 +46,13 @@ So we have to "fake" it.
 
 == Test with mock
 
-Notice that sanitize is no longer "statically" imported at the beginning of the file. This is because the mock must be setup before the import is done. That's why a dynamic import in each test is used instead.
-
 .src/main/resources/lib/tutorial-jest/sanitize.test.ts
 [source, typescript]
 ----
 include::{sourcedir}src/main/resources/lib/tutorial-jest/sanitize.test.ts[]
 ----
 
-Obviously this mock doesn't cover asciifolding for the whole unicode range, but is sufficient enough to run this test.
+Notice that `sanitize` is no longer "statically" imported at the beginning of the file. This is because the mock must be set up before the import is done.
+That's why a dynamic import in each test is used instead.
+
+Obviously this mock doesn't cover ascii-folding for the whole unicode range, but is sufficient enough to run this test.
