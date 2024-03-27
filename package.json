@@ -15,7 +15,7 @@
     "@enonic/js-utils": "^1.7.1",
     "@enonic/mock-xp": "^0.10.0",
     "@swc/core": "^1.4.6",
-    "@types/node": "^20.11.28",
+    "@types/node": "^20.11.30",
     "@types/react": "^18.2.66",
     "@typescript-eslint/eslint-plugin": "^7",
     "browser-sync": "^3",
