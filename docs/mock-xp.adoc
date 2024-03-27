@@ -1,7 +1,7 @@
 = Mock XP
 :sourcedir: ../
 
-When it comes to mocking more complex things such as interacting with Content and Nodes, we have a library called `@enonic/mock-xp` that can help you with that.
+When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has a library called `@enonic/mock-xp` that can help you with that.
 
 == Install Mock XP
 
@@ -22,15 +22,15 @@ include::{sourcedir}src/main/resources/controllers/preview.ts[]
 
 == The test
 
-In this test mock-xp is used to setup a project repo, a person folder, a couple images, and a couple person content which references the images.
+In this test `mock-xp` is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type `person`) which reference the images.
 
-In addition mock-xp's Log is used to get nice colorful logging.
+In addition, mock-xp's `Log` is used to get nice colorful logging.
 
-In order for libPortal.getContent() to work, a request is set on the libPortal object.
+In order for `libPortal.getContent()` to work, `request` property is set on the `libPortal` object.
 
-Finally the '/lib/thymeleaf' render mock, simply returns the model object, so the actual html rendering is not tested.
+Finally, the `/lib/thymeleaf` 's `render` mock simply returns the model object, so the actual html rendering is not triggered.
 
-If anyone is able to find or create a testing for thymeleaf rendering please let us know :)
+NOTE: If anyone is able to find or create a test for thymeleaf rendering, please let us know :)
 
 .src/main/resources/controllers/preview.test.ts
 [source, typescript]

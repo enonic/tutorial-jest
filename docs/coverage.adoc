@@ -3,7 +3,7 @@
 
 == Command line
 
-To get a nice test coverage report when running a test, simply add the `--coverage` option:
+To get a nice test coverage report when running tests, simply add the `--coverage` option:
 
 [source, shell]
 ----
@@ -12,14 +12,14 @@ npx jest --coverage
 
 == package.json
 
-To get test coverage report everytime you run
+To get test coverage report every time you run
 
 [source, shell]
 ----
 npm test
 ----
 
-Just add the `--coverage` option in the package.json scripts section like this:
+just add the `--coverage` option in the `package.json` 's `scripts` section like this:
 
 .package.json
 [source, json]
@@ -31,19 +31,18 @@ Just add the `--coverage` option in the package.json scripts section like this:
 }
 ----
 
-This also enables the `npm test` in the <<#_github_action>> below to produce a coverage report for <<#_codecov>>.
+This also enables the `npm test` in the <<#github_action, Github action>> below to produce a coverage report for <<#codecov, Codecov>>.
 
 == Codecov
 
-Codecov is a nice reporting tool that can be used to visualize your test coverage across multiple projects. It integrates nicely with GitHub and other CI/CD tools.
+https://about.codecov.io/[Codecov,window=_blank,opts=nofollow] is a nice reporting tool that can be used to visualize your test coverage across multiple projects. It integrates nicely with GitHub and other CI/CD tools.
 
-https://about.codecov.io/
 
 == GitHub action
 
-Here is an example of how to setup a GitHub action to automatically send your test coverage to Codecov:
+Here is an example of how to set up a GitHub action to automatically send your test coverage to Codecov:
 
-CAUTION: Make sure the `npm test` command produces a coverage report. This is done by adding the `--coverage` option to the `jest` command. See <<#_package_json>>
+CAUTION: Make sure the `npm test` command produces a coverage report. This is done by adding the `--coverage` option to the `jest` command as described <<#package_json, above>>
 
 ..github/workflows/coverage.yml
 [source, yaml]

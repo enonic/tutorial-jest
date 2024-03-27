@@ -3,7 +3,7 @@
 
 == Node modules
 
-In order to write tests in typescript and run them a bunch of node modules needs to be installed:
+In order to write tests in Typescript and run them a bunch of node modules needs to be installed:
 
 [source, shell]
 ----
@@ -14,10 +14,10 @@ npm install --save-dev jest-environment-jsdom ts-node ts-jest
 
 === jest.config.ts
 
-Jest needs to be configured to run typescript tests. This is done by creating a jest.config.ts file in the root of the project:
+Jest needs to be configured to run Typescript tests. This is done by creating a `jest.config.ts` file in the root of the project:
 
 .jest.config.ts
-[source, typescript]
+[source, Typescript]
 ----
 include::{sourcedir}jest.config.ts[]
 ----
@@ -26,11 +26,9 @@ Read more about configuring Jest here: https://jestjs.io/docs/configuration
 
 === tsconfig.json
 
-In an Enonic typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple tsconfig.json files are used.
+In an Enonic Typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple `tsconfig.json` files are used.
 
-When running tests the typescript configuration files might need to look slightly different. This is the case for the test/client/tsconfig.json and test/server/tsconfig.json files:
-
-==== test/client/tsconfig.json
+When running tests the Typescript configuration files might need to look slightly different. This is the case for the `test/client/tsconfig.json` and `test/server/tsconfig.json` files:
 
 .test/client/tsconfig.json
 [source, json]
@@ -38,19 +36,17 @@ When running tests the typescript configuration files might need to look slightl
 include::{sourcedir}test/client/tsconfig.json[]
 ----
 
-==== test/server/tsconfig.json
-
 .test/server/tsconfig.json
 [source, json]
 ----
 include::{sourcedir}test/server/tsconfig.json[]
 ----
 
-== Running
+== Execution
 
 === package.json
 
-In order to run tests the following needs to be added to the package.json file:
+In order to run tests the following needs to be added to the `package.json` file:
 
 .package.json
 [source, json]
@@ -64,7 +60,7 @@ In order to run tests the following needs to be added to the package.json file:
 
 === build.gradle
 
-In order to run the tests on every build, add the following to the build.gradle file:
+In order to run the tests on every build, add the following to the `build.gradle` file:
 
 .build.gradle
 [source, gradle]
@@ -87,10 +83,10 @@ test.dependsOn npmTest
 
 === tsup/server.ts
 
-In order to avoid the build system compiling the test files, which are in the source directory (src/main/resources), into the build directory (build/resources/main), an ignore pattern needs to be added to the tsup/server.ts file:
+In order to exclude the test files from being processed by the build system and copied from the source directory (`src/main/resources`) to the build directory (`build/resources/main`), an ignore pattern needs to be added to the `tsup/server.ts` file:
 
 .tsup/server.ts
-[source, typescript]
+[source, Typescript]
 ----
 const FILES_SERVER = globSync(
   `${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,

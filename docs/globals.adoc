@@ -2,23 +2,21 @@
 :sourcedir: ../
 
 When programming in Javascript there is always a global scope.
-Depeding upon which Javascript engine/environment you are in, the global scope is different.
+Depending on which Javascript engine/environment you are in, the global scope is different.
 
-TIP: Useful reading: https://developer.mozilla.org/en-US/docs/Glossary/Global_object
+TIP: Useful reading: https://developer.mozilla.org/en-US/docs/Glossary/Global_object[Global object, window=_blank, opts=nofollow]
 
 == Browser
 
-In the browser, the global scope is the window object. The window object contains the document object that represents the current web page. The document object contains functions and properties that allow you to inspect and manipulate the web page.
+In the browser, the global scope is the `window` object. The `window` object contains the `document` object that represents the current web page. The `document` object contains functions and properties that allow you to inspect and manipulate the web page.
 
 == Enonic XP Framework
 
-In the Enonix XP Framework the global scope contains a bunch of objects and functions that are useful when developing applications.
+In the Enonic XP Framework the global scope contains a bunch of objects and functions that are useful when developing applications.
 
-TIP: You can read about them here: https://developer.enonic.com/docs/xp/stable/framework/globals
+TIP: You can read about them https://developer.enonic.com/docs/xp/stable/framework/globals[here,window=_blank,opts=nofollow].
 
 == Source code
-
-Considering the following function:
 
 .src/main/resources/lib/tutorial-jest/getAppConfig.ts
 [source, typescript]
@@ -28,7 +26,7 @@ include::{sourcedir}src/main/resources/lib/tutorial-jest/getAppConfig.ts[]
 
 == Test without mock
 
-Let's try to write a simple test for it
+Let's try to write a simple test for the function above:
 
 [source, typescript]
 ----
@@ -47,7 +45,7 @@ describe('getAppConfig', () => {
 });
 ----
 
-If you try to run that test, without mocking some props on the global object it will fail with the following error message:
+If you try to run this test without mocking some props on the global object, it will fail with the following error message:
 
 [source, shell]
 ----
@@ -56,9 +54,9 @@ ReferenceError: log is not defined
 
 == Test with mock
 
-To fix that, the log object must be mocked. You'll also have to mock the app object.
+To fix that, both the `log` and `app` objects must be mocked.
 
-This can be achieved in multiple ways. When it comes to static values like the global app object we can add the following to the serverSideConfig in jest.config.ts file:
+This can be achieved in multiple ways. When it comes to static values like the global `app` object we can add the following to the `serverSideConfig` in `jest.config.ts` file:
 
 [source, typescript]
 ----
@@ -73,7 +71,7 @@ globals: {
 },
 ----
 
-But when it comes to functions like log.info we can use a setupFile file which is run before each test file:
+But when it comes to functions like `log.info` we can use a setup File which is run before execution of each test file:
 
 .test/server/setupFile.ts
 [source, typescript]
@@ -81,16 +79,16 @@ But when it comes to functions like log.info we can use a setupFile file which i
 include::{sourcedir}test/server/setupFile.ts[]
 ----
 
-Then add the following to the serverSideConfig in jest.config.ts file:
+Then add the following to the `serverSideConfig` in `jest.config.ts` file:
 
 [source, typescript]
 ----
 setupFiles: ['<rootDir>/test/server/setupFile.ts'],
 ----
 
-The above will mock default values for the global app and log objects, which we can augment in the tests.
+The above will mock default values for the global `app` and `log` objects, which we can augment in the tests.
 
-To avoid type errors when accessing those objects, you can make a type declaration file referencing @enonic-types/global 
+To avoid type errors when accessing those objects, you can make a type declaration file referencing `@enonic-types/global`
 
 .test/server/global.d.ts
 [source, typescript]
