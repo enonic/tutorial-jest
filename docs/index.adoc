@@ -6,14 +6,14 @@
 Jest is a highly adopted testing framework that supports TypeScript, mocking, and a lot,
 lot more...
 
-TIP: Read more about it's features here: https://jestjs.io/
+TIP: Read more about Jest features https://jestjs.io/[here,window=_blank,opts=nofollow].
 
 This guide will show you how to:
 
-* link:setup[Set up] Jest in a Enonic XP project
-* Write a link:simple[Simple] test without any mocks
+* link:setup[Set up] Jest in an Enonic XP project
+* Write a simple link:test[test] without any mocks
 * Write a test mocking link:globals[Globals]
-* Write a test for server-side manually link:mock[Mocking] Java libraries
-* Write a test for server-side using link:mock-xp[Mock XP]
-* Write a test for link:clientSide[Client side]
+* Write a test for server-side code manually link:mock[mocking] Java libraries
+* Write a test for server-side code using link:mock-xp[Mock XP]
+* Write a test for link:client-side[client-side] code
 * Set up link:coverage[Coverage] with Github Actions

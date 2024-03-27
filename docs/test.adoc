@@ -17,23 +17,23 @@ include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.ts[]
 include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.test.ts[]
 ----
 
-== Running
+== Execution
 
-=== All tests
+Run all tests with npm:
 
 [source, shell]
 ----
 npm test
 ----
 
-or via gradle
+Run all tests with Gradle:
 
 [source, shell]
 ----
 enonic project gradle test
 ----
 
-=== A specific test
+Run a specific test with npm:
 
 [source, shell]
 ----
