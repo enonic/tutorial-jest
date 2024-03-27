@@ -1,0 +1,32 @@
+{
+    "menuItems": [
+      {
+        "title": "1 - Setup",
+        "document": "setup"
+      },
+      {
+        "title": "2 - Simple test",
+        "document": "simple"
+      },
+      {
+        "title": "3 - Mocking globals",
+        "document": "globals"
+      },
+      {
+        "title": "4 - Simple mock",
+        "document": "mock"
+      },
+      {
+        "title": "5 - Mock XP",
+        "document": "mock-xp"
+      },
+      {
+        "title": "6 - Client side",
+        "document": "clientSide"
+      },
+      {
+        "title": "7 - Coverage",
+        "document": "coverage"
+      }
+    ]
+}
