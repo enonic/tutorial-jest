@@ -10,10 +10,10 @@ TIP: Read more about it's features here: https://jestjs.io/
 
 This guide will show you how to:
 
-* link:setup[Setup] Jest in a Enonic XP project
+* link:setup[Set up] Jest in a Enonic XP project
 * Write a link:simple[Simple] test without any mocks
 * Write a test mocking link:globals[Globals]
-* Write a test for server-side manually link:mock[Mocking] Java libraries 
+* Write a test for server-side manually link:mock[Mocking] Java libraries
 * Write a test for server-side using link:mock-xp[Mock XP]
 * Write a test for link:clientSide[Client side]
-* Setup link:coverage[Coverage] with Github Actions
+* Set up link:coverage[Coverage] with Github Actions
