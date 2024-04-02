@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>When it comes to mocking more complex things such as interacting with Content and Nodes, we have a library called <code>@enonic/mock-xp</code> that can help you with that.</p>
+<p>When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has a library called <code>@enonic/mock-xp</code> that can help you with that.</p>
 </div>
 </div>
 </div>
@@ -477,7 +477,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {Request, Response} from '/index.d';
 
 
-// import {toStr} from '@enonic/js-utils/value/toStr';
 import { getContent, imageUrl, assetUrl } from '/lib/xp/portal';
 // @ts-expect-error no-types
 import { render } from '/lib/thymeleaf';
@@ -487,8 +486,6 @@ const VIEW = resolve('preview.html');
 
 
 export function get(request: Request): Response {
-  // log.info('request:%s', toStr(request));
-
   const content = getContent();
   const photoId = (Array.isArray(content.data.photos)) ? content.data.photos[0] : content.data.photos;
   const model = {
@@ -501,7 +498,6 @@ export function get(request: Request): Response {
       })
       : null
   };
-  // log.info('model:%s', toStr(model));
 
   return {
     body: render(VIEW, model),
@@ -515,19 +511,28 @@ export function get(request: Request): Response {
 <h2 id="the_test"><a class="link" href="#the_test">The test</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this test mock-xp is used to setup a project repo, a person folder, a couple images, and a couple person content which references the images.</p>
+<p>In this test <code>mock-xp</code> is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type <code>person</code>) which reference the images.</p>
 </div>
 <div class="paragraph">
-<p>In addition mock-xp&#8217;s Log is used to get nice colorful logging.</p>
+<p>In addition, mock-xp&#8217;s <code>Log</code> is used to get nice colorful logging.</p>
 </div>
 <div class="paragraph">
-<p>In order for libPortal.getContent() to work, a request is set on the libPortal object.</p>
+<p>In order for <code>libPortal.getContent()</code> to work, <code>request</code> property is set on the <code>libPortal</code> object.</p>
 </div>
 <div class="paragraph">
-<p>Finally the '/lib/thymeleaf' render mock, simply returns the model object, so the actual html rendering is not tested.</p>
+<p>Finally, the <code>/lib/thymeleaf</code> 's <code>render</code> mock simply returns the model object, so the actual html rendering is not triggered.</p>
 </div>
-<div class="paragraph">
-<p>If anyone is able to find or create a testing for thymeleaf rendering please let us know :)</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If anyone is able to find or create a test for thymeleaf rendering, please let us know :)
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/controllers/preview.test.ts</div>
@@ -750,7 +755,7 @@ describe('preview', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-27 10:00:25 UTC
+Last updated 2024-04-02 07:24:47 UTC
 </div>
 </div>
 </body>

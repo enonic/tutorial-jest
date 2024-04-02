@@ -454,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>When programming in Javascript there is always a global scope.
-Depeding upon which Javascript engine/environment you are in, the global scope is different.</p>
+Depending on which Javascript engine/environment you are in, the global scope is different.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -463,7 +463,7 @@ Depeding upon which Javascript engine/environment you are in, the global scope i
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Global_object" class="bare">https://developer.mozilla.org/en-US/docs/Glossary/Global_object</a>
+Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Global_object" target="_blank" rel="nofollow noopener">Global object</a>
 </td>
 </tr>
 </table>
@@ -474,7 +474,7 @@ Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Globa
 <h2 id="browser"><a class="link" href="#browser">Browser</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the browser, the global scope is the window object. The window object contains the document object that represents the current web page. The document object contains functions and properties that allow you to inspect and manipulate the web page.</p>
+<p>In the browser, the global scope is the <code>window</code> object. The <code>window</code> object contains the <code>document</code> object that represents the current web page. The <code>document</code> object contains functions and properties that allow you to inspect and manipulate the web page.</p>
 </div>
 </div>
 </div>
@@ -482,7 +482,7 @@ Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Globa
 <h2 id="enonic_xp_framework"><a class="link" href="#enonic_xp_framework">Enonic XP Framework</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the Enonix XP Framework the global scope contains a bunch of objects and functions that are useful when developing applications.</p>
+<p>In the Enonic XP Framework the global scope contains a bunch of objects and functions that are useful when developing applications.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -491,7 +491,7 @@ Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Globa
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can read about them here: <a href="https://developer.enonic.com/docs/xp/stable/framework/globals" class="bare">https://developer.enonic.com/docs/xp/stable/framework/globals</a>
+You can read about them <a href="https://developer.enonic.com/docs/xp/stable/framework/globals" target="_blank" rel="nofollow noopener">here</a>.
 </td>
 </tr>
 </table>
@@ -501,9 +501,6 @@ You can read about them here: <a href="https://developer.enonic.com/docs/xp/stab
 <div class="sect1">
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Considering the following function:</p>
-</div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/tutorial-jest/getAppConfig.ts</div>
 <div class="content">
@@ -521,7 +518,7 @@ You can read about them here: <a href="https://developer.enonic.com/docs/xp/stab
 <h2 id="test_without_mock"><a class="link" href="#test_without_mock">Test without mock</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s try to write a simple test for it</p>
+<p>Let&#8217;s try to write a simple test for the function above:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -541,7 +538,7 @@ describe('getAppConfig', () =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>If you try to run that test, without mocking some props on the global object it will fail with the following error message:</p>
+<p>If you try to run this test without mocking some props on the global object, it will fail with the following error message:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -554,10 +551,10 @@ describe('getAppConfig', () =&gt; {
 <h2 id="test_with_mock"><a class="link" href="#test_with_mock">Test with mock</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To fix that, the log object must be mocked. You&#8217;ll also have to mock the app object.</p>
+<p>To fix that, both the <code>log</code> and <code>app</code> objects must be mocked.</p>
 </div>
 <div class="paragraph">
-<p>This can be achieved in multiple ways. When it comes to static values like the global app object we can add the following to the serverSideConfig in jest.config.ts file:</p>
+<p>This can be achieved in multiple ways. When it comes to static values like the global <code>app</code> object we can add the following to the <code>serverSideConfig</code> in <code>jest.config.ts</code> file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -573,7 +570,7 @@ describe('getAppConfig', () =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>But when it comes to functions like log.info we can use a setupFile file which is run before each test file:</p>
+<p>But when it comes to functions like <code>log.info</code> we can use a setup File which is run before execution of each test file:</p>
 </div>
 <div class="listingblock">
 <div class="title">test/server/setupFile.ts</div>
@@ -600,7 +597,7 @@ globalThis.log = {
 </div>
 </div>
 <div class="paragraph">
-<p>Then add the following to the serverSideConfig in jest.config.ts file:</p>
+<p>Then add the following to the <code>serverSideConfig</code> in <code>jest.config.ts</code> file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -608,10 +605,10 @@ globalThis.log = {
 </div>
 </div>
 <div class="paragraph">
-<p>The above will mock default values for the global app and log objects, which we can augment in the tests.</p>
+<p>The above will mock default values for the global <code>app</code> and <code>log</code> objects, which we can augment in the tests.</p>
 </div>
 <div class="paragraph">
-<p>To avoid type errors when accessing those objects, you can make a type declaration file referencing @enonic-types/global</p>
+<p>To avoid type errors when accessing those objects, you can make a type declaration file referencing <code>@enonic-types/global</code></p>
 </div>
 <div class="listingblock">
 <div class="title">test/server/global.d.ts</div>
@@ -673,7 +670,7 @@ describe('getAppConfig', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-27 10:00:25 UTC
+Last updated 2024-04-02 07:24:47 UTC
 </div>
 </div>
 </body>

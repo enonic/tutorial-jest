@@ -453,7 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="command_line"><a class="link" href="#command_line">Command line</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get a nice test coverage report when running a test, simply add the <code>--coverage</code> option:</p>
+<p>To get a nice test coverage report when running tests, simply add the <code>--coverage</code> option:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="package_json"><a class="link" href="#package_json">package.json</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get test coverage report everytime you run</p>
+<p>To get test coverage report every time you run</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Just add the <code>--coverage</code> option in the package.json scripts section like this:</p>
+<p>just add the <code>--coverage</code> option in the <code>package.json</code> 's <code>scripts</code> section like this:</p>
 </div>
 <div class="listingblock">
 <div class="title">package.json</div>
@@ -487,7 +487,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>This also enables the <code>npm test</code> in the <a href="#_github_action">[_github_action]</a> below to produce a coverage report for <a href="#_codecov">[_codecov]</a>.</p>
+<p>This also enables the <code>npm test</code> in the <a href="#github_action">Github action</a> below to produce a coverage report for <a href="#codecov">Codecov</a>.</p>
 </div>
 </div>
 </div>
@@ -495,10 +495,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="codecov"><a class="link" href="#codecov">Codecov</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Codecov is a nice reporting tool that can be used to visualize your test coverage across multiple projects. It integrates nicely with GitHub and other CI/CD tools.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://about.codecov.io/" class="bare">https://about.codecov.io/</a></p>
+<p><a href="https://about.codecov.io/" target="_blank" rel="nofollow noopener">Codecov</a> is a nice reporting tool that can be used to visualize your test coverage across multiple projects. It integrates nicely with GitHub and other CI/CD tools.</p>
 </div>
 </div>
 </div>
@@ -506,7 +503,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="github_action"><a class="link" href="#github_action">GitHub action</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here is an example of how to setup a GitHub action to automatically send your test coverage to Codecov:</p>
+<p>Here is an example of how to set up a GitHub action to automatically send your test coverage to Codecov:</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -515,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Make sure the <code>npm test</code> command produces a coverage report. This is done by adding the <code>--coverage</code> option to the <code>jest</code> command. See <a href="#_package_json">[_package_json]</a>
+Make sure the <code>npm test</code> command produces a coverage report. This is done by adding the <code>--coverage</code> option to the <code>jest</code> command as described <a href="#package_json">above</a>
 </td>
 </tr>
 </table>
@@ -558,7 +555,7 @@ jobs:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-27 10:00:25 UTC
+Last updated 2024-04-02 07:24:47 UTC
 </div>
 </div>
 </body>

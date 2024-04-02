@@ -448,7 +448,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#tsconfig_json">tsconfig.json</a></li>
 </ul>
 </li>
-<li><a href="#running">Running</a>
+<li><a href="#execution">Execution</a>
 <ul class="sectlevel2">
 <li><a href="#package_json">package.json</a></li>
 <li><a href="#build_gradle">build.gradle</a></li>
@@ -463,7 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="node_modules"><a class="link" href="#node_modules">Node modules</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to write tests in typescript and run them a bunch of node modules needs to be installed:</p>
+<p>In order to write tests in Typescript and run them a bunch of node modules needs to be installed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -478,12 +478,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="jest_config_ts"><a class="link" href="#jest_config_ts">jest.config.ts</a></h3>
 <div class="paragraph">
-<p>Jest needs to be configured to run typescript tests. This is done by creating a jest.config.ts file in the root of the project:</p>
+<p>Jest needs to be configured to run Typescript tests. This is done by creating a <code>jest.config.ts</code> file in the root of the project:</p>
 </div>
 <div class="listingblock">
 <div class="title">jest.config.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type { Config } from '@jest/types';
+<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">import type { Config } from '@jest/types';
 
 
 import {
@@ -594,13 +594,11 @@ export default customJestConfig;</code></pre>
 <div class="sect2">
 <h3 id="tsconfig_json"><a class="link" href="#tsconfig_json">tsconfig.json</a></h3>
 <div class="paragraph">
-<p>In an Enonic typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple tsconfig.json files are used.</p>
+<p>In an Enonic Typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple <code>tsconfig.json</code> files are used.</p>
 </div>
 <div class="paragraph">
-<p>When running tests the typescript configuration files might need to look slightly different. This is the case for the test/client/tsconfig.json and test/server/tsconfig.json files:</p>
+<p>When running tests the Typescript configuration files might need to look slightly different. This is the case for the <code>test/client/tsconfig.json</code> and <code>test/server/tsconfig.json</code> files:</p>
 </div>
-<div class="sect3">
-<h4 id="testclienttsconfig_json"><a class="link" href="#testclienttsconfig_json">test/client/tsconfig.json</a></h4>
 <div class="listingblock">
 <div class="title">test/client/tsconfig.json</div>
 <div class="content">
@@ -615,9 +613,6 @@ export default customJestConfig;</code></pre>
 }</code></pre>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="testservertsconfig_json"><a class="link" href="#testservertsconfig_json">test/server/tsconfig.json</a></h4>
 <div class="listingblock">
 <div class="title">test/server/tsconfig.json</div>
 <div class="content">
@@ -665,14 +660,13 @@ export default customJestConfig;</code></pre>
 </div>
 </div>
 </div>
-</div>
 <div class="sect1">
-<h2 id="running"><a class="link" href="#running">Running</a></h2>
+<h2 id="execution"><a class="link" href="#execution">Execution</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="package_json"><a class="link" href="#package_json">package.json</a></h3>
 <div class="paragraph">
-<p>In order to run tests the following needs to be added to the package.json file:</p>
+<p>In order to run tests the following needs to be added to the <code>package.json</code> file:</p>
 </div>
 <div class="listingblock">
 <div class="title">package.json</div>
@@ -688,7 +682,7 @@ export default customJestConfig;</code></pre>
 <div class="sect2">
 <h3 id="build_gradle"><a class="link" href="#build_gradle">build.gradle</a></h3>
 <div class="paragraph">
-<p>In order to run the tests on every build, add the following to the build.gradle file:</p>
+<p>In order to run the tests on every build, add the following to the <code>build.gradle</code> file:</p>
 </div>
 <div class="listingblock">
 <div class="title">build.gradle</div>
@@ -713,12 +707,12 @@ test.dependsOn npmTest</code></pre>
 <div class="sect2">
 <h3 id="tsupserver_ts"><a class="link" href="#tsupserver_ts">tsup/server.ts</a></h3>
 <div class="paragraph">
-<p>In order to avoid the build system compiling the test files, which are in the source directory (src/main/resources), into the build directory (build/resources/main), an ignore pattern needs to be added to the tsup/server.ts file:</p>
+<p>In order to exclude the test files from being processed by the build system and copied from the source directory (<code>src/main/resources</code>) to the build directory (<code>build/resources/main</code>), an ignore pattern needs to be added to the <code>tsup/server.ts</code> file:</p>
 </div>
 <div class="listingblock">
 <div class="title">tsup/server.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">const FILES_SERVER = globSync(
+<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">const FILES_SERVER = globSync(
   `${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,
   {
     absolute: false,
@@ -736,7 +730,7 @@ test.dependsOn npmTest</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-27 10:00:25 UTC
+Last updated 2024-04-02 07:24:47 UTC
 </div>
 </div>
 </body>

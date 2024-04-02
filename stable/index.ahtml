@@ -451,7 +451,7 @@ lot more&#8230;&#8203;</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Read more about it&#8217;s features here: <a href="https://jestjs.io/" class="bare">https://jestjs.io/</a>
+Read more about Jest features <a href="https://jestjs.io/" target="_blank" rel="nofollow noopener">here</a>.
 </td>
 </tr>
 </table>
@@ -462,32 +462,32 @@ Read more about it&#8217;s features here: <a href="https://jestjs.io/" class="ba
 <div class="ulist">
 <ul>
 <li>
-<p><a href="setup">Setup</a> Jest in a Enonic XP project</p>
+<p><a href="setup">Set up</a> Jest in an Enonic XP project</p>
 </li>
 <li>
-<p>Write a <a href="simple">Simple</a> test without any mocks</p>
+<p>Write a simple <a href="test">test</a> without any mocks</p>
 </li>
 <li>
 <p>Write a test mocking <a href="globals">Globals</a></p>
 </li>
 <li>
-<p>Write a test for server-side manually <a href="mock">Mocking</a> Java libraries</p>
+<p>Write a test for server-side code manually <a href="mock">mocking</a> Java libraries</p>
 </li>
 <li>
-<p>Write a test for server-side using <a href="mock-xp">Mock XP</a></p>
+<p>Write a test for server-side code using <a href="mock-xp">Mock XP</a></p>
 </li>
 <li>
-<p>Write a test for <a href="clientSide">Client side</a></p>
+<p>Write a test for <a href="client-side">client-side</a> code</p>
 </li>
 <li>
-<p>Setup <a href="coverage">Coverage</a> with Github Actions</p>
+<p>Set up <a href="coverage">Coverage</a> with Github Actions</p>
 </li>
 </ul>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-27 10:00:25 UTC
+Last updated 2024-04-02 07:24:47 UTC
 </div>
 </div>
 </body>

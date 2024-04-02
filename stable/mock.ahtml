@@ -452,7 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To demonstrate the power of mocking, we&#8217;ll make a simple typescript wrapper around an Enonic Java library:</p>
+<p>To demonstrate the power of mocking, we&#8217;ll make a simple Typescript wrapper around an Enonic Java library:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/tutorial-jest/sanitize.ts</div>
@@ -487,7 +487,7 @@ describe('sanitize', () =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>It will fail with the following error message:</p>
+<p>it will fail with the following error message:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -505,9 +505,6 @@ describe('sanitize', () =&gt; {
 <div class="sect1">
 <h2 id="test_with_mock"><a class="link" href="#test_with_mock">Test with mock</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Notice that sanitize is no longer "statically" imported at the beginning of the file. This is because the mock must be setup before the import is done. That&#8217;s why a dynamic import in each test is used instead.</p>
-</div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/tutorial-jest/sanitize.test.ts</div>
 <div class="content">
@@ -546,14 +543,18 @@ describe('sanitize', () =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>Obviously this mock doesn&#8217;t cover asciifolding for the whole unicode range, but is sufficient enough to run this test.</p>
+<p>Notice that <code>sanitize</code> is no longer "statically" imported at the beginning of the file. This is because the mock must be set up before the import is done.
+That&#8217;s why a dynamic import in each test is used instead.</p>
+</div>
+<div class="paragraph">
+<p>Obviously this mock doesn&#8217;t cover ascii-folding for the whole unicode range, but is sufficient enough to run this test.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-27 10:00:25 UTC
+Last updated 2024-04-02 07:24:47 UTC
 </div>
 </div>
 </body>
