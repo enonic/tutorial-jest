@@ -9,7 +9,7 @@ import { render } from '/lib/thymeleaf';
 const VIEW = resolve('preview.html');
 
 
-export function get(request: Request): Response {
+export function get(_request: Request): Response {
   const content = getContent();
   const photoId = (Array.isArray(content.data.photos)) ? content.data.photos[0] : content.data.photos;
   const model = {

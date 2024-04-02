@@ -69,9 +69,10 @@ const libPortal = new LibPortal({
 // Mock globals
 //──────────────────────────────────────────────────────────────────────────────
 // Avoid type errors below.
+// eslint-disable-next-line @typescript-eslint/no-namespace
 declare module globalThis {
-    var log: Log
-    var resolve: Resolve
+    let log: Log
+    let resolve: Resolve
 }
 globalThis.log = server.log as Log;
 globalThis.resolve = (path: string): ReturnType<Resolve> => {
@@ -90,9 +91,9 @@ globalThis.resolve = (path: string): ReturnType<Resolve> => {
 //──────────────────────────────────────────────────────────────────────────────
 declare type Model = Record<string, unknown>;
 declare type RenderFn = (
-    view: string,
-    model: Model,
-    options: Record<string, unknown>
+    _view: string,
+    _model: Model,
+    _options: Record<string, unknown>
 ) => Model;
 
 jest.mock('/lib/thymeleaf', () => ({
@@ -178,7 +179,6 @@ describe('preview', () => {
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
         });
         import('./preview').then(({get}) => {
-            // @ts-ignore
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: {
@@ -196,7 +196,6 @@ describe('preview', () => {
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
         });
         import('./preview').then(({get}) => {
-            // @ts-ignore
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: {
