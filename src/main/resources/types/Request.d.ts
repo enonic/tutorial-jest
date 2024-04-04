@@ -34,8 +34,6 @@ export declare interface DefaultHeaders {
 	[headerName: string]: string|undefined
 }
 
-export declare type StringObject = Record<string, string>;
-
 export declare type Request<
 	T extends Record<string, unknown> = {
 		body?: string // Often JSON
@@ -44,8 +42,8 @@ export declare type Request<
 		cookies?: DefaultCookies
 		followRedirects?: boolean
 		headers?: DefaultHeaders
-		params?: StringObject
-		pathParams?: StringObject
+		params?: Record<string, string | string[]>
+		pathParams?: Record<string, string>
 		rawPath?: string
 		repositoryId?: string
 		remoteAddress?: string
@@ -58,6 +56,6 @@ export declare type Request<
 	mode: 'edit'|'inline'|'live'|'preview'
 	path: string
 	port: number|string
-	scheme: 'http'|'https' // string
+	scheme: string // Using just string to match mock-xp.Request
 	url: string
 } & T

@@ -25,7 +25,7 @@ import {
     LibPortal,
     Request,
     Server
-} from '@enonic/mock-xp/src';
+} from '@enonic/mock-xp';
 import {readFileSync} from 'fs';
 import {
     join,
