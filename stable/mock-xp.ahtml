@@ -485,7 +485,7 @@ import { render } from '/lib/thymeleaf';
 const VIEW = resolve('preview.html');
 
 
-export function get(request: Request): Response {
+export function get(_request: Request): Response {
   const content = getContent();
   const photoId = (Array.isArray(content.data.photos)) ? content.data.photos[0] : content.data.photos;
   const model = {
@@ -564,7 +564,7 @@ import {
     LibPortal,
     Request,
     Server
-} from '@enonic/mock-xp/src';
+} from '@enonic/mock-xp';
 import {readFileSync} from 'fs';
 import {
     join,
@@ -608,9 +608,10 @@ const libPortal = new LibPortal({
 // Mock globals
 //──────────────────────────────────────────────────────────────────────────────
 // Avoid type errors below.
+// eslint-disable-next-line @typescript-eslint/no-namespace
 declare module globalThis {
-    var log: Log
-    var resolve: Resolve
+    let log: Log
+    let resolve: Resolve
 }
 globalThis.log = server.log as Log;
 globalThis.resolve = (path: string): ReturnType&lt;Resolve&gt; =&gt; {
@@ -629,9 +630,9 @@ globalThis.resolve = (path: string): ReturnType&lt;Resolve&gt; =&gt; {
 //──────────────────────────────────────────────────────────────────────────────
 declare type Model = Record&lt;string, unknown&gt;;
 declare type RenderFn = (
-    view: string,
-    model: Model,
-    options: Record&lt;string, unknown&gt;
+    _view: string,
+    _model: Model,
+    _options: Record&lt;string, unknown&gt;
 ) =&gt; Model;
 
 jest.mock('/lib/thymeleaf', () =&gt; ({
@@ -717,7 +718,6 @@ describe('preview', () =&gt; {
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
         });
         import('./preview').then(({get}) =&gt; {
-            // @ts-ignore
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: {
@@ -735,7 +735,6 @@ describe('preview', () =&gt; {
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
         });
         import('./preview').then(({get}) =&gt; {
-            // @ts-ignore
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: {
@@ -755,7 +754,7 @@ describe('preview', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-02 07:24:47 UTC
+Last updated 2024-04-05 07:48:12 UTC
 </div>
 </div>
 </body>
