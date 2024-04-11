@@ -3,7 +3,7 @@
 
 == Source code
 
-To demonstrate the power of mocking, we'll make a simple Typescript wrapper around an Enonic Java library:
+To demonstrate the power of mocking, let's make a simple Typescript wrapper around an Enonic Java library:
 
 .src/main/resources/lib/tutorial-jest/sanitize.ts
 [source, typescript]
@@ -42,7 +42,7 @@ Cannot find module '/lib/xp/common' from 'src/main/resources/lib/tutorial-jest/s
 
 This happens because the module file `/lib/xp/common` isn't available in the test environment. It only exists inside the application jar file, which is used at runtime in the Enonic XP server.
 
-So we have to "fake" it.
+In order to run the test successfully, a "fake" version of the module must be made available in the test environment. This is where mocking comes in.
 
 == Test with mock
 
@@ -56,3 +56,9 @@ Notice that `sanitize` is no longer "statically" imported at the beginning of th
 That's why a dynamic import in each test is used instead.
 
 Obviously this mock doesn't cover ascii-folding for the whole unicode range, but is sufficient enough to run this test.
+
+== Summary
+
+This guide showed how to mock a Java library in a Typescript file using Jest. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.
+
+Writing mocks for whole libraries can be a bit tedious, so in the next tutorial, the same test case will be repeated, but it will use a more convenitent link:mock-xp[Mock XP] library provided by Enonic.

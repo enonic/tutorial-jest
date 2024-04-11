@@ -1,4 +1,4 @@
-= Introduction to testing with Jest
+= Testing XP apps with Jest
 :toc: right
 :experimental:
 :sourcedir: ../

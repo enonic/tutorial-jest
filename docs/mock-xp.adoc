@@ -37,3 +37,12 @@ NOTE: If anyone is able to find or create a test for thymeleaf rendering, please
 ----
 include::{sourcedir}src/main/resources/controllers/preview.test.ts[]
 ----
+
+
+== Summary
+
+This guide, showed how to write tests for Enonic XP applications using Jest in combination with Mock XP.
+
+Mock XP was used to mock the Enonic XP *portal* API.
+
+The next tutorial will show how to write a link:client-side[client-side] test for an Enonic XP application.

@@ -56,8 +56,9 @@ ReferenceError: log is not defined
 
 To fix that, both the `log` and `app` objects must be mocked.
 
-This can be achieved in multiple ways. When it comes to static values like the global `app` object we can add the following to the `serverSideConfig` in `jest.config.ts` file:
+This can be achieved in multiple ways. When it comes to static values like the global `app` object, the following can be added to the `serverSideConfig` in the `jest.config.ts` file:
 
+.jest.config.ts
 [source, typescript]
 ----
 globals: {
@@ -71,7 +72,7 @@ globals: {
 },
 ----
 
-But when it comes to functions like `log.info` we can use a setup File which is run before execution of each test file:
+But when it comes to functions like `log.info`, a setup file can be used. It will run before the execution of each test file:
 
 .test/server/setupFile.ts
 [source, typescript]
@@ -81,12 +82,13 @@ include::{sourcedir}test/server/setupFile.ts[]
 
 Then add the following to the `serverSideConfig` in `jest.config.ts` file:
 
+.jest.config.ts
 [source, typescript]
 ----
 setupFiles: ['<rootDir>/test/server/setupFile.ts'],
 ----
 
-The above will mock default values for the global `app` and `log` objects, which we can augment in the tests.
+The above will mock default values for the global `app` and `log` objects. The values can be augmented in the test files.
 
 To avoid type errors when accessing those objects, you can make a type declaration file referencing `@enonic-types/global`
 
@@ -103,3 +105,9 @@ Then you can import and use those types in the test file:
 ----
 include::{sourcedir}src/main/resources/lib/tutorial-jest/getAppConfig.test.ts[]
 ----
+
+== Summary
+
+In this tutorial, you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.
+
+Let's move on to the next tutorial to learn how to link:mock[mock] functions and write our first "real" test for a Enonic XP Framework server-side source code file.

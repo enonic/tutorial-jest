@@ -3,7 +3,9 @@
 
 == Node modules
 
-In order to write tests in Typescript and run them a bunch of node modules needs to be installed:
+In order to write tests in Typescript and run them using Jest, a bunch of node modules needs to be installed.
+
+Run the following command at the root of the project:
 
 [source, shell]
 ----
@@ -60,6 +62,8 @@ In order to run tests the following needs to be added to the `package.json` file
 
 === build.gradle
 
+The Enonic XP framework uses gradle to build libraries and applications.
+
 In order to run the tests on every build, add the following to the `build.gradle` file:
 
 .build.gradle
@@ -99,3 +103,10 @@ const FILES_SERVER = globSync(
   }
 ).map(s => s.replaceAll('\\', '/')); // Windows compatibility
 ----
+
+== Summary
+
+With the above setup in place, it is possible to write tests in Typescript and run them using Jest.
+The tests will be run on every build and the coverage will be reported.
+
+Let's learn how to write our first link:test[test].

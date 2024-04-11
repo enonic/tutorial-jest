@@ -29,3 +29,9 @@ include::{sourcedir}src/main/resources/assets/js/HelloWorld.tsx[]
 ----
 include::{sourcedir}src/main/resources/assets/js/HelloWorld.test.tsx[]
 ----
+
+== Summary
+
+In this guide, we have learned how to write a test for a React component using Jest and React Test Renderer.
+
+Now that there exists some test, it may be useful to store coverage reports in a tool that can show changes over time. One such tool is Codecov. The following tutorial will show you how to integrate link:coverage[Codecov] with your project.

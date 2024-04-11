@@ -1,5 +1,8 @@
-= Coverage
+= Codecov
 :toc: right
+
+https://about.codecov.io/[Codecov,window=_blank,opts=nofollow] is a nice reporting tool that can be used to visualize your test coverage over time and across multiple projects. It integrates nicely with GitHub and other CI/CD tools.
+
 
 == Command line
 
@@ -33,9 +36,6 @@ just add the `--coverage` option in the `package.json` 's `scripts` section like
 
 This also enables the `npm test` in the <<#github_action, Github action>> below to produce a coverage report for <<#codecov, Codecov>>.
 
-== Codecov
-
-https://about.codecov.io/[Codecov,window=_blank,opts=nofollow] is a nice reporting tool that can be used to visualize your test coverage across multiple projects. It integrates nicely with GitHub and other CI/CD tools.
 
 
 == GitHub action
@@ -76,3 +76,7 @@ jobs:
 
       - uses: codecov/codecov-action@v4
 ----
+
+== Summary
+
+With the above setup, you will get a nice test coverage report every time you run `npm test` and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.

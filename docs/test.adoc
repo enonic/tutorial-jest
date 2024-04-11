@@ -1,6 +1,15 @@
 = Simple test
 :sourcedir: ../
 
+Test files import from *_sources_* and defines *_test cases_* with *_assertions_*.
+
+Test files written for Jest uses `describe` and `it` functions to organize the test cases.
+
+
+The `expect` function is used to write *_assertions_* and returns an object which contains a bunch of *_Jest matchers_*.
+
+The test below uses the `toEqual` matcher, see https://jestjs.io/docs/using-matchers for more matchers.
+
 == Source code
 
 .src/main/resources/lib/tutorial-jest/fibonacci.ts
@@ -16,6 +25,8 @@ include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.ts[]
 ----
 include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.test.ts[]
 ----
+
+
 
 == Execution
 
@@ -39,3 +50,9 @@ Run a specific test with npm:
 ----
 npm test src/main/resources/lib/tutorial-jest/fibonacci.test.ts
 ----
+
+== Summary
+
+This tutorial showed how to write and run a simple Jest test for Enonic XP projects.
+
+In order to write more advanced tests, some concepts are important to know, let's learn how to mock link:globals[Globals].
