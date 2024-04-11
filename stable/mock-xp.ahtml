@@ -443,7 +443,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#install_mock_xp">Install Mock XP</a></li>
 <li><a href="#source_code">Source code</a></li>
+<li><a href="#tests">Tests</a>
+<ul class="sectlevel2">
+<li><a href="#mock_portal_library">Mock Portal Library</a></li>
+<li><a href="#mock_thymeleaf_library">Mock Thymeleaf library</a></li>
 <li><a href="#the_test">The test</a></li>
+</ul>
+</li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
@@ -509,19 +515,102 @@ export function get(_request: Request): Response {
 </div>
 </div>
 <div class="sect1">
-<h2 id="the_test"><a class="link" href="#the_test">The test</a></h2>
+<h2 id="tests"><a class="link" href="#tests">Tests</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this test <code>mock-xp</code> is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type <code>person</code>) which reference the images.</p>
+<p>In order for the test file to not become overly large, it&#8217;s been split it into smaller parts:</p>
 </div>
-<div class="paragraph">
-<p>In addition, mock-xp&#8217;s <code>Log</code> is used to get nice colorful logging.</p>
+<div class="sect2">
+<h3 id="mock_portal_library"><a class="link" href="#mock_portal_library">Mock Portal Library</a></h3>
+<div class="listingblock">
+<div class="title">test/server/mockXP.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {
+    assetUrl as assetUrlType,
+    getContent as getContentType,
+    imageUrl as imageUrlType,
+} from '@enonic-types/lib-portal';
+
+
+import {
+    App,
+    LibContent,
+    LibPortal,
+    Server
+} from '@enonic/mock-xp';
+import {jest} from '@jest/globals';
+
+
+export {
+    Request,
+} from '@enonic/mock-xp';
+
+
+const APP_KEY = 'com.example.tutorial.jest';
+const PROJECT_NAME = 'intro';
+
+
+export const server = new Server({
+    loglevel: 'debug'
+}).createProject({
+    projectName: PROJECT_NAME
+}).setContext({
+    projectName: PROJECT_NAME
+});
+
+const app = new App({
+    key: APP_KEY
+});
+
+export const libContent = new LibContent({
+    server
+});
+
+export const libPortal = new LibPortal({
+    app,
+    server
+});
+
+
+jest.mock('/lib/xp/portal', () =&gt; {
+    return {
+        assetUrl: jest.fn&lt;typeof assetUrlType&gt;((params) =&gt; libPortal.assetUrl(params)),
+        getContent: jest.fn&lt;typeof getContentType&gt;(() =&gt; libPortal.getContent()),
+        imageUrl: jest.fn&lt;typeof imageUrlType&gt;((params) =&gt; libPortal.imageUrl(params)),
+    }
+}, { virtual: true });</code></pre>
 </div>
-<div class="paragraph">
-<p>In order for <code>libPortal.getContent()</code> to work, <code>request</code> property is set on the <code>libPortal</code> object.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="mock_thymeleaf_library"><a class="link" href="#mock_thymeleaf_library">Mock Thymeleaf library</a></h3>
 <div class="paragraph">
-<p>Finally, the <code>/lib/thymeleaf</code> 's <code>render</code> mock simply returns the model object, so the actual html rendering is not triggered.</p>
+<p>Notice the <code>/lib/thymeleaf</code> 's <code>render</code> mock simply returns the model object, so the actual html rendering is not triggered.</p>
+</div>
+<div class="listingblock">
+<div class="title">test/server/mockLibThymeleaf.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import {jest} from '@jest/globals';
+
+
+declare type Model = Record&lt;string, unknown&gt;;
+declare type RenderFn = (
+    _view: string,
+    _model: Model,
+    _options: Record&lt;string, unknown&gt;
+) =&gt; Model;
+
+
+jest.mock('/lib/thymeleaf', () =&gt; ({
+    render: jest.fn&lt;RenderFn&gt;().mockImplementation((
+        _view,
+        model,
+        // options
+    ) =&gt; {
+        return model; // Not testing the actual rendering, just that the model is correct.
+    })
+}), { virtual: true });</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -535,74 +624,42 @@ If anyone is able to find or create a test for thymeleaf rendering, please let u
 </tr>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="the_test"><a class="link" href="#the_test">The test</a></h3>
+<div class="paragraph">
+<p>In this test <code>mock-xp</code> is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type <code>person</code>) which reference the images.</p>
+</div>
+<div class="paragraph">
+<p>In addition, mock-xp&#8217;s <code>Log</code> is used to get nice colorful logging.</p>
+</div>
+<div class="paragraph">
+<p>In order for <code>libPortal.getContent()</code> to work, <code>request</code> property is set on the <code>libPortal</code> object.</p>
+</div>
 <div class="listingblock">
 <div class="title">src/main/resources/controllers/preview.test.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">//──────────────────────────────────────────────────────────────────────────────
-// Type imports
-//──────────────────────────────────────────────────────────────────────────────
-import type {ByteSource} from '@enonic-types/core';
-import type {
-    assetUrl as assetUrlType,
-    getContent as getContentType,
-    imageUrl as imageUrlType,
-} from '@enonic-types/lib-portal';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {ByteSource} from '@enonic-types/core';
 import type {Log, Resolve} from '../../../../test/server/global';
 
 
-//──────────────────────────────────────────────────────────────────────────────
-// Value imports
-//──────────────────────────────────────────────────────────────────────────────
 import {
     describe,
     expect,
-    jest,
     test as it
 } from '@jest/globals';
 import {
-    App,
-    LibContent,
-    LibPortal,
     Request,
-    Server
-} from '@enonic/mock-xp';
+    libContent,
+    libPortal,
+    server,
+} from '../../../../test/server/mockXP';
+import '../../../../test/server/mockLibThymeleaf';
 import {readFileSync} from 'fs';
 import {
     join,
     resolve as pathResolve
 } from 'path';
-
-
-//──────────────────────────────────────────────────────────────────────────────
-// Constants
-//──────────────────────────────────────────────────────────────────────────────
-const APP_KEY = 'com.example.tutorial.jest';
-const PROJECT_NAME = 'intro';
-
-
-//──────────────────────────────────────────────────────────────────────────────
-// Mock XP
-//──────────────────────────────────────────────────────────────────────────────
-const server = new Server({
-    loglevel: 'debug'
-}).createProject({
-    projectName: PROJECT_NAME
-}).setContext({
-    projectName: PROJECT_NAME
-});
-
-const app = new App({
-    key: APP_KEY
-});
-
-const libContent = new LibContent({
-    server
-});
-
-const libPortal = new LibPortal({
-    app,
-    server
-});
 
 
 //──────────────────────────────────────────────────────────────────────────────
@@ -624,35 +681,6 @@ globalThis.resolve = (path: string): ReturnType&lt;Resolve&gt; =&gt; {
     }
     throw new Error(`Unable to resolve path:${path}`);
 }
-
-
-//──────────────────────────────────────────────────────────────────────────────
-// Mock modules
-//──────────────────────────────────────────────────────────────────────────────
-declare type Model = Record&lt;string, unknown&gt;;
-declare type RenderFn = (
-    _view: string,
-    _model: Model,
-    _options: Record&lt;string, unknown&gt;
-) =&gt; Model;
-
-jest.mock('/lib/thymeleaf', () =&gt; ({
-    render: jest.fn&lt;RenderFn&gt;().mockImplementation((
-        _view,
-        model,
-        // options
-    ) =&gt; {
-        return model; // Not testing the actual rendering, just that the model is correct.
-    })
-}), { virtual: true });
-
-jest.mock('/lib/xp/portal', () =&gt; {
-    return {
-        assetUrl: jest.fn&lt;typeof assetUrlType&gt;((a) =&gt; libPortal.assetUrl(a)),
-        getContent: jest.fn&lt;typeof getContentType&gt;(() =&gt; libPortal.getContent()),
-        imageUrl: jest.fn&lt;typeof imageUrlType&gt;((a) =&gt; libPortal.imageUrl(a)),
-    }
-}, { virtual: true });
 
 
 //──────────────────────────────────────────────────────────────────────────────
@@ -752,6 +780,7 @@ describe('preview', () =&gt; {
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
@@ -769,7 +798,7 @@ describe('preview', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-11 07:38:12 UTC
+Last updated 2024-04-11 07:57:59 UTC
 </div>
 </div>
 </body>
