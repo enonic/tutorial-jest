@@ -1,68 +1,24 @@
-//──────────────────────────────────────────────────────────────────────────────
-// Type imports
-//──────────────────────────────────────────────────────────────────────────────
 import type {ByteSource} from '@enonic-types/core';
-import type {
-    assetUrl as assetUrlType,
-    getContent as getContentType,
-    imageUrl as imageUrlType,
-} from '@enonic-types/lib-portal';
 import type {Log, Resolve} from '../../../../test/server/global';
 
 
-//──────────────────────────────────────────────────────────────────────────────
-// Value imports
-//──────────────────────────────────────────────────────────────────────────────
 import {
     describe,
     expect,
-    jest,
     test as it
 } from '@jest/globals';
 import {
-    App,
-    LibContent,
-    LibPortal,
     Request,
-    Server
-} from '@enonic/mock-xp';
+    libContent,
+    libPortal,
+    server,
+} from '../../../../test/server/mockXP';
+import '../../../../test/server/mockLibThymeleaf';
 import {readFileSync} from 'fs';
 import {
     join,
     resolve as pathResolve
 } from 'path';
-
-
-//──────────────────────────────────────────────────────────────────────────────
-// Constants
-//──────────────────────────────────────────────────────────────────────────────
-const APP_KEY = 'com.example.tutorial.jest';
-const PROJECT_NAME = 'intro';
-
-
-//──────────────────────────────────────────────────────────────────────────────
-// Mock XP
-//──────────────────────────────────────────────────────────────────────────────
-const server = new Server({
-    loglevel: 'debug'
-}).createProject({
-    projectName: PROJECT_NAME
-}).setContext({
-    projectName: PROJECT_NAME
-});
-
-const app = new App({
-    key: APP_KEY
-});
-
-const libContent = new LibContent({
-    server
-});
-
-const libPortal = new LibPortal({
-    app,
-    server
-});
 
 
 //──────────────────────────────────────────────────────────────────────────────
@@ -84,35 +40,6 @@ globalThis.resolve = (path: string): ReturnType<Resolve> => {
     }
     throw new Error(`Unable to resolve path:${path}`);
 }
-
-
-//──────────────────────────────────────────────────────────────────────────────
-// Mock modules
-//──────────────────────────────────────────────────────────────────────────────
-declare type Model = Record<string, unknown>;
-declare type RenderFn = (
-    _view: string,
-    _model: Model,
-    _options: Record<string, unknown>
-) => Model;
-
-jest.mock('/lib/thymeleaf', () => ({
-    render: jest.fn<RenderFn>().mockImplementation((
-        _view,
-        model,
-        // options
-    ) => {
-        return model; // Not testing the actual rendering, just that the model is correct.
-    })
-}), { virtual: true });
-
-jest.mock('/lib/xp/portal', () => {
-    return {
-        assetUrl: jest.fn<typeof assetUrlType>((a) => libPortal.assetUrl(a)),
-        getContent: jest.fn<typeof getContentType>(() => libPortal.getContent()),
-        imageUrl: jest.fn<typeof imageUrlType>((a) => libPortal.imageUrl(a)),
-    }
-}, { virtual: true });
 
 
 //──────────────────────────────────────────────────────────────────────────────
