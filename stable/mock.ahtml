@@ -444,6 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#test_without_mock">Test without mock</a></li>
 <li><a href="#test_with_mock">Test with mock</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -452,7 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To demonstrate the power of mocking, we&#8217;ll make a simple Typescript wrapper around an Enonic Java library:</p>
+<p>To demonstrate the power of mocking, let&#8217;s make a simple Typescript wrapper around an Enonic Java library:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/tutorial-jest/sanitize.ts</div>
@@ -498,7 +499,7 @@ describe('sanitize', () =&gt; {
 <p>This happens because the module file <code>/lib/xp/common</code> isn&#8217;t available in the test environment. It only exists inside the application jar file, which is used at runtime in the Enonic XP server.</p>
 </div>
 <div class="paragraph">
-<p>So we have to "fake" it.</p>
+<p>In order to run the test successfully, a "fake" version of the module must be made available in the test environment. This is where mocking comes in.</p>
 </div>
 </div>
 </div>
@@ -551,10 +552,21 @@ That&#8217;s why a dynamic import in each test is used instead.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide showed how to mock a Java library in a Typescript file using Jest. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.</p>
+</div>
+<div class="paragraph">
+<p>Writing mocks for whole libraries can be a bit tedious, so in the next tutorial, the same test case will be repeated, but it will use a more convenitent <a href="mock-xp">Mock XP</a> library provided by Enonic.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-08 06:14:08 UTC
+Last updated 2024-04-11 07:38:12 UTC
 </div>
 </div>
 </body>

@@ -455,6 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#tsupserver_ts">tsup/server.ts</a></li>
 </ul>
 </li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -463,7 +464,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="node_modules"><a class="link" href="#node_modules">Node modules</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to write tests in Typescript and run them a bunch of node modules needs to be installed:</p>
+<p>In order to write tests in Typescript and run them using Jest, a bunch of node modules needs to be installed.</p>
+</div>
+<div class="paragraph">
+<p>Run the following command at the root of the project:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -682,6 +686,9 @@ export default customJestConfig;</code></pre>
 <div class="sect2">
 <h3 id="build_gradle"><a class="link" href="#build_gradle">build.gradle</a></h3>
 <div class="paragraph">
+<p>The Enonic XP framework uses gradle to build libraries and applications.</p>
+</div>
+<div class="paragraph">
 <p>In order to run the tests on every build, add the following to the <code>build.gradle</code> file:</p>
 </div>
 <div class="listingblock">
@@ -727,10 +734,22 @@ test.dependsOn npmTest</code></pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the above setup in place, it is possible to write tests in Typescript and run them using Jest.
+The tests will be run on every build and the coverage will be reported.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s learn how to write our first <a href="test">test</a>.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-08 06:14:08 UTC
+Last updated 2024-04-11 07:38:12 UTC
 </div>
 </div>
 </body>

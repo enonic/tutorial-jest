@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Coverage</title>
+<title>Codecov</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,18 +437,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Coverage</h1>
+<h1>Codecov</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#command_line">Command line</a></li>
 <li><a href="#package_json">package.json</a></li>
-<li><a href="#codecov">Codecov</a></li>
 <li><a href="#github_action">GitHub action</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://about.codecov.io/" target="_blank" rel="nofollow noopener">Codecov</a> is a nice reporting tool that can be used to visualize your test coverage over time and across multiple projects. It integrates nicely with GitHub and other CI/CD tools.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="command_line"><a class="link" href="#command_line">Command line</a></h2>
 <div class="sectionbody">
@@ -488,14 +495,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="paragraph">
 <p>This also enables the <code>npm test</code> in the <a href="#github_action">Github action</a> below to produce a coverage report for <a href="#codecov">Codecov</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="codecov"><a class="link" href="#codecov">Codecov</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://about.codecov.io/" target="_blank" rel="nofollow noopener">Codecov</a> is a nice reporting tool that can be used to visualize your test coverage across multiple projects. It integrates nicely with GitHub and other CI/CD tools.</p>
 </div>
 </div>
 </div>
@@ -552,10 +551,18 @@ jobs:
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the above setup, you will get a nice test coverage report every time you run <code>npm test</code> and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-08 06:14:08 UTC
+Last updated 2024-04-11 07:38:12 UTC
 </div>
 </div>
 </body>

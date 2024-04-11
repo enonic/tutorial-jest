@@ -444,10 +444,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#the_test">The test</a></li>
 <li><a href="#execution">Execution</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Test files import from <strong><em>sources</em></strong> and defines <strong><em>test cases</em></strong> with <strong><em>assertions</em></strong>.</p>
+</div>
+<div class="paragraph">
+<p>Test files written for Jest uses <code>describe</code> and <code>it</code> functions to organize the test cases.</p>
+</div>
+<div class="paragraph">
+<p>The <code>expect</code> function is used to write <strong><em>assertions</em></strong> and returns an object which contains a bunch of <strong><em>Jest matchers</em></strong>.</p>
+</div>
+<div class="paragraph">
+<p>The test below uses the <code>toEqual</code> matcher, see <a href="https://jestjs.io/docs/using-matchers" class="bare">https://jestjs.io/docs/using-matchers</a> for more matchers.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
@@ -518,10 +535,21 @@ describe('fibonacci', () =&gt; {
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial showed how to write and run a simple Jest test for Enonic XP projects.</p>
+</div>
+<div class="paragraph">
+<p>In order to write more advanced tests, some concepts are important to know, let&#8217;s learn how to mock <a href="globals">Globals</a>.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-08 06:14:08 UTC
+Last updated 2024-04-11 07:38:12 UTC
 </div>
 </div>
 </body>

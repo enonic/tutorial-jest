@@ -446,6 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#test_without_mock">Test without mock</a></li>
 <li><a href="#test_with_mock">Test with mock</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -554,9 +555,10 @@ describe('getAppConfig', () =&gt; {
 <p>To fix that, both the <code>log</code> and <code>app</code> objects must be mocked.</p>
 </div>
 <div class="paragraph">
-<p>This can be achieved in multiple ways. When it comes to static values like the global <code>app</code> object we can add the following to the <code>serverSideConfig</code> in <code>jest.config.ts</code> file:</p>
+<p>This can be achieved in multiple ways. When it comes to static values like the global <code>app</code> object, the following can be added to the <code>serverSideConfig</code> in the <code>jest.config.ts</code> file:</p>
 </div>
 <div class="listingblock">
+<div class="title">jest.config.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">globals: {
     app: {
@@ -570,7 +572,7 @@ describe('getAppConfig', () =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>But when it comes to functions like <code>log.info</code> we can use a setup File which is run before execution of each test file:</p>
+<p>But when it comes to functions like <code>log.info</code>, a setup file can be used. It will run before the execution of each test file:</p>
 </div>
 <div class="listingblock">
 <div class="title">test/server/setupFile.ts</div>
@@ -600,12 +602,13 @@ globalThis.log = {
 <p>Then add the following to the <code>serverSideConfig</code> in <code>jest.config.ts</code> file:</p>
 </div>
 <div class="listingblock">
+<div class="title">jest.config.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">setupFiles: ['&lt;rootDir&gt;/test/server/setupFile.ts'],</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The above will mock default values for the global <code>app</code> and <code>log</code> objects, which we can augment in the tests.</p>
+<p>The above will mock default values for the global <code>app</code> and <code>log</code> objects. The values can be augmented in the test files.</p>
 </div>
 <div class="paragraph">
 <p>To avoid type errors when accessing those objects, you can make a type declaration file referencing <code>@enonic-types/global</code></p>
@@ -667,10 +670,21 @@ describe('getAppConfig', () =&gt; {
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s move on to the next tutorial to learn how to <a href="mock">mock</a> functions and write our first "real" test for a Enonic XP Framework server-side source code file.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-08 06:14:08 UTC
+Last updated 2024-04-11 07:38:12 UTC
 </div>
 </div>
 </body>
