@@ -27,6 +27,10 @@
       {
         "title": "7 - Codecov",
         "document": "codecov"
+      },
+      {
+        "title": "8 - Colocation",
+        "document": "colocation"
       }
     ]
 }

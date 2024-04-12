@@ -18,7 +18,9 @@ export default function buildServerConfig(): Options {
 				globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
 			)
 		}
-	).map(s => s.replaceAll('\\', '/')); // Windows compatibility
+	)
+		// Windows compatibility
+		.map(s => s.replaceAll('\\', '/'));
 
 	return {
 		bundle: true, // Needed to bundle @enonic/js-utils

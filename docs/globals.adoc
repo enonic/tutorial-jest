@@ -74,10 +74,10 @@ globals: {
 
 But when it comes to functions like `log.info`, a setup file can be used. It will run before the execution of each test file:
 
-.test/server/setupFile.ts
+.src/jest/server/setupFile.ts
 [source, typescript]
 ----
-include::{sourcedir}test/server/setupFile.ts[]
+include::{sourcedir}src/jest/server/setupFile.ts[]
 ----
 
 Then add the following to the `serverSideConfig` in `jest.config.ts` file:
@@ -85,25 +85,25 @@ Then add the following to the `serverSideConfig` in `jest.config.ts` file:
 .jest.config.ts
 [source, typescript]
 ----
-setupFiles: ['<rootDir>/test/server/setupFile.ts'],
+setupFiles: ['<rootDir>/src/jest/server/setupFile.ts'],
 ----
 
 The above will mock default values for the global `app` and `log` objects. The values can be augmented in the test files.
 
 To avoid type errors when accessing those objects, you can make a type declaration file referencing `@enonic-types/global`
 
-.test/server/global.d.ts
+.src/jest/server/global.d.ts
 [source, typescript]
 ----
-include::{sourcedir}test/server/global.d.ts[]
+include::{sourcedir}src/jest/server/global.d.ts[]
 ----
 
 Then you can import and use those types in the test file:
 
-.src/main/resources/lib/tutorial-jest/getAppConfig.test.ts
+.src/jest/server/getAppConfig.test.ts
 [source, typescript]
 ----
-include::{sourcedir}src/main/resources/lib/tutorial-jest/getAppConfig.test.ts[]
+include::{sourcedir}src/jest/server/getAppConfig.test.ts[]
 ----
 
 == Summary

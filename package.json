@@ -46,6 +46,7 @@
     "build:static": "npx tsup -d build/resources/main/static",
     "check": "concurrently -c auto -g --timings npm:lint npm:check:types",
     "check:types": "concurrently -g -r --timings npm:check:types:*",
+    "check:types:assets": "npx tsc --noEmit -p src/main/resources/assets/tsconfig.json",
     "check:types:server": "npx tsc --noEmit",
     "check:types:static": "npx tsc --noEmit -p src/main/resources/static/tsconfig.json",
     "lint": "eslint --cache src/main/resources/**/*.ts",

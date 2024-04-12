@@ -26,20 +26,20 @@ In order for the test file to not become overly large, it's been split it into s
 
 === Mock Portal Library
 
-.test/server/mockXP.ts
+.src/jest/server/mockXP.ts
 [source, typescript]
 ----
-include::{sourcedir}test/server/mockXP.ts[]
+include::{sourcedir}src/jest/server/mockXP.ts[]
 ----
 
 === Mock Thymeleaf library
 
 Notice the `/lib/thymeleaf` 's `render` mock simply returns the model object, so the actual html rendering is not triggered.
 
-.test/server/mockLibThymeleaf.ts
+.src/jest/server/mockLibThymeleaf.ts
 [source, typescript]
 ----
-include::{sourcedir}test/server/mockLibThymeleaf.ts[]
+include::{sourcedir}src/jest/server/mockLibThymeleaf.ts[]
 ----
 
 NOTE: If anyone is able to find or create a test for thymeleaf rendering, please let us know :)
@@ -52,10 +52,10 @@ In addition, mock-xp's `Log` is used to get nice colorful logging.
 
 In order for `libPortal.getContent()` to work, `request` property is set on the `libPortal` object.
 
-.src/main/resources/controllers/preview.test.ts
+.src/jest/server/preview.test.ts
 [source, typescript]
 ----
-include::{sourcedir}src/main/resources/controllers/preview.test.ts[]
+include::{sourcedir}src/jest/server/preview.test.ts[]
 ----
 
 == Summary

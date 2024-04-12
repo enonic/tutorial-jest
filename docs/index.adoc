@@ -17,3 +17,4 @@ This guide will show you how to:
 * Write a test for server-side code using link:mock-xp[Mock XP]
 * Write a test for link:client-side[client-side] code
 * Set up link:coverage[Coverage] with Github Actions
+* link:colocate[Colocate] tests with the code they test

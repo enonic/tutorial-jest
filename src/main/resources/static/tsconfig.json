@@ -1,28 +1,34 @@
 {
-	"extends": "../../../../tsconfig.json",
-	"exclude": [
-		"../../../../node_modules/typescript/lib/lib.es5.d.ts",
-	],
-	"include": [
-		"./**/*.tsx",
-		"./**/*.ts"
-	],
-	"compilerOptions": {
-		//──────────────────────────────────────────────────────────────────────
-		// Modules
-		//──────────────────────────────────────────────────────────────────────
-		"baseUrl": ".",
-		"moduleResolution": "node",
-		"paths": {},
-		"rootDir": ".",
+  "extends": "../../../../tsconfig.json",
 
-		//──────────────────────────────────────────────────────────────────────
-		// Language and Environment
-		//──────────────────────────────────────────────────────────────────────
-		"lib": [
-			"DOM",
-			"ES2020",
-		],
-		"target": "ES2020" // Modern browsers
-	}
+  // Specifies an array of filenames or patterns to include in the program.
+  // These filenames are resolved relative to the directory containing the
+  // tsconfig.json file.
+  "include": [
+    "./**/*.tsx",
+    "./**/*.ts"
+  ],
+
+  "exclude": [
+    "../../../../node_modules/typescript/lib/lib.es5.d.ts",
+  ],
+
+  "compilerOptions": {
+    //──────────────────────────────────────────────────────────────────────
+    // Modules
+    //──────────────────────────────────────────────────────────────────────
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {},
+    "rootDir": ".",
+
+    //──────────────────────────────────────────────────────────────────────
+    // Language and Environment
+    //──────────────────────────────────────────────────────────────────────
+    "lib": [
+      "DOM",
+      "ES2020",
+    ],
+    "target": "ES2020" // Modern browsers
+  }
 }

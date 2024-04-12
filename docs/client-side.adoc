@@ -24,10 +24,10 @@ include::{sourcedir}src/main/resources/assets/js/HelloWorld.tsx[]
 
 == Test
 
-.src/main/resources/assets/js/HelloWorld.test.tsx
+.src/jest/client/HelloWorld.test.tsx
 [source, typescript]
 ----
-include::{sourcedir}src/main/resources/assets/js/HelloWorld.test.tsx[]
+include::{sourcedir}src/jest/client/HelloWorld.test.tsx[]
 ----
 
 == Summary

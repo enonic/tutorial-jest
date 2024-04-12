@@ -80,3 +80,5 @@ jobs:
 == Summary
 
 With the above setup, you will get a nice test coverage report every time you run `npm test` and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.
+
+The next tutorial will show how to link:colocate[colocate] tests with the source code they test.

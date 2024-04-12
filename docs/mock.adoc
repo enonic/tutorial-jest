@@ -22,7 +22,7 @@ import {
     expect,
     test as it
 } from '@jest/globals';
-import { sanitize } from './sanitize';
+import { sanitize } from '/lib/tutorial-jest/sanitize';
 
 
 describe('sanitize', () => {
@@ -46,10 +46,10 @@ In order to run the test successfully, a "fake" version of the module must be ma
 
 == Test with mock
 
-.src/main/resources/lib/tutorial-jest/sanitize.test.ts
+.src/jest/server/sanitize.test.ts
 [source, typescript]
 ----
-include::{sourcedir}src/main/resources/lib/tutorial-jest/sanitize.test.ts[]
+include::{sourcedir}src/jest/server/sanitize.test.ts[]
 ----
 
 Notice that `sanitize` is no longer "statically" imported at the beginning of the file. This is because the mock must be set up before the import is done.

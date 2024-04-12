@@ -30,18 +30,18 @@ Read more about configuring Jest here: https://jestjs.io/docs/configuration
 
 In an Enonic Typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple `tsconfig.json` files are used.
 
-When running tests the Typescript configuration files might need to look slightly different. This is the case for the `test/client/tsconfig.json` and `test/server/tsconfig.json` files:
+When running tests the Typescript configuration files might need to look slightly different. This is the case for the `src/jest/client/tsconfig.json` and `src/jest/server/tsconfig.json` files:
 
-.test/client/tsconfig.json
+.src/jest/client/tsconfig.json
 [source, json]
 ----
-include::{sourcedir}test/client/tsconfig.json[]
+include::{sourcedir}src/jest/client/tsconfig.json[]
 ----
 
-.test/server/tsconfig.json
+.src/jest/server/tsconfig.json
 [source, json]
 ----
-include::{sourcedir}test/server/tsconfig.json[]
+include::{sourcedir}src/jest/server/tsconfig.json[]
 ----
 
 == Execution
@@ -83,25 +83,6 @@ tasks.register('npmTest', NpmTask) {
 }
 
 test.dependsOn npmTest
-----
-
-=== tsup/server.ts
-
-In order to exclude the test files from being processed by the build system and copied from the source directory (`src/main/resources`) to the build directory (`build/resources/main`), an ignore pattern needs to be added to the `tsup/server.ts` file:
-
-.tsup/server.ts
-[source, Typescript]
-----
-const FILES_SERVER = globSync(
-  `${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,
-  {
-    absolute: false,
-    ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`).concat(
-      globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
-      globSync(`${DIR_SRC}/${AND_BELOW}/*.${TEST_EXT}`), // Avoid compiling test files
-    )
-  }
-).map(s => s.replaceAll('\\', '/')); // Windows compatibility
 ----
 
 == Summary

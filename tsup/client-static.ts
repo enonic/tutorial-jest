@@ -11,7 +11,11 @@ import {
 
 export default function buildStaticConfig(): Options {
 	const GLOB_EXTENSIONS_STATIC = '{tsx,ts,jsx,js}';
-	const FILES_STATIC = globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_STATIC}`);
+
+	const FILES_STATIC = globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_STATIC}`)
+		// Windows compatibility
+		.map(s => s.replaceAll('\\', '/'));
+
 	const prodMode = process.env.NODE_ENV !== 'development';
 
 	const entry = {};

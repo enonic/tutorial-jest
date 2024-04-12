@@ -8,32 +8,15 @@
       "jest", // This only works for test files in this folder
       "node", // console
     ],
-  },
+  }, // compilerOptions
 
   // Specifies an array of filenames or patterns to include in the program.
   // These filenames are resolved relative to the directory containing the
   // tsconfig.json file.
   "include": [
-    // "../../main/resources/**/*.spec.ts",
-    // "../../main/resources/**/*.spec.tsx",
-    // "../../main/resources/**/*.test.ts",
-    // "../../main/resources/**/*.test.tsx",
     "./**/*.spec.ts",
     "./**/*.spec.tsx",
     "./**/*.test.ts",
-    "./**/*.test.tsx"
+    "./**/*.test.tsx",
   ],
-
-  // Specifies an array of filenames or patterns that should be skipped when
-  // resolving include.
-  // Important: exclude only changes which files are included as a result of
-  // the include setting. A file specified by exclude can still become part of
-  // your codebase due to an import statement in your code, a types inclusion,
-  // a /// <reference directive, or being specified in the files list.
-  // It is not a mechanism that prevents a file from being included in the
-  // codebase - it simply changes what the include setting finds.
-  // "exclude": [
-  //     "../../main/resources/assets/**/*.*",
-  //     "../../main/resources/static/**/*.*",
-  // ],
 }

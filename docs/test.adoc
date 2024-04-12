@@ -20,10 +20,10 @@ include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.ts[]
 
 == The test
 
-.src/main/resources/lib/tutorial-jest/fibonacci.test.ts
+.src/jest/server/fibonacci.test.ts
 [source, typescript]
 ----
-include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.test.ts[]
+include::{sourcedir}src/jest/server/fibonacci.test.ts[]
 ----
 
 
@@ -48,7 +48,7 @@ Run a specific test with npm:
 
 [source, shell]
 ----
-npm test src/main/resources/lib/tutorial-jest/fibonacci.test.ts
+npm test src/jest/server/fibonacci.test.ts
 ----
 
 == Summary

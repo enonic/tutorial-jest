@@ -1,0 +1,225 @@
+= Colocation
+
+In this tutorial all tests have been placed under `src/jest`, separated away from the source code. It is possible to place the tests in the same directory as the source code, but it has some drawbacks:
+
+== Jest configuration
+
+In order for jest to find and run the colocated tests, the test files must be included in the `testMatch` configuration. This can be done by adding the colocated test files as include patterns in the jest configuration files:
+
+.jest.config.ts
+[source, Typescript]
+----
+import {
+  // ...
+  DIR_SRC_ASSETS,
+  DIR_SRC_STATIC,
+} from './tsup/constants';
+
+const clientSideConfig: Config.InitialProjectOptions = {
+  // ...
+  testMatch: [
+    // ... other testMatches
+    `<rootDir>/${DIR_SRC_ASSETS}/${AND_BELOW}/${TEST_FILES}`,
+    `<rootDir>/${DIR_SRC_STATIC}/${AND_BELOW}/${TEST_FILES}`,
+  ],
+};
+
+const serverSideConfig: Config.InitialProjectOptions = {
+  // ...
+  testMatch: [
+    // ... other testMatches
+    `<rootDir>/${DIR_SRC}/${AND_BELOW}/${TEST_FILES}`,
+  ],
+  testPathIgnorePatterns: [
+    `<rootDir>/${DIR_SRC_ASSETS}/`,
+    `<rootDir>/${DIR_SRC_STATIC}/`,
+  ],
+};
+
+----
+
+== Build system
+
+In this tutorial tsup is used to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as normal source code. This is not what we want. We want the build system to ignore the tests.
+
+This can be done by adding the test files as ignore patterns in the tsup configuration files.
+
+.tsup/constants.ts
+[source, Typescript]
+----
+export const TEST_EXT = `{spec,test}.{ts,tsx}`;
+----
+
+.tsup/client-asset.ts
+[source, Typescript]
+----
+const FILES_ASSETS = globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_ASSETS}`, {
+  ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${TEST_EXT}`
+})
+  // Windows compatibility
+  .map(s => s.replaceAll('\\', '/'));
+----
+
+.tsup/client-static.ts
+[source, Typescript]
+----
+const FILES_ASSETS = globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_STATIC}`, {
+  ignore: globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${TEST_EXT}`
+})
+  // Windows compatibility
+  .map(s => s.replaceAll('\\', '/'));
+----
+
+.tsup/server.ts
+[source, Typescript]
+----
+const FILES_SERVER = globSync(
+  `${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,
+  {
+    absolute: false,
+    ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`).concat(
+      globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
+      globSync(`${DIR_SRC}/${AND_BELOW}/*.${TEST_EXT}`), // Avoid compiling test files
+    )
+  }
+)
+  // Windows compatibility
+  .map(s => s.replaceAll('\\', '/'));
+----
+
+== Type checking
+
+WARNING: Test files can contain things like jest functions in the global scope that are not available in the source code. This will cause the type checker to fail.
+
+When running type checks these tsconfig.json files are used:
+
+* tsconfig.json
+* src/main/resources/assets/tsconfig.json
+* src/main/resources/static/tsconfig.json
+* src/jest/client/tsconfig.json
+* src/jest/server/tsconfig.json
+
+Each of them bringing their own include and exclude patters.
+
+In the current configuration include patterns with `\*.ts` and `*.tsx` are used.
+
+Obviously those patterns also matches any test files ending with `.ts` or `.tsx`.
+
+Here is how to make sure test files a type checked as `test files`, not as `source files`:
+
+=== Exclude from source code type checking
+
+.tsconfig.json
+[source, json]
+----
+{
+  // ... other settings
+  "exclude": [
+    // ... other excludes
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.spec.tsx",
+    "**/*.test.tsx"
+  ]
+}
+----
+
+.src/main/resources/assets/tsconfig.json
+[source, json]
+----
+{
+  // ... other settings
+  "exclude": [
+    // ... other excludes
+    "./**/*.spec.ts",
+    "./**/*.test.ts",
+    "./**/*.spec.tsx",
+    "./**/*.test.tsx"
+  ]
+}
+----
+
+.src/main/resources/static/tsconfig.json
+[source, json]
+----
+{
+  // ... other settings
+  "exclude": [
+    // ... other excludes
+    "./**/*.spec.ts",
+    "./**/*.test.ts",
+    "./**/*.spec.tsx",
+    "./**/*.test.tsx"
+  ]
+}
+----
+
+=== Include in test code type checking
+
+.src/jest/client/tsconfig.json
+[source, json]
+----
+// ... other settings
+  "include": [
+    // ... other includes
+    "../../main/resources/assets/**/*.spec.ts",
+    "../../main/resources/assets/**/*.spec.tsx",
+    "../../main/resources/assets/**/*.test.ts",
+    "../../main/resources/assets/**/*.test.tsx",
+    "../../main/resources/static/**/*.spec.ts",
+    "../../main/resources/static/**/*.spec.tsx",
+    "../../main/resources/static/**/*.test.ts",
+    "../../main/resources/static/**/*.test.tsx",
+  ]
+----
+
+.src/jest/server/tsconfig.json
+[source, json]
+----
+// ... other settings
+  "include": [
+    // ... other includes
+    "../../main/resources/**/*.spec.ts",
+    "../../main/resources/**/*.spec.tsx",
+    "../../main/resources/**/*.test.ts",
+    "../../main/resources/**/*.test.tsx",
+  ],
+  "exclude": [
+    // ... other excludes
+    "../../main/resources/assets/**/*.*",
+    "../../main/resources/static/**/*.*",
+  ]
+----
+
+== IDE
+
+Typically IDE's use the closest tsconfig.json to resolve import paths and global types.
+
+Which means that a test file colocated with source code is treated as source code by the IDE.
+
+I can think of a couple solutions to this:
+
+=== Adding support for test syntax to all source files.
+
+This is a bad option, because it may cause runtime problems if a developer adds test syntax in a source file, and get no warnings while coding, type checking or building.
+
+=== In test files: Use relative imports and avoid globals.
+
+This can be achived by importing jest globals directly from `@jest/globals`.
+
+./src/main/resources/**/any.test.ts
+[source, Typescript]
+----
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  jest,
+  test as it,
+  // ...
+} from '@jest/globals';
+----
+

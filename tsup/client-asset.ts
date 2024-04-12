@@ -7,8 +7,12 @@ import {
 
 export default function buildAssetConfig(): Options {
 	const GLOB_EXTENSIONS_ASSETS = '{tsx,ts,jsx,js}';
-	const FILES_ASSETS = globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_ASSETS}`).map(s => s.replaceAll('\\', '/'));
-	const prodMode = process.env.NODE_ENV !== 'development';
+
+	const FILES_ASSETS = globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_ASSETS}`)
+		// Windows compatibility
+		.map(s => s.replaceAll('\\', '/'));
+
+		const prodMode = process.env.NODE_ENV !== 'development';
 
 	return {
 		bundle: true, // Needed to bundle @enonic/js-utils and dayjs
