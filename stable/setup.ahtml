@@ -452,7 +452,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#package_json">package.json</a></li>
 <li><a href="#build_gradle">build.gradle</a></li>
-<li><a href="#tsupserver_ts">tsup/server.ts</a></li>
 </ul>
 </li>
 <li><a href="#summary">Summary</a></li>
@@ -491,101 +490,144 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 import {
-    AND_BELOW,
-    DIR_SRC,
-    DIR_SRC_ASSETS,
-    TEST_EXT
+  AND_BELOW,
+  DIR_SRC,
 } from './tsup/constants';
 
 
+const DIR_SRC_JEST = 'src/jest';
+const DIR_SRC_JEST_CLIENT = `${DIR_SRC_JEST}/client`;
+const DIR_SRC_JEST_SERVER = `${DIR_SRC_JEST}/server`;
 const SOURCE_FILES = `*.{ts,tsx}`;
+const TEST_EXT = `{spec,test}.{ts,tsx}`;
 const TEST_FILES = `*.${TEST_EXT}`;
-const TEST_MATCH_ASSETS = `&lt;rootDir&gt;/${DIR_SRC_ASSETS}/${AND_BELOW}/${TEST_FILES}`;
 
 
 const commonConfig: Config.InitialProjectOptions = {
-    collectCoverageFrom: [
-        `${DIR_SRC}/${AND_BELOW}/${SOURCE_FILES}`,
-    ],
-    injectGlobals: false,
+  collectCoverageFrom: [
+    `${DIR_SRC}/${AND_BELOW}/${SOURCE_FILES}`,
+  ],
+
+  // Insert Jest's globals (expect, test, describe, beforeEach etc.) into the
+  // global environment. If you set this to false, you should import from @jest/globals, e.g.
+  // injectGlobals: true, // Doesn't seem to work?
 };
 
 const clientSideConfig: Config.InitialProjectOptions = {
-    ...commonConfig,
-    displayName: {
-        color: 'white',
-        name: 'CLIENT',
-    },
-    testEnvironment: 'jsdom', // Run clientside tests with DOM globals such as document and window
-    testMatch: [
-        TEST_MATCH_ASSETS, // Every test file in the assets folder
-        `&lt;rootDir&gt;/test/client/${AND_BELOW}/${TEST_FILES}`
-    ],
-    transform: {
-        "^.+\\.(ts|js)x?$": [
-            'ts-jest',
-            {
-                tsconfig: 'test/client/tsconfig.json'
-            }
-        ]
-    }
+  ...commonConfig,
+  displayName: {
+    color: 'white',
+    name: 'CLIENT',
+  },
+
+  // A map from regular expressions to module names or to arrays of module
+  // names that allow to stub out resources, like images or styles with a
+  // single module.
+  // Use &lt;rootDir&gt; string token to refer to rootDir value if you want to use
+  // file paths.
+  // Additionally, you can substitute captured regex groups using numbered
+  // backreferences.
+  moduleNameMapper: {
+    '/assets/(.*)': `&lt;rootDir&gt;/${DIR_SRC}/assets/$1`,
+  },
+
+  // Run clientside tests with DOM globals such as document and window
+  testEnvironment: 'jsdom',
+
+  // The glob patterns Jest uses to detect test files. By default it looks for
+  // .js, .jsx, .ts and .tsx files inside of __tests__ folders, as well as any
+  // files with a suffix of .test or .spec (e.g. Component.test.js or
+  // Component.spec.js). It will also find files called test.js or spec.js.
+  // (default: [
+  //   "**/__tests__/**/*.[jt]s?(x)",
+  //   "**/?(*.)+(spec|test).[jt]s?(x)"
+  // ])
+  testMatch: [
+    `&lt;rootDir&gt;/${DIR_SRC_JEST_CLIENT}/${AND_BELOW}/${TEST_FILES}`,
+  ],
+  transform: {
+    "^.+\\.(ts|js)x?$": [
+      'ts-jest',
+      {
+        tsconfig: `${DIR_SRC_JEST_CLIENT}/tsconfig.json`
+      }
+    ]
+  }
 };
 
 const serverSideConfig: Config.InitialProjectOptions = {
-    ...commonConfig,
-    displayName: {
-        color: 'blue',
-        name: 'SERVER',
-    },
+  ...commonConfig,
+  displayName: {
+    color: 'blue',
+    name: 'SERVER',
+  },
 
-    // A set of global variables that need to be available in all test
-    // environments.
-    // If you specify a global reference value (like an object or array) here,
-    // and some code mutates that value in the midst of running a test, that
-    // mutation will not be persisted across test runs for other test files.
-    // In addition, the globals object must be json-serializable, so it can't be
-    // used to specify global functions. For that, you should use setupFiles.
-    globals: {
-        app: {
-            name: 'com.example.tutorial.jest',
-            config: {
-                default: 'true',
-            },
-            version: '1.0.0'
-        },
+  // A set of global variables that need to be available in all test
+  // environments.
+  // If you specify a global reference value (like an object or array) here,
+  // and some code mutates that value in the midst of running a test, that
+  // mutation will not be persisted across test runs for other test files.
+  // In addition, the globals object must be json-serializable, so it can't be
+  // used to specify global functions. For that, you should use setupFiles.
+  globals: {
+    app: {
+      name: 'com.example.tutorial.jest',
+      config: {
+        default: 'true',
+      },
+      version: '1.0.0'
     },
+  },
 
-    // A list of paths to modules that run some code to configure or set up the
-    // testing environment. Each setupFile will be run once per test file. Since
-    // every test runs in its own environment, these scripts will be executed in
-    // the testing environment before executing setupFilesAfterEnv and before
-    // the test code itself.
-    setupFiles: [
-        '&lt;rootDir&gt;/test/server/setupFile.ts'
-    ],
+  // A map from regular expressions to module names or to arrays of module
+  // names that allow to stub out resources, like images or styles with a
+  // single module.
+  // Use &lt;rootDir&gt; string token to refer to rootDir value if you want to use
+  // file paths.
+  // Additionally, you can substitute captured regex groups using numbered
+  // backreferences.
+  moduleNameMapper: {
+    '/controllers/(.*)': `&lt;rootDir&gt;/${DIR_SRC}/controllers/$1`,
+    '/lib/tutorial-jest/(.*)': `&lt;rootDir&gt;/${DIR_SRC}/lib/tutorial-jest/$1`,
+  },
 
-    testEnvironment: 'node', // Run serverside tests without DOM globals such as document and window
-    testMatch: [
-        `&lt;rootDir&gt;/${DIR_SRC}/${AND_BELOW}/${TEST_FILES}`, // Every test file in src/main/resources
-        `&lt;rootDir&gt;/test/server/${AND_BELOW}/${TEST_FILES}`
-    ],
-    testPathIgnorePatterns: [
-        "/node_modules/", // The default
-        `&lt;rootDir&gt;/${DIR_SRC_ASSETS}/`,
-    ],
-    transform: {
-        "^.+\\.(ts|js)x?$": [
-            'ts-jest',
-            {
-                tsconfig: 'test/server/tsconfig.json'
-            }
-        ]
-    },
+  // A list of paths to modules that run some code to configure or set up the
+  // testing environment. Each setupFile will be run once per test file. Since
+  // every test runs in its own environment, these scripts will be executed in
+  // the testing environment before executing setupFilesAfterEnv and before
+  // the test code itself.
+  setupFiles: [
+    `&lt;rootDir&gt;/${DIR_SRC_JEST_SERVER}/setupFile.ts`
+  ],
+
+  // Run serverside tests without DOM globals such as document and window
+  testEnvironment: 'node',
+
+  // The glob patterns Jest uses to detect test files. By default it looks for
+  // .js, .jsx, .ts and .tsx files inside of __tests__ folders, as well as any
+  // files with a suffix of .test or .spec (e.g. Component.test.js or
+  // Component.spec.js). It will also find files called test.js or spec.js.
+  // (default: [
+  //   "**/__tests__/**/*.[jt]s?(x)",
+  //   "**/?(*.)+(spec|test).[jt]s?(x)"
+  // ])
+  testMatch: [
+    `&lt;rootDir&gt;/${DIR_SRC_JEST_SERVER}/${AND_BELOW}/${TEST_FILES}`,
+  ],
+
+  transform: {
+    "^.+\\.(ts|js)x?$": [
+      'ts-jest',
+      {
+          tsconfig: `${DIR_SRC_JEST_SERVER}/tsconfig.json`
+      }
+    ]
+  },
 };
 
 const customJestConfig: Config.InitialOptions = {
-    coverageProvider: 'v8', // To get correct line numbers under jsdom
-    projects: [clientSideConfig, serverSideConfig],
+  coverageProvider: 'v8', // To get correct line numbers under jsdom
+  projects: [clientSideConfig, serverSideConfig],
 };
 
 export default customJestConfig;</code></pre>
@@ -601,63 +643,84 @@ export default customJestConfig;</code></pre>
 <p>In an Enonic Typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple <code>tsconfig.json</code> files are used.</p>
 </div>
 <div class="paragraph">
-<p>When running tests the Typescript configuration files might need to look slightly different. This is the case for the <code>test/client/tsconfig.json</code> and <code>test/server/tsconfig.json</code> files:</p>
+<p>When running tests the Typescript configuration files might need to look slightly different. This is the case for the <code>src/jest/client/tsconfig.json</code> and <code>src/jest/server/tsconfig.json</code> files:</p>
 </div>
 <div class="listingblock">
-<div class="title">test/client/tsconfig.json</div>
+<div class="title">src/jest/client/tsconfig.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
-    "extends": "../../src/main/resources/assets/tsconfig.json",
-    "compilerOptions": {
-        "sourceMap": true, // Important to get correct line numbers when running coverage tests
-        "types": [
-            "jest", // This only works for test files in this folder
-        ],
+  "extends": "../../main/resources/assets/tsconfig.json",
+
+  "compilerOptions": {
+    "baseUrl": ".",
+
+    // A series of entries which re-map imports to lookup locations relative
+    // to the baseUrl if set, or to the tsconfig file itself otherwise.
+    "paths": {
+      "/assets/*": ["../../main/resources/assets/*"],
     },
+
+    "sourceMap": true, // Important to get correct line numbers when running coverage tests
+
+    // By default all visible ”@types” packages are included in your compilation.
+    // Packages in node_modules/@types of any enclosing folder are considered visible.
+    // For example, that means packages within ./node_modules/@types/,
+    // ../node_modules/@types/, ../../node_modules/@types/, and so on.
+    // If typeRoots is specified, only packages under typeRoots will be included.
+    // All paths are relative to the tsconfig.json
+    // "typeRoots": [
+    //   "../../../node_modules/@types",
+    // ],
+
+    // By default all visible ”@types” packages are included in your
+    // compilation. Packages in node_modules/@types of any enclosing folder
+    // are considered visible. For example, that means packages within
+    // ./node_modules/@types/, ../node_modules/@types/,
+    // ../../node_modules/@types/, and so on.
+    // If types is specified, only packages listed will be included in the
+    // global scope.
+    // This feature differs from typeRoots in that it is about specifying
+    // only the exact types you want included, whereas typeRoots supports
+    // saying you want particular folders.
+    "types": [
+      // "jest", // Doesn't even work for test files in this folder?
+    ],
+
+  }, // compilerOptions
+
+  "include": [
+    "./**/*.spec.ts",
+    "./**/*.spec.tsx",
+    "./**/*.test.ts",
+    "./**/*.test.tsx",
+  ],
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">test/server/tsconfig.json</div>
+<div class="title">src/jest/server/tsconfig.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
-    "extends": "../../tsconfig.json",
+  "extends": "../../../tsconfig.json",
 
-    "compilerOptions": {
-        "sourceMap": true, // Important to get correct line numbers when running coverage tests
-        "types": [
-            "global", // Already added via typeRoots? nope, doesn't work that way
-            "jest", // This only works for test files in this folder
-            "node", // console
-        ],
-    },
-
-    // Specifies an array of filenames or patterns to include in the program.
-	// These filenames are resolved relative to the directory containing the
-	// tsconfig.json file.
-	"include": [
-        "../../src/main/resources/**/*.spec.ts",
-        "../../src/main/resources/**/*.spec.tsx",
-        "../../src/main/resources/**/*.test.ts",
-        "../../src/main/resources/**/*.test.tsx",
-        "../../test/server/**/*.spec.ts",
-        "../../test/server/**/*.spec.tsx",
-        "../../test/server/**/*.test.ts",
-        "../../test/server/**/*.test.tsx"
+  "compilerOptions": {
+    "sourceMap": true, // Important to get correct line numbers when running coverage tests
+    "types": [
+      "global", // Already added via typeRoots? nope, doesn't work that way
+      "jest", // This only works for test files in this folder
+      "node", // console
     ],
+  }, // compilerOptions
 
-    // Specifies an array of filenames or patterns that should be skipped when
-    // resolving include.
-    // Important: exclude only changes which files are included as a result of
-    // the include setting. A file specified by exclude can still become part of
-    // your codebase due to an import statement in your code, a types inclusion,
-    // a /// &lt;reference directive, or being specified in the files list.
-    // It is not a mechanism that prevents a file from being included in the
-    // codebase - it simply changes what the include setting finds.
-    "exclude": [
-        "../../src/main/resources/assets/**/*.*",
-        "../../src/main/resources/static/**/*.*",
-    ],
+  // Specifies an array of filenames or patterns to include in the program.
+  // These filenames are resolved relative to the directory containing the
+  // tsconfig.json file.
+  "include": [
+    "./**/*.spec.ts",
+    "./**/*.spec.tsx",
+    "./**/*.test.ts",
+    "./**/*.test.tsx",
+  ],
 }</code></pre>
 </div>
 </div>
@@ -711,27 +774,6 @@ test.dependsOn npmTest</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="tsupserver_ts"><a class="link" href="#tsupserver_ts">tsup/server.ts</a></h3>
-<div class="paragraph">
-<p>In order to exclude the test files from being processed by the build system and copied from the source directory (<code>src/main/resources</code>) to the build directory (<code>build/resources/main</code>), an ignore pattern needs to be added to the <code>tsup/server.ts</code> file:</p>
-</div>
-<div class="listingblock">
-<div class="title">tsup/server.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">const FILES_SERVER = globSync(
-  `${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,
-  {
-    absolute: false,
-    ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`).concat(
-      globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
-      globSync(`${DIR_SRC}/${AND_BELOW}/*.${TEST_EXT}`), // Avoid compiling test files
-    )
-  }
-).map(s =&gt; s.replaceAll('\\', '/')); // Windows compatibility</code></pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -749,7 +791,7 @@ The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-11 07:59:34 UTC
+Last updated 2024-04-12 10:28:09 UTC
 </div>
 </div>
 </body>

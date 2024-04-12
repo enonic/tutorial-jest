@@ -482,12 +482,15 @@ Read more about Jest features <a href="https://jestjs.io/" target="_blank" rel="
 <li>
 <p>Set up <a href="coverage">Coverage</a> with Github Actions</p>
 </li>
+<li>
+<p><a href="colocate">Colocate</a> tests with the code they test</p>
+</li>
 </ul>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-11 07:59:34 UTC
+Last updated 2024-04-12 10:28:09 UTC
 </div>
 </div>
 </body>

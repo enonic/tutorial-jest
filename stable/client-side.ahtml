@@ -482,7 +482,7 @@ export const HelloWorld = () =&gt; {
 <h2 id="test"><a class="link" href="#test">Test</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
-<div class="title">src/main/resources/assets/js/HelloWorld.test.tsx</div>
+<div class="title">src/jest/client/HelloWorld.test.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">import {
     describe,
@@ -491,7 +491,7 @@ export const HelloWorld = () =&gt; {
 } from '@jest/globals';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {HelloWorld} from './HelloWorld';
+import {HelloWorld} from '/assets/js/HelloWorld';
 
 
 describe('HelloWorld', () =&gt; {
@@ -521,7 +521,7 @@ describe('HelloWorld', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-11 07:59:34 UTC
+Last updated 2024-04-12 10:28:09 UTC
 </div>
 </div>
 </body>

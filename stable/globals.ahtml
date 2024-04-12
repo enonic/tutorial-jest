@@ -575,9 +575,9 @@ describe('getAppConfig', () =&gt; {
 <p>But when it comes to functions like <code>log.info</code>, a setup file can be used. It will run before the execution of each test file:</p>
 </div>
 <div class="listingblock">
-<div class="title">test/server/setupFile.ts</div>
+<div class="title">src/jest/server/setupFile.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {App, Log} from '../../test/server/global';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {App, Log} from './global';
 
 
 // Avoid type errors
@@ -604,7 +604,7 @@ globalThis.log = {
 <div class="listingblock">
 <div class="title">jest.config.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">setupFiles: ['&lt;rootDir&gt;/test/server/setupFile.ts'],</code></pre>
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">setupFiles: ['&lt;rootDir&gt;/src/jest/server/setupFile.ts'],</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -614,7 +614,7 @@ globalThis.log = {
 <p>To avoid type errors when accessing those objects, you can make a type declaration file referencing <code>@enonic-types/global</code></p>
 </div>
 <div class="listingblock">
-<div class="title">test/server/global.d.ts</div>
+<div class="title">src/jest/server/global.d.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">/// &lt;reference types="@enonic-types/global" /&gt;
 
@@ -629,9 +629,9 @@ export declare type Resolve = typeof resolve;</code></pre>
 <p>Then you can import and use those types in the test file:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/lib/tutorial-jest/getAppConfig.test.ts</div>
+<div class="title">src/jest/server/getAppConfig.test.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {App, Log} from '../../../../../test/server/global';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {App, Log} from './global';
 
 import {
     beforeAll,
@@ -658,7 +658,7 @@ describe('getAppConfig', () =&gt; {
         globalThis.log.debug = () =&gt; {};
     });
     it('should return the application config', () =&gt; {
-        import('./getAppConfig').then(({getAppConfig}) =&gt; {
+        import('/lib/tutorial-jest/getAppConfig').then(({getAppConfig}) =&gt; {
             expect(getAppConfig()).toEqual({
                 default: 'true',
                 key: 'value'
@@ -684,7 +684,7 @@ describe('getAppConfig', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-11 07:59:34 UTC
+Last updated 2024-04-12 10:28:09 UTC
 </div>
 </div>
 </body>

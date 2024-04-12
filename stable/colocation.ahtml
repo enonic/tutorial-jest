@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Codecov</title>
+<title>Colocation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,14 +437,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Codecov</h1>
+<h1>Colocation</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#command_line">Command line</a></li>
-<li><a href="#package_json">package.json</a></li>
-<li><a href="#github_action">GitHub action</a></li>
-<li><a href="#summary">Summary</a></li>
+<li><a href="#jest_configuration">Jest configuration</a></li>
+<li><a href="#build_system">Build system</a></li>
+<li><a href="#type_checking">Type checking</a>
+<ul class="sectlevel2">
+<li><a href="#exclude_from_source_code_type_checking">Exclude from source code type checking</a></li>
+<li><a href="#include_in_test_code_type_checking">Include in test code type checking</a></li>
+</ul>
+</li>
+<li><a href="#ide">IDE</a>
+<ul class="sectlevel2">
+<li><a href="#adding_support_for_test_syntax_to_all_source_files">Adding support for test syntax to all source files.</a></li>
+<li><a href="#in_test_files_use_relative_imports_and_avoid_globals">In test files: Use relative imports and avoid globals.</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -452,113 +462,279 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://about.codecov.io/" target="_blank" rel="nofollow noopener">Codecov</a> is a nice reporting tool that can be used to visualize your test coverage over time and across multiple projects. It integrates nicely with GitHub and other CI/CD tools.</p>
+<p>In this tutorial all tests have been placed under <code>src/jest</code>, separated away from the source code. It is possible to place the tests in the same directory as the source code, but it has some drawbacks:</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command_line"><a class="link" href="#command_line">Command line</a></h2>
+<h2 id="jest_configuration"><a class="link" href="#jest_configuration">Jest configuration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get a nice test coverage report when running tests, simply add the <code>--coverage</code> option:</p>
+<p>In order for jest to find and run the colocated tests, the test files must be included in the <code>testMatch</code> configuration. This can be done by adding the colocated test files as include patterns in the jest configuration files:</p>
 </div>
 <div class="listingblock">
+<div class="title">jest.config.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npx jest --coverage</code></pre>
+<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">import {
+  // ...
+  DIR_SRC_ASSETS,
+  DIR_SRC_STATIC,
+} from './tsup/constants';
+
+const clientSideConfig: Config.InitialProjectOptions = {
+  // ...
+  testMatch: [
+    // ... other testMatches
+    `&lt;rootDir&gt;/${DIR_SRC_ASSETS}/${AND_BELOW}/${TEST_FILES}`,
+    `&lt;rootDir&gt;/${DIR_SRC_STATIC}/${AND_BELOW}/${TEST_FILES}`,
+  ],
+};
+
+const serverSideConfig: Config.InitialProjectOptions = {
+  // ...
+  testMatch: [
+    // ... other testMatches
+    `&lt;rootDir&gt;/${DIR_SRC}/${AND_BELOW}/${TEST_FILES}`,
+  ],
+  testPathIgnorePatterns: [
+    `&lt;rootDir&gt;/${DIR_SRC_ASSETS}/`,
+    `&lt;rootDir&gt;/${DIR_SRC_STATIC}/`,
+  ],
+};</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="package_json"><a class="link" href="#package_json">package.json</a></h2>
+<h2 id="build_system"><a class="link" href="#build_system">Build system</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get test coverage report every time you run</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm test</code></pre>
-</div>
+<p>In this tutorial tsup is used to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as normal source code. This is not what we want. We want the build system to ignore the tests.</p>
 </div>
 <div class="paragraph">
-<p>just add the <code>--coverage</code> option in the <code>package.json</code> 's <code>scripts</code> section like this:</p>
+<p>This can be done by adding the test files as ignore patterns in the tsup configuration files.</p>
 </div>
 <div class="listingblock">
-<div class="title">package.json</div>
+<div class="title">tsup/constants.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "scripts": {
-    "test": "jest --no-cache --coverage"
+<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">export const TEST_EXT = `{spec,test}.{ts,tsx}`;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">tsup/client-asset.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">const FILES_ASSETS = globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_ASSETS}`, {
+  ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${TEST_EXT}`
+})
+  // Windows compatibility
+  .map(s =&gt; s.replaceAll('\\', '/'));</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">tsup/client-static.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">const FILES_ASSETS = globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_STATIC}`, {
+  ignore: globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${TEST_EXT}`
+})
+  // Windows compatibility
+  .map(s =&gt; s.replaceAll('\\', '/'));</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">tsup/server.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">const FILES_SERVER = globSync(
+  `${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,
+  {
+    absolute: false,
+    ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`).concat(
+      globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
+      globSync(`${DIR_SRC}/${AND_BELOW}/*.${TEST_EXT}`), // Avoid compiling test files
+    )
   }
-}</code></pre>
+)
+  // Windows compatibility
+  .map(s =&gt; s.replaceAll('\\', '/'));</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>This also enables the <code>npm test</code> in the <a href="#github_action">Github action</a> below to produce a coverage report for <a href="#codecov">Codecov</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="github_action"><a class="link" href="#github_action">GitHub action</a></h2>
+<h2 id="type_checking"><a class="link" href="#type_checking">Type checking</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Here is an example of how to set up a GitHub action to automatically send your test coverage to Codecov:</p>
-</div>
-<div class="admonitionblock caution">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Make sure the <code>npm test</code> command produces a coverage report. This is done by adding the <code>--coverage</code> option to the <code>jest</code> command as described <a href="#package_json">above</a>
+Test files can contain things like jest functions in the global scope that are not available in the source code. This will cause the type checker to fail.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>When running type checks these tsconfig.json files are used:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>tsconfig.json</p>
+</li>
+<li>
+<p>src/main/resources/assets/tsconfig.json</p>
+</li>
+<li>
+<p>src/main/resources/static/tsconfig.json</p>
+</li>
+<li>
+<p>src/jest/client/tsconfig.json</p>
+</li>
+<li>
+<p>src/jest/server/tsconfig.json</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of them bringing their own include and exclude patters.</p>
+</div>
+<div class="paragraph">
+<p>In the current configuration include patterns with <code>*.ts</code> and <code>*.tsx</code> are used.</p>
+</div>
+<div class="paragraph">
+<p>Obviously those patterns also matches any test files ending with <code>.ts</code> or <code>.tsx</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here is how to make sure test files a type checked as <code>test files</code>, not as <code>source files</code>:</p>
+</div>
+<div class="sect2">
+<h3 id="exclude_from_source_code_type_checking"><a class="link" href="#exclude_from_source_code_type_checking">Exclude from source code type checking</a></h3>
 <div class="listingblock">
-<div class="title">.github/workflows/coverage.yml</div>
+<div class="title">tsconfig.json</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">name: Coverage
-
-on: [ push ]
-
-jobs:
-
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Test
-        run: npm test
-
-      - uses: codecov/codecov-action@v4</code></pre>
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  // ... other settings
+  "exclude": [
+    // ... other excludes
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.spec.tsx",
+    "**/*.test.tsx"
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/assets/tsconfig.json</div>
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  // ... other settings
+  "exclude": [
+    // ... other excludes
+    "./**/*.spec.ts",
+    "./**/*.test.ts",
+    "./**/*.spec.tsx",
+    "./**/*.test.tsx"
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/static/tsconfig.json</div>
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  // ... other settings
+  "exclude": [
+    // ... other excludes
+    "./**/*.spec.ts",
+    "./**/*.test.ts",
+    "./**/*.spec.tsx",
+    "./**/*.test.tsx"
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="include_in_test_code_type_checking"><a class="link" href="#include_in_test_code_type_checking">Include in test code type checking</a></h3>
+<div class="listingblock">
+<div class="title">src/jest/client/tsconfig.json</div>
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">// ... other settings
+  "include": [
+    // ... other includes
+    "../../main/resources/assets/**/*.spec.ts",
+    "../../main/resources/assets/**/*.spec.tsx",
+    "../../main/resources/assets/**/*.test.ts",
+    "../../main/resources/assets/**/*.test.tsx",
+    "../../main/resources/static/**/*.spec.ts",
+    "../../main/resources/static/**/*.spec.tsx",
+    "../../main/resources/static/**/*.test.ts",
+    "../../main/resources/static/**/*.test.tsx",
+  ]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">src/jest/server/tsconfig.json</div>
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">// ... other settings
+  "include": [
+    // ... other includes
+    "../../main/resources/**/*.spec.ts",
+    "../../main/resources/**/*.spec.tsx",
+    "../../main/resources/**/*.test.ts",
+    "../../main/resources/**/*.test.tsx",
+  ],
+  "exclude": [
+    // ... other excludes
+    "../../main/resources/assets/**/*.*",
+    "../../main/resources/static/**/*.*",
+  ]</code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<h2 id="ide"><a class="link" href="#ide">IDE</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the above setup, you will get a nice test coverage report every time you run <code>npm test</code> and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.</p>
+<p>Typically IDE&#8217;s use the closest tsconfig.json to resolve import paths and global types.</p>
 </div>
 <div class="paragraph">
-<p>The next tutorial will show how to <a href="colocate">colocate</a> tests with the source code they test.</p>
+<p>Which means that a test file colocated with source code is treated as source code by the IDE.</p>
+</div>
+<div class="paragraph">
+<p>I can think of a couple solutions to this:</p>
+</div>
+<div class="sect2">
+<h3 id="adding_support_for_test_syntax_to_all_source_files"><a class="link" href="#adding_support_for_test_syntax_to_all_source_files">Adding support for test syntax to all source files.</a></h3>
+<div class="paragraph">
+<p>This is a bad option, because it may cause runtime problems if a developer adds test syntax in a source file, and get no warnings while coding, type checking or building.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="in_test_files_use_relative_imports_and_avoid_globals"><a class="link" href="#in_test_files_use_relative_imports_and_avoid_globals">In test files: Use relative imports and avoid globals.</a></h3>
+<div class="paragraph">
+<p>This can be achived by importing jest globals directly from <code>@jest/globals</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/src/main/resources/**/any.test.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  jest,
+  test as it,
+  // ...
+} from '@jest/globals';</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>

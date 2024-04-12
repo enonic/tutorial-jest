@@ -476,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     expect,
     test as it
 } from '@jest/globals';
-import { sanitize } from './sanitize';
+import { sanitize } from '/lib/tutorial-jest/sanitize';
 
 
 describe('sanitize', () =&gt; {
@@ -507,7 +507,7 @@ describe('sanitize', () =&gt; {
 <h2 id="test_with_mock"><a class="link" href="#test_with_mock">Test with mock</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
-<div class="title">src/main/resources/lib/tutorial-jest/sanitize.test.ts</div>
+<div class="title">src/jest/server/sanitize.test.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">import type { sanitize as sanitizeType } from '@enonic-types/lib-common';
 
@@ -535,7 +535,7 @@ jest.mock('/lib/xp/common', () =&gt; ({
 
 describe('sanitize', () =&gt; {
     it('should return the first 10 numbers in the fibonacci sequence', () =&gt; {
-        import('./sanitize').then(({sanitize}) =&gt; {
+        import('/lib/tutorial-jest/sanitize').then(({sanitize}) =&gt; {
             expect(sanitize("Piña CØLADÆ &lt;script&gt;alert('hi!');&lt;/script&gt;"))
                 .toEqual('pina-coladae-script-alerthi-script');
         });
@@ -566,7 +566,7 @@ That&#8217;s why a dynamic import in each test is used instead.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-11 07:59:34 UTC
+Last updated 2024-04-12 10:28:09 UTC
 </div>
 </div>
 </body>

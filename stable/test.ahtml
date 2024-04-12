@@ -487,14 +487,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="the_test"><a class="link" href="#the_test">The test</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
-<div class="title">src/main/resources/lib/tutorial-jest/fibonacci.test.ts</div>
+<div class="title">src/jest/server/fibonacci.test.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">import {
     describe,
     expect,
     test as it
 } from '@jest/globals';
-import { fibonacci } from './fibonacci';
+import { fibonacci } from '/lib/tutorial-jest/fibonacci';
 
 
 describe('fibonacci', () =&gt; {
@@ -530,7 +530,7 @@ describe('fibonacci', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm test src/main/resources/lib/tutorial-jest/fibonacci.test.ts</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm test src/jest/server/fibonacci.test.ts</code></pre>
 </div>
 </div>
 </div>
@@ -549,7 +549,7 @@ describe('fibonacci', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-11 07:59:34 UTC
+Last updated 2024-04-12 10:28:09 UTC
 </div>
 </div>
 </body>
