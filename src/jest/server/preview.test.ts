@@ -1,5 +1,5 @@
 import type {ByteSource} from '@enonic-types/core';
-import type {Log, Resolve} from '../../../../test/server/global';
+import type {Log, Resolve} from './global';
 
 
 import {
@@ -12,8 +12,8 @@ import {
     libContent,
     libPortal,
     server,
-} from '../../../../test/server/mockXP';
-import '../../../../test/server/mockLibThymeleaf';
+} from './mockXP';
+import './mockLibThymeleaf';
 import {readFileSync} from 'fs';
 import {
     join,
@@ -53,7 +53,7 @@ const personFolder = libContent.create({
 });
 
 const leaSeydouxJpg = libContent.createMedia({
-    data: readFileSync(join(__dirname, '../../../../test', 'Lea-Seydoux.jpg')) as unknown as ByteSource,
+    data: readFileSync(join(__dirname, '..', 'Lea-Seydoux.jpg')) as unknown as ByteSource,
     name: 'Lea-Seydoux.jpg',
     parentPath: personFolder._path,
     mimeType: 'image/jpeg',
@@ -74,7 +74,7 @@ libContent.create({
 });
 
 const jeffreyWrightHpJpg = libContent.createMedia({
-    data: readFileSync(join(__dirname, '../../../../test', 'Jeffrey-Wright-hp.jpg')) as unknown as ByteSource,
+    data: readFileSync(join(__dirname, '..', 'Jeffrey-Wright-hp.jpg')) as unknown as ByteSource,
     name: 'Jeffrey-Wright-hp.jpg',
     parentPath: personFolder._path,
     mimeType: 'image/jpeg',
@@ -105,7 +105,7 @@ describe('preview', () => {
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
         });
-        import('./preview').then(({get}) => {
+        import('/controllers/preview').then(({get}) => {
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: {
@@ -122,7 +122,7 @@ describe('preview', () => {
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
         });
-        import('./preview').then(({get}) => {
+        import('/controllers/preview').then(({get}) => {
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: {

@@ -4,15 +4,15 @@ import type { Config } from '@jest/types';
 import {
     AND_BELOW,
     DIR_SRC,
-    DIR_SRC_ASSETS,
-    TEST_EXT
 } from './tsup/constants';
 
 
+const DIR_SRC_JEST = 'src/jest';
+const DIR_SRC_JEST_CLIENT = `${DIR_SRC_JEST}/client`;
+const DIR_SRC_JEST_SERVER = `${DIR_SRC_JEST}/server`;
 const SOURCE_FILES = `*.{ts,tsx}`;
+const TEST_EXT = `{spec,test}.{ts,tsx}`;
 const TEST_FILES = `*.${TEST_EXT}`;
-const TEST_MATCH_ASSETS = `<rootDir>/${DIR_SRC_ASSETS}/${AND_BELOW}/${TEST_FILES}`;
-
 
 const commonConfig: Config.InitialProjectOptions = {
     collectCoverageFrom: [
@@ -27,16 +27,27 @@ const clientSideConfig: Config.InitialProjectOptions = {
         color: 'white',
         name: 'CLIENT',
     },
+
+    // A map from regular expressions to module names or to arrays of module
+    // names that allow to stub out resources, like images or styles with a
+    // single module.
+    // Use <rootDir> string token to refer to rootDir value if you want to use
+    // file paths.
+    // Additionally, you can substitute captured regex groups using numbered
+    // backreferences.
+    moduleNameMapper: {
+        '/assets/(.*)': `<rootDir>/${DIR_SRC}/assets/$1`,
+    },
+
     testEnvironment: 'jsdom', // Run clientside tests with DOM globals such as document and window
     testMatch: [
-        TEST_MATCH_ASSETS, // Every test file in the assets folder
-        `<rootDir>/test/client/${AND_BELOW}/${TEST_FILES}`
+        `<rootDir>/${DIR_SRC_JEST_CLIENT}/${AND_BELOW}/${TEST_FILES}`
     ],
     transform: {
         "^.+\\.(ts|js)x?$": [
             'ts-jest',
             {
-                tsconfig: 'test/client/tsconfig.json'
+                tsconfig: `${DIR_SRC_JEST_CLIENT}/tsconfig.json`
             }
         ]
     }
@@ -66,29 +77,36 @@ const serverSideConfig: Config.InitialProjectOptions = {
         },
     },
 
+    // A map from regular expressions to module names or to arrays of module
+    // names that allow to stub out resources, like images or styles with a
+    // single module.
+    // Use <rootDir> string token to refer to rootDir value if you want to use
+    // file paths.
+    // Additionally, you can substitute captured regex groups using numbered
+    // backreferences.
+    moduleNameMapper: {
+        '/controllers/(.*)': `<rootDir>/${DIR_SRC}/controllers/$1`,
+        '/lib/tutorial-jest/(.*)': `<rootDir>/${DIR_SRC}/lib/tutorial-jest/$1`,
+    },
+
     // A list of paths to modules that run some code to configure or set up the
     // testing environment. Each setupFile will be run once per test file. Since
     // every test runs in its own environment, these scripts will be executed in
     // the testing environment before executing setupFilesAfterEnv and before
     // the test code itself.
     setupFiles: [
-        '<rootDir>/test/server/setupFile.ts'
+        `<rootDir>/${DIR_SRC_JEST_SERVER}/setupFile.ts`
     ],
 
     testEnvironment: 'node', // Run serverside tests without DOM globals such as document and window
     testMatch: [
-        `<rootDir>/${DIR_SRC}/${AND_BELOW}/${TEST_FILES}`, // Every test file in src/main/resources
-        `<rootDir>/test/server/${AND_BELOW}/${TEST_FILES}`
-    ],
-    testPathIgnorePatterns: [
-        "/node_modules/", // The default
-        `<rootDir>/${DIR_SRC_ASSETS}/`,
+        `<rootDir>/${DIR_SRC_JEST_SERVER}/${AND_BELOW}/${TEST_FILES}`
     ],
     transform: {
         "^.+\\.(ts|js)x?$": [
             'ts-jest',
             {
-                tsconfig: 'test/server/tsconfig.json'
+                tsconfig: `${DIR_SRC_JEST_SERVER}/tsconfig.json`
             }
         ]
     },

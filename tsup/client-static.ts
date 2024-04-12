@@ -4,13 +4,14 @@ import { sassPlugin } from 'esbuild-sass-plugin';
 
 import { globSync } from 'glob';
 import {
-	DIR_SRC_STATIC
+	AND_BELOW,
+	DIR_SRC_STATIC,
 } from './constants';
 
 
 export default function buildStaticConfig(): Options {
 	const GLOB_EXTENSIONS_STATIC = '{tsx,ts,jsx,js}';
-	const FILES_STATIC = globSync(`${DIR_SRC_STATIC}/**/*.${GLOB_EXTENSIONS_STATIC}`);
+	const FILES_STATIC = globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_STATIC}`);
 	const prodMode = process.env.NODE_ENV !== 'development';
 
 	const entry = {};

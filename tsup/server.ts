@@ -5,7 +5,6 @@ import {
 	DIR_SRC,
 	DIR_SRC_ASSETS,
 	DIR_SRC_STATIC,
-	TEST_EXT
 } from './constants';
 
 
@@ -17,7 +16,6 @@ export default function buildServerConfig(): Options {
 			absolute: false,
 			ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`).concat(
 				globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
-				globSync(`${DIR_SRC}/${AND_BELOW}/*.${TEST_EXT}`), // Avoid compiling test files
 			)
 		}
 	).map(s => s.replaceAll('\\', '/')); // Windows compatibility

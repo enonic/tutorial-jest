@@ -1,4 +1,4 @@
-import type {App, Log} from '../../test/server/global';
+import type {App, Log} from './global';
 
 
 // Avoid type errors

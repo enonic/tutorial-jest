@@ -7,4 +7,3 @@ export const DIR_SRC_ASSETS = `${DIR_SRC}/assets`;
 export const DIR_SRC_STATIC = `${DIR_SRC}/static`;
 
 export const AND_BELOW = '**';
-export const TEST_EXT = `{spec,test}.{ts,tsx}`;

@@ -3,7 +3,7 @@ import {
     expect,
     test as it
 } from '@jest/globals';
-import { fibonacci } from './fibonacci';
+import { fibonacci } from '/lib/tutorial-jest/fibonacci';
 
 
 describe('fibonacci', () => {

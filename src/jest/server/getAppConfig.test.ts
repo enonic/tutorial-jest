@@ -1,4 +1,4 @@
-import type {App, Log} from '../../../../../test/server/global';
+import type {App, Log} from './global';
 
 import {
     beforeAll,
@@ -25,7 +25,7 @@ describe('getAppConfig', () => {
         globalThis.log.debug = () => {};
     });
     it('should return the application config', () => {
-        import('./getAppConfig').then(({getAppConfig}) => {
+        import('/lib/tutorial-jest/getAppConfig').then(({getAppConfig}) => {
             expect(getAppConfig()).toEqual({
                 default: 'true',
                 key: 'value'
