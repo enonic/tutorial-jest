@@ -1,5 +1,4 @@
 import type {ByteSource} from '@enonic-types/core';
-import type {Log, Resolve} from './global';
 
 
 import {
@@ -15,31 +14,7 @@ import {
 } from './mockXP';
 import './mockLibThymeleaf';
 import {readFileSync} from 'fs';
-import {
-    join,
-    resolve as pathResolve
-} from 'path';
-
-
-//──────────────────────────────────────────────────────────────────────────────
-// Mock globals
-//──────────────────────────────────────────────────────────────────────────────
-// Avoid type errors below.
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare module globalThis {
-    let log: Log
-    let resolve: Resolve
-}
-globalThis.log = server.log as Log;
-globalThis.resolve = (path: string): ReturnType<Resolve> => {
-    // console.debug('resolve called with path:', path);
-    if (path === 'preview.html') {
-        const resolvedPath = pathResolve(__dirname, path);
-        // console.debug('Resolved path:', resolvedPath);
-        return resolvedPath as unknown as ReturnType<Resolve>;
-    }
-    throw new Error(`Unable to resolve path:${path}`);
-}
+import {join} from 'path';
 
 
 //──────────────────────────────────────────────────────────────────────────────

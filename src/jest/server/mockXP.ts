@@ -1,14 +1,16 @@
 import type {
-    assetUrl as assetUrlType,
-    getContent as getContentType,
-    imageUrl as imageUrlType,
+  assetUrl as assetUrlType,
+  getContent as getContentType,
+  imageUrl as imageUrlType,
 } from '@enonic-types/lib-portal';
+import type {Log, Resolve} from './global';
 
 
 import {
     App,
     LibContent,
     LibPortal,
+    mockResolve,
     Server
 } from '@enonic/mock-xp';
 import {jest} from '@jest/globals';
@@ -29,6 +31,19 @@ export const server = new Server({
     projectName: PROJECT_NAME
 }).setContext({
     projectName: PROJECT_NAME
+});
+
+// Avoid type errors below.
+// eslint-disable-next-line @typescript-eslint/no-namespace
+declare module globalThis {
+  let log: Log
+  let resolve: Resolve
+}
+
+globalThis.log = server.log as Log;
+globalThis.resolve = mockResolve({
+  applicationKey: APP_KEY,
+  basePath: __dirname
 });
 
 const app = new App({
