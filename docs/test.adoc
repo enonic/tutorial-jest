@@ -1,58 +1,77 @@
 = Simple test
 :sourcedir: ../
 
-Test files import from *_sources_* and defines *_test cases_* with *_assertions_*.
+In this chapter, you'll add code, and test it with Jest
 
-Test files written for Jest uses `describe` and `it` functions to organize the test cases.
+== How it works
 
-
-The `expect` function is used to write *_assertions_* and returns an object which contains a bunch of *_Jest matchers_*.
-
-The test below uses the `toEqual` matcher, see https://jestjs.io/docs/using-matchers for more matchers.
+* Test files import from *_sources_* and defines *_test cases_* with *_assertions_*.
+* Test files written for Jest uses `describe` and `it` functions to organize the test cases.
+* The `expect` function is used to write *_assertions_* and returns an object which contains a bunch of *_Jest matchers_*.
+* The test below uses the `toEqual` matcher, see https://jestjs.io/docs/using-matchers for more matchers.
 
 == Source code
 
+Add the source file to your project:
+
 .src/main/resources/lib/tutorial-jest/fibonacci.ts
-[source, typescript]
+[source, TypeScript]
 ----
 include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.ts[]
 ----
 
+NOTE: Source code should (as always) be placed within the `/src/main/resources` section of your project
+
 == The test
 
+Now, add your test file:
+
 .src/jest/server/fibonacci.test.ts
-[source, typescript]
+[source, TypeScript]
 ----
 include::{sourcedir}src/jest/server/fibonacci.test.ts[]
 ----
 
+NOTE: By default, your tests should be placed in `/src/jest`.
 
 
 == Execution
 
-Run all tests with npm:
+Run the tests:
 
-[source, shell]
+[source, terminal]
 ----
-npm test
-----
-
-Run all tests with Gradle:
-
-[source, shell]
-----
-enonic project gradle test
+npm test src/jest/server/fibonacci.test.ts 
 ----
 
-Run a specific test with npm:
+This should produce an output looking something like this:
 
-[source, shell]
+
+[source, terminal]
 ----
-npm test src/jest/server/fibonacci.test.ts
+> intro@1.0.0 test
+> jest --no-cache --coverage src/jest/server/fibonacci.test.ts
+
+ PASS   SERVER  src/jest/server/fibonacci.test.ts
+  fibonacci
+    ✓ should return the first 10 numbers in the fibonacci sequence (3 ms)
+
+--------------|---------|----------|---------|---------|-------------------
+File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------|---------|----------|---------|---------|-------------------
+All files     |     100 |      100 |     100 |     100 |                   
+ fibonacci.ts |     100 |      100 |     100 |     100 |                   
+--------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.029 s
+Ran all test suites matching /src\/jest\/server\/fibonacci.test.ts/i.
 ----
+
 
 == Summary
 
 This tutorial showed how to write and run a simple Jest test for Enonic XP projects.
 
-In order to write more advanced tests, some concepts are important to know, let's learn how to mock link:globals[Globals].
+In order to write more advanced tests, we must introduce a new concept. Let's have a look at link:globals[mocking].

@@ -3,14 +3,20 @@
 :experimental:
 :sourcedir: ../
 
-Jest is a highly adopted testing framework that supports TypeScript, mocking, and a lot,
-lot more...
+This tutorial introduces you to the Jest testing framework, and how to integrate it in your Enonic application.
 
-TIP: Read more about Jest features https://jestjs.io/[here,window=_blank,opts=nofollow].
+== Introduction
+
+Jest is a highly adopted testing framework that supports TypeScript, mocking, and a lot,
+lot more.
+
+A special feature of this setup is that tests without can run standalone (outside of Enonic XP). Thus the tests will finish faster and be more flexible to execute.
+
+TIP: For more details, visit the https://jestjs.io/[Jest documentation^].
 
 This guide will show you how to:
 
-* link:setup[Set up] Jest in an Enonic XP project
+* link:setup[Set up] Jest in an existing Enonic XP app
 * Write a simple link:test[test] without any mocks
 * Write a test mocking link:globals[Globals]
 * Write a test for server-side code manually link:mock[mocking] Java libraries

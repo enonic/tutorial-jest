@@ -1,22 +1,31 @@
-= Globals
+= Mocking Globals
 :sourcedir: ../
 
-When programming in Javascript there is always a global scope.
-Depending on which Javascript engine/environment you are in, the global scope is different.
+This chapter introduces the concept of mocking.
 
-TIP: Useful reading: https://developer.mozilla.org/en-US/docs/Glossary/Global_object[Global object, window=_blank, opts=nofollow]
+== Introduction
+
+Mocking the act of creating fake objects that stand in for real objects within the system. This way, you may test or simulate bigger parts of a system - even without running that system.
+
+== Globals
+
+When programming in Javascript there is always a global scope. Depending on which Javascript engine/environment you are in, the global scope is different.
+
+TIP: Useful reading: https://developer.mozilla.org/en-US/docs/Glossary/Global_object[Global object^]
 
 == Browser
 
 In the browser, the global scope is the `window` object. The `window` object contains the `document` object that represents the current web page. The `document` object contains functions and properties that allow you to inspect and manipulate the web page.
 
-== Enonic XP Framework
+== XP Framework
 
 In the Enonic XP Framework the global scope contains a bunch of objects and functions that are useful when developing applications.
 
-TIP: You can read about them https://developer.enonic.com/docs/xp/stable/framework/globals[here,window=_blank,opts=nofollow].
+TIP: You can read about them https://developer.enonic.com/docs/xp/stable/framework/globals[here^].
 
 == Source code
+
+Let's start by adding some more code we can test:
 
 .src/main/resources/lib/tutorial-jest/getAppConfig.ts
 [source, typescript]
@@ -26,7 +35,7 @@ include::{sourcedir}src/main/resources/lib/tutorial-jest/getAppConfig.ts[]
 
 == Test without mock
 
-Let's try to write a simple test for the function above:
+Then, we write a simple test for the function above:
 
 [source, typescript]
 ----
@@ -56,9 +65,9 @@ ReferenceError: log is not defined
 
 To fix that, both the `log` and `app` objects must be mocked.
 
-This can be achieved in multiple ways. When it comes to static values like the global `app` object, the following can be added to the `serverSideConfig` in the `jest.config.ts` file:
+This can be achieved in multiple ways. When it comes to static values like the global `app` object, the following can be added to the `serverSideConfig` within your `jest.config.ts` file:
 
-.jest.config.ts
+.jest.config.ts - serverSideConfig
 [source, typescript]
 ----
 globals: {
@@ -72,7 +81,10 @@ globals: {
 },
 ----
 
-But when it comes to functions like `log.info`, a setup file can be used. It will run before the execution of each test file:
+A more flexible solution, that also let you mock functions, like `log.info` is to use a setup file.
+It will run before the execution of each test file:
+
+Create a setup file:
 
 .src/jest/server/setupFile.ts
 [source, typescript]
@@ -80,17 +92,20 @@ But when it comes to functions like `log.info`, a setup file can be used. It wil
 include::{sourcedir}src/jest/server/setupFile.ts[]
 ----
 
-Then add the following to the `serverSideConfig` in `jest.config.ts` file:
+Then, register it in your `serverSideConfig`:
 
-.jest.config.ts
+.jest.config.ts - serverSideConfig
 [source, typescript]
 ----
 setupFiles: ['<rootDir>/src/jest/server/setupFile.ts'],
 ----
 
-The above will mock default values for the global `app` and `log` objects. The values can be augmented in the test files.
+This will mock default values for the global `app` and `log` objects, and the values can be augmented in the test files.
 
-To avoid type errors when accessing those objects, you can make a type declaration file referencing `@enonic-types/global`
+
+== Types
+
+To avoid type errors when accessing those objects, you can add a type declaration file referencing `@enonic-types/global`
 
 .src/jest/server/global.d.ts
 [source, typescript]
@@ -98,7 +113,7 @@ To avoid type errors when accessing those objects, you can make a type declarati
 include::{sourcedir}src/jest/server/global.d.ts[]
 ----
 
-Then you can import and use those types in the test file:
+Then, import and use those types in your test file:
 
 .src/jest/server/getAppConfig.test.ts
 [source, typescript]
@@ -110,4 +125,4 @@ include::{sourcedir}src/jest/server/getAppConfig.test.ts[]
 
 In this tutorial, you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.
 
-Let's move on to the next tutorial to learn how to link:mock[mock] functions and write our first "real" test for a Enonic XP Framework server-side source code file.
+Let's move on to the next tutorial to learn how to link:mock[mock functions] and write our first "real" test for Enonic server-side code.

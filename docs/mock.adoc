@@ -1,21 +1,23 @@
-= Simple mock
+= Mocking functions
 :sourcedir: ../
+
+This chapter covers mocking functions and Enonic libraries.
 
 == Source code
 
-To demonstrate the power of mocking, let's make a simple Typescript wrapper around an Enonic Java library:
+To demonstrate the power of mocking, let's make a simple Typescript wrapper, which uses a standard Enonic library:
 
 .src/main/resources/lib/tutorial-jest/sanitize.ts
-[source, typescript]
+[source, TypeScript]
 ----
 include::{sourcedir}src/main/resources/lib/tutorial-jest/sanitize.ts[]
 ----
 
 == Test without mock
 
-If you try running this simple test:
+Trying to run this simple test ...
 
-[source, typescript]
+[source, TypeScript]
 ----
 import {
     describe,
@@ -33,18 +35,20 @@ describe('sanitize', () => {
 });
 ----
 
-it will fail with the following error message:
+... will fail with the following error message:
 
-[source, shell]
+[source, Terminal]
 ----
 Cannot find module '/lib/xp/common' from 'src/main/resources/lib/tutorial-jest/sanitize.ts'
 ----
 
-This happens because the module file `/lib/xp/common` isn't available in the test environment. It only exists inside the application jar file, which is used at runtime in the Enonic XP server.
+This happens because the module file `/lib/xp/common` isn't available in the test environment. It only exists inside the compiled Enonic application file, which is used at runtime in the Enonic XP server.
 
-In order to run the test successfully, a "fake" version of the module must be made available in the test environment. This is where mocking comes in.
+In order to run the test successfully, a "fake" version of the module must be made available in the test environment. This is where mocking comes in handy.
 
-== Test with mock
+== Adding the mock
+
+Add the following test to your project:
 
 .src/jest/server/sanitize.test.ts
 [source, typescript]
@@ -52,13 +56,12 @@ In order to run the test successfully, a "fake" version of the module must be ma
 include::{sourcedir}src/jest/server/sanitize.test.ts[]
 ----
 
-Notice that `sanitize` is no longer "statically" imported at the beginning of the file. This is because the mock must be set up before the import is done.
-That's why a dynamic import in each test is used instead.
+Here, `sanitize` is no longer "statically" imported at the beginning of the file. This is because the mock must be set up before the import is done. That's why a dynamic import in each test is used instead.
 
 Obviously this mock doesn't cover ascii-folding for the whole unicode range, but is sufficient enough to run this test.
 
 == Summary
 
-This guide showed how to mock a Java library in a Typescript file using Jest. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.
+This guide showed how to mock an Enonic library invoked by a Typescript. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.
 
-Writing mocks for whole libraries can be a bit tedious, so in the next tutorial, the same test case will be repeated, but it will use a more convenitent link:mock-xp[Mock XP] library provided by Enonic.
+Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the link:mock-xp[Mock XP] library.

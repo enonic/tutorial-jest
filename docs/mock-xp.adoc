@@ -1,7 +1,11 @@
 = Mock XP
 :sourcedir: ../
 
-When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has a library called `@enonic/mock-xp` that can help you with that.
+In this chapter we introduce the Mock XP library.
+
+== Introduction
+
+When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has a library called `@enonic/mock-xp` that can help you with some of the heavy lifting.
 
 == Install Mock XP
 
@@ -12,7 +16,7 @@ npm install --save-dev @enonic/mock-xp
 
 == Source code
 
-Let's write a test for the following controller:
+Let's add a test for the following controller:
 
 .src/main/resources/controllers/preview.ts
 [source, typescript]
@@ -26,15 +30,17 @@ In order for the test file to not become overly large, it's been split it into s
 
 === Mock Portal Library
 
+TODO: What does this do?
+
 .src/jest/server/mockXP.ts
 [source, typescript]
 ----
 include::{sourcedir}src/jest/server/mockXP.ts[]
 ----
 
-=== Mock Thymeleaf library
+=== Mocking the Thymeleaf library
 
-Notice the `/lib/thymeleaf` 's `render` mock simply returns the model object, so the actual html rendering is not triggered.
+Notice that `/lib/thymeleaf`'s `render` mock simply returns the model object, so the actual html rendering is not triggered.
 
 .src/jest/server/mockLibThymeleaf.ts
 [source, typescript]
