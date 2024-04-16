@@ -435,14 +435,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-right">
 <div id="header">
 <h1>Testing XP apps with Jest</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#introduction">Introduction</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial introduces you to the Jest testing framework, and how to integrate it in your Enonic application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Jest is a highly adopted testing framework that supports TypeScript, mocking, and a lot,
-lot more&#8230;&#8203;</p>
+lot more.</p>
+</div>
+<div class="paragraph">
+<p>A special feature of this setup is that tests without can run standalone (outside of Enonic XP). Thus the tests will finish faster and be more flexible to execute.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -451,7 +470,7 @@ lot more&#8230;&#8203;</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Read more about Jest features <a href="https://jestjs.io/" target="_blank" rel="nofollow noopener">here</a>.
+For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="noopener">Jest documentation</a>.
 </td>
 </tr>
 </table>
@@ -462,7 +481,7 @@ Read more about Jest features <a href="https://jestjs.io/" target="_blank" rel="
 <div class="ulist">
 <ul>
 <li>
-<p><a href="setup">Set up</a> Jest in an Enonic XP project</p>
+<p><a href="setup">Set up</a> Jest in an existing Enonic XP app</p>
 </li>
 <li>
 <p>Write a simple <a href="test">test</a> without any mocks</p>
@@ -488,9 +507,11 @@ Read more about Jest features <a href="https://jestjs.io/" target="_blank" rel="
 </ul>
 </div>
 </div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-12 10:28:09 UTC
+Last updated 2024-04-16 18:03:57 UTC
 </div>
 </div>
 </body>

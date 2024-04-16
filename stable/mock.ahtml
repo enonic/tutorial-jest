@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Simple mock</title>
+<title>Mocking functions</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,28 +437,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Simple mock</h1>
+<h1>Mocking functions</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#test_without_mock">Test without mock</a></li>
-<li><a href="#test_with_mock">Test with mock</a></li>
+<li><a href="#adding_the_mock">Adding the mock</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter covers mocking functions and Enonic libraries.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To demonstrate the power of mocking, let&#8217;s make a simple Typescript wrapper around an Enonic Java library:</p>
+<p>To demonstrate the power of mocking, let&#8217;s make a simple Typescript wrapper, which uses a standard Enonic library:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/tutorial-jest/sanitize.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">export {sanitize} from '/lib/xp/common';</code></pre>
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export {sanitize} from '/lib/xp/common';</code></pre>
 </div>
 </div>
 </div>
@@ -467,11 +474,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="test_without_mock"><a class="link" href="#test_without_mock">Test without mock</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you try running this simple test:</p>
+<p>Trying to run this simple test &#8230;&#8203;</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import {
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {
     describe,
     expect,
     test as it
@@ -487,25 +494,32 @@ describe('sanitize', () =&gt; {
 });</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>it will fail with the following error message:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>will fail with the following error message:</p>
+</li>
+</ol>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">Cannot find module '/lib/xp/common' from 'src/main/resources/lib/tutorial-jest/sanitize.ts'</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">Cannot find module '/lib/xp/common' from 'src/main/resources/lib/tutorial-jest/sanitize.ts'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This happens because the module file <code>/lib/xp/common</code> isn&#8217;t available in the test environment. It only exists inside the application jar file, which is used at runtime in the Enonic XP server.</p>
+<p>This happens because the module file <code>/lib/xp/common</code> isn&#8217;t available in the test environment. It only exists inside the compiled Enonic application file, which is used at runtime in the Enonic XP server.</p>
 </div>
 <div class="paragraph">
-<p>In order to run the test successfully, a "fake" version of the module must be made available in the test environment. This is where mocking comes in.</p>
+<p>In order to run the test successfully, a "fake" version of the module must be made available in the test environment. This is where mocking comes in handy.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="test_with_mock"><a class="link" href="#test_with_mock">Test with mock</a></h2>
+<h2 id="adding_the_mock"><a class="link" href="#adding_the_mock">Adding the mock</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Add the following test to your project:</p>
+</div>
 <div class="listingblock">
 <div class="title">src/jest/server/sanitize.test.ts</div>
 <div class="content">
@@ -544,8 +558,7 @@ describe('sanitize', () =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that <code>sanitize</code> is no longer "statically" imported at the beginning of the file. This is because the mock must be set up before the import is done.
-That&#8217;s why a dynamic import in each test is used instead.</p>
+<p>Here, <code>sanitize</code> is no longer "statically" imported at the beginning of the file. This is because the mock must be set up before the import is done. That&#8217;s why a dynamic import in each test is used instead.</p>
 </div>
 <div class="paragraph">
 <p>Obviously this mock doesn&#8217;t cover ascii-folding for the whole unicode range, but is sufficient enough to run this test.</p>
@@ -556,17 +569,17 @@ That&#8217;s why a dynamic import in each test is used instead.</p>
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide showed how to mock a Java library in a Typescript file using Jest. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.</p>
+<p>This guide showed how to mock an Enonic library invoked by a Typescript. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.</p>
 </div>
 <div class="paragraph">
-<p>Writing mocks for whole libraries can be a bit tedious, so in the next tutorial, the same test case will be repeated, but it will use a more convenitent <a href="mock-xp">Mock XP</a> library provided by Enonic.</p>
+<p>Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the <a href="mock-xp">Mock XP</a> library.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-12 10:28:09 UTC
+Last updated 2024-04-16 18:03:57 UTC
 </div>
 </div>
 </body>

@@ -459,6 +459,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Setting up Jest in your Enonic project</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="node_modules"><a class="link" href="#node_modules">Node modules</a></h2>
 <div class="sectionbody">
@@ -466,7 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>In order to write tests in Typescript and run them using Jest, a bunch of node modules needs to be installed.</p>
 </div>
 <div class="paragraph">
-<p>Run the following command at the root of the project:</p>
+<p>Run the following command at the root of your project:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -478,6 +485,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Next, you will need to add and tune a set of configuration files:</p>
+</div>
 <div class="sect2">
 <h3 id="jest_config_ts"><a class="link" href="#jest_config_ts">jest.config.ts</a></h3>
 <div class="paragraph">
@@ -730,6 +740,9 @@ export default customJestConfig;</code></pre>
 <div class="sect1">
 <h2 id="execution"><a class="link" href="#execution">Execution</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Finally, we wire the test commands to execute Jest</p>
+</div>
 <div class="sect2">
 <h3 id="package_json"><a class="link" href="#package_json">package.json</a></h3>
 <div class="paragraph">
@@ -745,14 +758,31 @@ export default customJestConfig;</code></pre>
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>You should now be able to run the tests with the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm test</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You may also run a specific test like this: <code>npm test src/jest/server/fibonacci.test.ts</code>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="build_gradle"><a class="link" href="#build_gradle">build.gradle</a></h3>
 <div class="paragraph">
-<p>The Enonic XP framework uses gradle to build libraries and applications.</p>
-</div>
-<div class="paragraph">
-<p>In order to run the tests on every build, add the following to the <code>build.gradle</code> file:</p>
+<p>Enonic uses Gradle as the main build system, to support running test from Enonic CLI, update your <code>build.gradle</code> file with these lines:</p>
 </div>
 <div class="listingblock">
 <div class="title">build.gradle</div>
@@ -773,6 +803,14 @@ export default customJestConfig;</code></pre>
 test.dependsOn npmTest</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>You may now tests with the following command as well:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">enonic project test</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -791,7 +829,7 @@ The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-12 10:28:09 UTC
+Last updated 2024-04-16 18:03:57 UTC
 </div>
 </div>
 </body>

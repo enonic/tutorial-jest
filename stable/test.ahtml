@@ -441,6 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#how_it_works">How it works</a></li>
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#the_test">The test</a></li>
 <li><a href="#execution">Execution</a></li>
@@ -452,26 +453,41 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>In this chapter, you&#8217;ll add code, and test it with Jest</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how_it_works"><a class="link" href="#how_it_works">How it works</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
 <p>Test files import from <strong><em>sources</em></strong> and defines <strong><em>test cases</em></strong> with <strong><em>assertions</em></strong>.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>Test files written for Jest uses <code>describe</code> and <code>it</code> functions to organize the test cases.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>The <code>expect</code> function is used to write <strong><em>assertions</em></strong> and returns an object which contains a bunch of <strong><em>Jest matchers</em></strong>.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>The test below uses the <code>toEqual</code> matcher, see <a href="https://jestjs.io/docs/using-matchers" class="bare">https://jestjs.io/docs/using-matchers</a> for more matchers.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Add the source file to your project:</p>
+</div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/tutorial-jest/fibonacci.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">export function fibonacci(n: number): number[] {
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export function fibonacci(n: number): number[] {
     const fib = [0, 1];
     for (let i = fib.length; i &lt; n; i++) {
         fib[i] = fib[i - 2] + fib[i - 1];
@@ -481,15 +497,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Source code should (as always) be placed within the <code>/src/main/resources</code> section of your project
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="the_test"><a class="link" href="#the_test">The test</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Now, add your test file:</p>
+</div>
 <div class="listingblock">
 <div class="title">src/jest/server/fibonacci.test.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import {
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {
     describe,
     expect,
     test as it
@@ -504,33 +535,54 @@ describe('fibonacci', () =&gt; {
 });</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+By default, your tests should be placed in <code>/src/jest</code>.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="execution"><a class="link" href="#execution">Execution</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run all tests with npm:</p>
+<p>Run the tests:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm test</code></pre>
+<pre class="highlight"><code class="language-terminal" data-lang="terminal">npm test src/jest/server/fibonacci.test.ts</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Run all tests with Gradle:</p>
+<p>This should produce an output looking something like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">enonic project gradle test</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Run a specific test with npm:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm test src/jest/server/fibonacci.test.ts</code></pre>
+<pre class="highlight"><code class="language-terminal" data-lang="terminal">&gt; intro@1.0.0 test
+&gt; jest --no-cache --coverage src/jest/server/fibonacci.test.ts
+
+ PASS   SERVER  src/jest/server/fibonacci.test.ts
+  fibonacci
+    ✓ should return the first 10 numbers in the fibonacci sequence (3 ms)
+
+--------------|---------|----------|---------|---------|-------------------
+File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+--------------|---------|----------|---------|---------|-------------------
+All files     |     100 |      100 |     100 |     100 |
+ fibonacci.ts |     100 |      100 |     100 |     100 |
+--------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.029 s
+Ran all test suites matching /src\/jest\/server\/fibonacci.test.ts/i.</code></pre>
 </div>
 </div>
 </div>
@@ -542,14 +594,14 @@ describe('fibonacci', () =&gt; {
 <p>This tutorial showed how to write and run a simple Jest test for Enonic XP projects.</p>
 </div>
 <div class="paragraph">
-<p>In order to write more advanced tests, some concepts are important to know, let&#8217;s learn how to mock <a href="globals">Globals</a>.</p>
+<p>In order to write more advanced tests, we must introduce a new concept. Let&#8217;s have a look at <a href="globals">mocking</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-12 10:28:09 UTC
+Last updated 2024-04-16 18:03:57 UTC
 </div>
 </div>
 </body>

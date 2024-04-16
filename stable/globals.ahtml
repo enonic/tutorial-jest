@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Globals</title>
+<title>Mocking Globals</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,15 +437,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Globals</h1>
+<h1>Mocking Globals</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#globals">Globals</a></li>
 <li><a href="#browser">Browser</a></li>
-<li><a href="#enonic_xp_framework">Enonic XP Framework</a></li>
+<li><a href="#xp_framework">XP Framework</a></li>
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#test_without_mock">Test without mock</a></li>
 <li><a href="#test_with_mock">Test with mock</a></li>
+<li><a href="#types">Types</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
@@ -454,8 +457,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>When programming in Javascript there is always a global scope.
-Depending on which Javascript engine/environment you are in, the global scope is different.</p>
+<p>This chapter introduces the concept of mocking.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mocking the act of creating fake objects that stand in for real objects within the system. This way, you may test or simulate bigger parts of a system - even without running that system.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="globals"><a class="link" href="#globals">Globals</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When programming in Javascript there is always a global scope. Depending on which Javascript engine/environment you are in, the global scope is different.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -464,7 +482,7 @@ Depending on which Javascript engine/environment you are in, the global scope is
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Global_object" target="_blank" rel="nofollow noopener">Global object</a>
+Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Global_object" target="_blank" rel="noopener">Global object</a>
 </td>
 </tr>
 </table>
@@ -480,7 +498,7 @@ Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Globa
 </div>
 </div>
 <div class="sect1">
-<h2 id="enonic_xp_framework"><a class="link" href="#enonic_xp_framework">Enonic XP Framework</a></h2>
+<h2 id="xp_framework"><a class="link" href="#xp_framework">XP Framework</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In the Enonic XP Framework the global scope contains a bunch of objects and functions that are useful when developing applications.</p>
@@ -492,7 +510,7 @@ Useful reading: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Globa
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can read about them <a href="https://developer.enonic.com/docs/xp/stable/framework/globals" target="_blank" rel="nofollow noopener">here</a>.
+You can read about them <a href="https://developer.enonic.com/docs/xp/stable/framework/globals" target="_blank" rel="noopener">here</a>.
 </td>
 </tr>
 </table>
@@ -502,6 +520,9 @@ You can read about them <a href="https://developer.enonic.com/docs/xp/stable/fra
 <div class="sect1">
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s start by adding some more code we can test:</p>
+</div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/tutorial-jest/getAppConfig.ts</div>
 <div class="content">
@@ -519,7 +540,7 @@ You can read about them <a href="https://developer.enonic.com/docs/xp/stable/fra
 <h2 id="test_without_mock"><a class="link" href="#test_without_mock">Test without mock</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s try to write a simple test for the function above:</p>
+<p>Then, we write a simple test for the function above:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -555,10 +576,10 @@ describe('getAppConfig', () =&gt; {
 <p>To fix that, both the <code>log</code> and <code>app</code> objects must be mocked.</p>
 </div>
 <div class="paragraph">
-<p>This can be achieved in multiple ways. When it comes to static values like the global <code>app</code> object, the following can be added to the <code>serverSideConfig</code> in the <code>jest.config.ts</code> file:</p>
+<p>This can be achieved in multiple ways. When it comes to static values like the global <code>app</code> object, the following can be added to the <code>serverSideConfig</code> within your <code>jest.config.ts</code> file:</p>
 </div>
 <div class="listingblock">
-<div class="title">jest.config.ts</div>
+<div class="title">jest.config.ts - serverSideConfig</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">globals: {
     app: {
@@ -572,7 +593,11 @@ describe('getAppConfig', () =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>But when it comes to functions like <code>log.info</code>, a setup file can be used. It will run before the execution of each test file:</p>
+<p>A more flexible solution, that also let you mock functions, like <code>log.info</code> is to use a setup file.
+It will run before the execution of each test file:</p>
+</div>
+<div class="paragraph">
+<p>Create a setup file:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/server/setupFile.ts</div>
@@ -599,19 +624,24 @@ globalThis.log = {
 </div>
 </div>
 <div class="paragraph">
-<p>Then add the following to the <code>serverSideConfig</code> in <code>jest.config.ts</code> file:</p>
+<p>Then, register it in your <code>serverSideConfig</code>:</p>
 </div>
 <div class="listingblock">
-<div class="title">jest.config.ts</div>
+<div class="title">jest.config.ts - serverSideConfig</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">setupFiles: ['&lt;rootDir&gt;/src/jest/server/setupFile.ts'],</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The above will mock default values for the global <code>app</code> and <code>log</code> objects. The values can be augmented in the test files.</p>
+<p>This will mock default values for the global <code>app</code> and <code>log</code> objects, and the values can be augmented in the test files.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="types"><a class="link" href="#types">Types</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>To avoid type errors when accessing those objects, you can make a type declaration file referencing <code>@enonic-types/global</code></p>
+<p>To avoid type errors when accessing those objects, you can add a type declaration file referencing <code>@enonic-types/global</code></p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/server/global.d.ts</div>
@@ -626,7 +656,7 @@ export declare type Resolve = typeof resolve;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then you can import and use those types in the test file:</p>
+<p>Then, import and use those types in your test file:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/server/getAppConfig.test.ts</div>
@@ -677,14 +707,14 @@ describe('getAppConfig', () =&gt; {
 <p>In this tutorial, you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s move on to the next tutorial to learn how to <a href="mock">mock</a> functions and write our first "real" test for a Enonic XP Framework server-side source code file.</p>
+<p>Let&#8217;s move on to the next tutorial to learn how to <a href="mock">mock functions</a> and write our first "real" test for Enonic server-side code.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-12 10:28:09 UTC
+Last updated 2024-04-16 18:03:57 UTC
 </div>
 </div>
 </body>
