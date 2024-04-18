@@ -447,7 +447,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#tests">Tests</a>
 <ul class="sectlevel2">
 <li><a href="#mock_portal_library">Mock Portal Library</a></li>
-<li><a href="#mocking_the_thymeleaf_library">Mocking the Thymeleaf library</a></li>
 <li><a href="#the_test">The test</a></li>
 </ul>
 </li>
@@ -490,34 +489,46 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">src/main/resources/controllers/preview.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {Request, Response} from '/index.d';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {Content} from '/lib/xp/portal';
+import type {Request, Response} from '/index.d';
 
 
-import { getContent, imageUrl, assetUrl } from '/lib/xp/portal';
-// @ts-expect-error no-types
-import { render } from '/lib/thymeleaf';
+import {getContent, imageUrl, assetUrl} from '/lib/xp/portal';
 
 
-const VIEW = resolve('preview.html');
+declare type ContentWithPhotos = Content&lt;{
+  photos?: string|string[]
+}&gt;;
 
 
 export function get(_request: Request): Response {
-  const content = getContent();
-  const photoId = (Array.isArray(content.data.photos)) ? content.data.photos[0] : content.data.photos;
-  const model = {
-    cssUrl: assetUrl({path: 'styles.css'}),
-    displayName: (content.displayName) ? content.displayName : null,
-    imageUrl: (photoId)
-      ? imageUrl({
-        id: photoId,
-        scale: "width(500)",
-      })
-      : null
-  };
-
+  const content = getContent&lt;ContentWithPhotos&gt;();
+  const {data, displayName} = content;
+  const photoId = Array.isArray(data.photos) ? data.photos[0] : data.photos;
+  const imageSrc = photoId
+  ? imageUrl({
+    id: photoId,
+    scale: "width(500)",
+  })
+  : null;
+  const img = imageSrc ? `&lt;img src="${imageSrc}"/&gt;` : '';
+  const styleHref = assetUrl({path: 'styles.css'});
   return {
-    body: render(VIEW, model),
-  }
+    body: `&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;${displayName || 'Preview of content without display name'}&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css" href="${styleHref}"/&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;${displayName || 'Display name missing'}&lt;/h1&gt;
+    ${img}
+    &lt;h3&gt;This is a sample preview&lt;/h3&gt;
+    Use live integrations with your front-end, or just a mockup - like this  :-)
+  &lt;/body&gt;
+&lt;/html&gt;`
+  };
 };</code></pre>
 </div>
 </div>
@@ -542,14 +553,13 @@ export function get(_request: Request): Response {
   getContent as getContentType,
   imageUrl as imageUrlType,
 } from '@enonic-types/lib-portal';
-import type {Log, Resolve} from './global';
+import type {Log} from './global';
 
 
 import {
     App,
     LibContent,
     LibPortal,
-    mockResolve,
     Server
 } from '@enonic/mock-xp';
 import {jest} from '@jest/globals';
@@ -576,14 +586,10 @@ export const server = new Server({
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare module globalThis {
   let log: Log
-  let resolve: Resolve
 }
 
 globalThis.log = server.log as Log;
-globalThis.resolve = mockResolve({
-  applicationKey: APP_KEY,
-  basePath: __dirname
-});
+
 
 const app = new App({
     key: APP_KEY
@@ -607,49 +613,6 @@ jest.mock('/lib/xp/portal', () =&gt; {
     }
 }, { virtual: true });</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="mocking_the_thymeleaf_library"><a class="link" href="#mocking_the_thymeleaf_library">Mocking the Thymeleaf library</a></h3>
-<div class="paragraph">
-<p>Notice that <code>/lib/thymeleaf&#8217;s `render</code> mock simply returns the model object, so the actual html rendering is not triggered.</p>
-</div>
-<div class="listingblock">
-<div class="title">src/jest/server/mockLibThymeleaf.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import {jest} from '@jest/globals';
-
-
-declare type Model = Record&lt;string, unknown&gt;;
-declare type RenderFn = (
-    _view: string,
-    _model: Model,
-    _options: Record&lt;string, unknown&gt;
-) =&gt; Model;
-
-
-jest.mock('/lib/thymeleaf', () =&gt; ({
-    render: jest.fn&lt;RenderFn&gt;().mockImplementation((
-        _view,
-        model,
-        // options
-    ) =&gt; {
-        return model; // Not testing the actual rendering, just that the model is correct.
-    })
-}), { virtual: true });</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If anyone is able to find or create a test for thymeleaf rendering, please let us know :)
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -680,7 +643,6 @@ import {
     libPortal,
     server,
 } from './mockXP';
-import './mockLibThymeleaf';
 import {readFileSync} from 'fs';
 import {join} from 'path';
 
@@ -743,7 +705,7 @@ libContent.create({
 //──────────────────────────────────────────────────────────────────────────────
 describe('preview', () =&gt; {
 
-    it('is able to build a model object for Léa Seydoux', () =&gt; {
+    it('is able to render a page for Léa Seydoux', () =&gt; {
         libPortal.request = new Request({
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
@@ -751,16 +713,25 @@ describe('preview', () =&gt; {
         import('/controllers/preview').then(({get}) =&gt; {
             const response = get(libPortal.request);
             expect(response).toEqual({
-                body: {
-                    cssUrl: '/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css',
-                    displayName: 'Léa Seydoux',
-                    imageUrl: '/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/00000000-0000-4000-8000-000000000006:0123456789abcdef/width-500/Lea-Seydoux.jpg'
-                }
+                body: `&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=\"utf-8\"&gt;
+    &lt;title&gt;Léa Seydoux&lt;/title&gt;
+    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css\"/&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Léa Seydoux&lt;/h1&gt;
+    &lt;img src=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/00000000-0000-4000-8000-000000000006:0123456789abcdef/width-500/Lea-Seydoux.jpg\"/&gt;
+    &lt;h3&gt;This is a sample preview&lt;/h3&gt;
+    Use live integrations with your front-end, or just a mockup - like this  :-)
+  &lt;/body&gt;
+&lt;/html&gt;`
             });
         });
     }); // Léa Seydoux
 
-    it('is able to build a model object for Jeffrey Wright', () =&gt; {
+    it('is able to render a page for Jeffrey Wright', () =&gt; {
         libPortal.request = new Request({
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
@@ -768,11 +739,20 @@ describe('preview', () =&gt; {
         import('/controllers/preview').then(({get}) =&gt; {
             const response = get(libPortal.request);
             expect(response).toEqual({
-                body: {
-                    cssUrl: '/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css',
-                    displayName: 'Jeffrey Wright',
-                    imageUrl: '/admin/site/preview/intro/draft/persons/jeffrey-wright/_/image/00000000-0000-4000-8000-000000000010:0123456789abcdef/width-500/Jeffrey-Wright-hp.jpg'
-                }
+                body: `&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=\"utf-8\"&gt;
+    &lt;title&gt;Jeffrey Wright&lt;/title&gt;
+    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css\"/&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Jeffrey Wright&lt;/h1&gt;
+    &lt;img src=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/image/00000000-0000-4000-8000-000000000010:0123456789abcdef/width-500/Jeffrey-Wright-hp.jpg\"/&gt;
+    &lt;h3&gt;This is a sample preview&lt;/h3&gt;
+    Use live integrations with your front-end, or just a mockup - like this  :-)
+  &lt;/body&gt;
+&lt;/html&gt;`
             });
         });
     }); // Jeffrey Wright
@@ -800,7 +780,7 @@ describe('preview', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-16 18:03:57 UTC
+Last updated 2024-04-18 07:52:21 UTC
 </div>
 </div>
 </body>
