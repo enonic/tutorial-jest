@@ -1,29 +1,41 @@
+import type {Content} from '/lib/xp/portal';
 import type {Request, Response} from '/index.d';
 
 
-import { getContent, imageUrl, assetUrl } from '/lib/xp/portal';
-// @ts-expect-error no-types
-import { render } from '/lib/thymeleaf';
+import {getContent, imageUrl, assetUrl} from '/lib/xp/portal';
 
 
-const VIEW = resolve('preview.html');
+declare type ContentWithPhotos = Content<{
+  photos?: string|string[]
+}>;
 
 
 export function get(_request: Request): Response {
-  const content = getContent();
-  const photoId = (Array.isArray(content.data.photos)) ? content.data.photos[0] : content.data.photos;
-  const model = {
-    cssUrl: assetUrl({path: 'styles.css'}),
-    displayName: (content.displayName) ? content.displayName : null,
-    imageUrl: (photoId)
-      ? imageUrl({
-        id: photoId,
-        scale: "width(500)",
-      })
-      : null
-  };
-
+  const content = getContent<ContentWithPhotos>();
+  const {data, displayName} = content;
+  const photoId = Array.isArray(data.photos) ? data.photos[0] : data.photos;
+  const imageSrc = photoId
+  ? imageUrl({
+    id: photoId,
+    scale: "width(500)",
+  })
+  : null;
+  const img = imageSrc ? `<img src="${imageSrc}"/>` : '';
+  const styleHref = assetUrl({path: 'styles.css'});
   return {
-    body: render(VIEW, model),
-  }
+    body: `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>${displayName || 'Preview of content without display name'}</title>
+    <link rel="stylesheet" type="text/css" href="${styleHref}"/>
+  </head>
+  <body>
+    <h1>${displayName || 'Display name missing'}</h1>
+    ${img}
+    <h3>This is a sample preview</h3>
+    Use live integrations with your front-end, or just a mockup - like this  :-)
+  </body>
+</html>`
+  };
 };

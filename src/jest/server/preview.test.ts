@@ -12,7 +12,6 @@ import {
     libPortal,
     server,
 } from './mockXP';
-import './mockLibThymeleaf';
 import {readFileSync} from 'fs';
 import {join} from 'path';
 
@@ -75,7 +74,7 @@ libContent.create({
 //──────────────────────────────────────────────────────────────────────────────
 describe('preview', () => {
 
-    it('is able to build a model object for Léa Seydoux', () => {
+    it('is able to render a page for Léa Seydoux', () => {
         libPortal.request = new Request({
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
@@ -83,16 +82,25 @@ describe('preview', () => {
         import('/controllers/preview').then(({get}) => {
             const response = get(libPortal.request);
             expect(response).toEqual({
-                body: {
-                    cssUrl: '/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css',
-                    displayName: 'Léa Seydoux',
-                    imageUrl: '/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/00000000-0000-4000-8000-000000000006:0123456789abcdef/width-500/Lea-Seydoux.jpg'
-                }
+                body: `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=\"utf-8\">
+    <title>Léa Seydoux</title>
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css\"/>
+  </head>
+  <body>
+    <h1>Léa Seydoux</h1>
+    <img src=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/00000000-0000-4000-8000-000000000006:0123456789abcdef/width-500/Lea-Seydoux.jpg\"/>
+    <h3>This is a sample preview</h3>
+    Use live integrations with your front-end, or just a mockup - like this  :-)
+  </body>
+</html>`
             });
         });
     }); // Léa Seydoux
 
-    it('is able to build a model object for Jeffrey Wright', () => {
+    it('is able to render a page for Jeffrey Wright', () => {
         libPortal.request = new Request({
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
@@ -100,11 +108,20 @@ describe('preview', () => {
         import('/controllers/preview').then(({get}) => {
             const response = get(libPortal.request);
             expect(response).toEqual({
-                body: {
-                    cssUrl: '/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css',
-                    displayName: 'Jeffrey Wright',
-                    imageUrl: '/admin/site/preview/intro/draft/persons/jeffrey-wright/_/image/00000000-0000-4000-8000-000000000010:0123456789abcdef/width-500/Jeffrey-Wright-hp.jpg'
-                }
+                body: `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=\"utf-8\">
+    <title>Jeffrey Wright</title>
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css\"/>
+  </head>
+  <body>
+    <h1>Jeffrey Wright</h1>
+    <img src=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/image/00000000-0000-4000-8000-000000000010:0123456789abcdef/width-500/Jeffrey-Wright-hp.jpg\"/>
+    <h3>This is a sample preview</h3>
+    Use live integrations with your front-end, or just a mockup - like this  :-)
+  </body>
+</html>`
             });
         });
     }); // Jeffrey Wright

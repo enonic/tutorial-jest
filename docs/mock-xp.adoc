@@ -38,18 +38,6 @@ TODO: What does this do?
 include::{sourcedir}src/jest/server/mockXP.ts[]
 ----
 
-=== Mocking the Thymeleaf library
-
-Notice that `/lib/thymeleaf`'s `render` mock simply returns the model object, so the actual html rendering is not triggered.
-
-.src/jest/server/mockLibThymeleaf.ts
-[source, typescript]
-----
-include::{sourcedir}src/jest/server/mockLibThymeleaf.ts[]
-----
-
-NOTE: If anyone is able to find or create a test for thymeleaf rendering, please let us know :)
-
 === The test
 
 In this test `mock-xp` is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type `person`) which reference the images.

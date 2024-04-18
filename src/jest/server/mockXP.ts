@@ -3,14 +3,13 @@ import type {
   getContent as getContentType,
   imageUrl as imageUrlType,
 } from '@enonic-types/lib-portal';
-import type {Log, Resolve} from './global';
+import type {Log} from './global';
 
 
 import {
     App,
     LibContent,
     LibPortal,
-    mockResolve,
     Server
 } from '@enonic/mock-xp';
 import {jest} from '@jest/globals';
@@ -37,14 +36,10 @@ export const server = new Server({
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare module globalThis {
   let log: Log
-  let resolve: Resolve
 }
 
 globalThis.log = server.log as Log;
-globalThis.resolve = mockResolve({
-  applicationKey: APP_KEY,
-  basePath: __dirname
-});
+
 
 const app = new App({
     key: APP_KEY
