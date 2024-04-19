@@ -843,14 +843,14 @@ You may now tests with the following command as well:</p>
 The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s learn how to write our first <a href="test">test</a>.</p>
+<p>Let&#8217;s learn how to write our first <a href="test.ahtml">test</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 12:30:10 UTC
+Last updated 2024-04-19 13:09:15 UTC
 </div>
 </div>
 </body>

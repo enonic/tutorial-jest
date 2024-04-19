@@ -572,14 +572,14 @@ describe('sanitize', () =&gt; {
 <p>This guide showed how to mock an Enonic library invoked by a Typescript. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.</p>
 </div>
 <div class="paragraph">
-<p>Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the <a href="mock-xp">Mock XP</a> library.</p>
+<p>Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the <a href="mock-xp.ahtml">Mock XP</a> library.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 12:30:10 UTC
+Last updated 2024-04-19 13:09:15 UTC
 </div>
 </div>
 </body>

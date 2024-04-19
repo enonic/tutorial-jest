@@ -799,14 +799,14 @@ Ran all test suites matching /src\/jest\/server\/preview.test.ts/i.</code></pre>
 <p>Mock XP was used to mock the Enonic <a href="https://developer.enonic.com/docs/xp/stable/api/lib-content" target="_blank" rel="noopener">content</a> and <a href="https://developer.enonic.com/docs/xp/stable/api/lib-portal" target="_blank" rel="noopener">portal</a> APIs.</p>
 </div>
 <div class="paragraph">
-<p>Coming up, we demonstrate how to write a <a href="client-side">client-side</a> test.</p>
+<p>Coming up, we demonstrate how to write a <a href="client-side.ahtml">client-side</a> test.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 12:30:10 UTC
+Last updated 2024-04-19 13:09:15 UTC
 </div>
 </div>
 </body>

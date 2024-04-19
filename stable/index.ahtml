@@ -481,28 +481,28 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 <div class="ulist">
 <ul>
 <li>
-<p><a href="setup">Set up</a> Jest in an existing Enonic XP app</p>
+<p><a href="setup.ahtml">Set up</a> Jest in an existing Enonic XP app</p>
 </li>
 <li>
-<p>Write a simple <a href="test">test</a> without any mocks</p>
+<p>Write a simple <a href="test.ahtml">test</a> without any mocks</p>
 </li>
 <li>
-<p>Write a test mocking <a href="globals">Globals</a></p>
+<p>Write a test mocking <a href="globals.ahtml">Globals</a></p>
 </li>
 <li>
-<p>Write a test for server-side code manually <a href="mock">mocking</a> Java libraries</p>
+<p>Write a test for server-side code manually <a href="mock.ahtml">mocking</a> Java libraries</p>
 </li>
 <li>
-<p>Write a test for server-side code using <a href="mock-xp">Mock XP</a></p>
+<p>Write a test for server-side code using <a href="mock-xp.ahtml">Mock XP</a></p>
 </li>
 <li>
-<p>Write a test for <a href="client-side">client-side</a> code</p>
+<p>Write a test for <a href="client-side.ahtml">client-side</a> code</p>
 </li>
 <li>
-<p>Set up <a href="coverage">Coverage</a> with Github Actions</p>
+<p>Set up <a href="coverage.ahtml">Coverage</a> with Github Actions</p>
 </li>
 <li>
-<p><a href="colocate">Colocate</a> tests with the code they test</p>
+<p><a href="colocation.ahtml">Colocate</a> tests with the code they test</p>
 </li>
 </ul>
 </div>
@@ -511,7 +511,7 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 12:30:10 UTC
+Last updated 2024-04-19 13:09:15 UTC
 </div>
 </div>
 </body>

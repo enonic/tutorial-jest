@@ -559,14 +559,14 @@ jobs:
 <p>With the above setup, you will get a nice test coverage report every time you run <code>npm test</code> and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.</p>
 </div>
 <div class="paragraph">
-<p>The final chapter will demonstrate how to <a href="colocate">colocate</a> tests with the source code.</p>
+<p>The final chapter will demonstrate how to <a href="colocate.ahtml">colocate</a> tests with the source code.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 12:30:10 UTC
+Last updated 2024-04-19 13:09:15 UTC
 </div>
 </div>
 </body>

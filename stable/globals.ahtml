@@ -707,14 +707,14 @@ describe('getAppConfig', () =&gt; {
 <p>In this tutorial, you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s move on to the next tutorial to learn how to <a href="mock">mock functions</a> and write our first "real" test for Enonic server-side code.</p>
+<p>Let&#8217;s move on to the next tutorial to learn how to <a href="mock.ahtml">mock functions</a> and write our first "real" test for Enonic server-side code.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 12:30:10 UTC
+Last updated 2024-04-19 13:09:15 UTC
 </div>
 </div>
 </body>
