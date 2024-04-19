@@ -1,23 +1,33 @@
 = Setup
 :sourcedir: ../
 
-Setting up Jest in your Enonic project
+This chapter covers setting up Jest for your Enonic app
+
+== Sample project
+
+You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the Enonic intro app. 
+
+To create a project for the tutorial, run the following command:
+
+  enonic project create com.example.tutorial.jest -r tutorial-intro -d jest-tutorial
+
+This will create an app and place it in a folder called `jest-tutorial`.
+
 
 == Node modules
 
-In order to write tests in Typescript and run them using Jest, a bunch of node modules needs to be installed.
+In order to write tests in TypeScript and run them using Jest, a bunch of node modules needs to be installed.
 
-Run the following command at the root of your project:
+Run the following command at the root of the Enonic project:
 
-[source, shell]
+[source, Terminal]
 ----
 npm install --save-dev jest-environment-jsdom ts-node ts-jest
 ----
 
 == Configuration
 
-Next, you will need to add and tune a set of configuration files:
-
+Next, you will need to add and tune a few configuration files:
 
 === jest.config.ts
 
@@ -51,7 +61,7 @@ include::{sourcedir}src/jest/server/tsconfig.json[]
 
 == Execution
 
-Finally, we wire the test commands to execute Jest
+Finally, we wire the test command to execute Jest
 
 === package.json
 

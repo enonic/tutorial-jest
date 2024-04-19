@@ -1,6 +1,12 @@
 = Colocation
 
-In this tutorial all tests have been placed under `src/jest`, separated away from the source code. It is possible to place the tests in the same directory as the source code, but it has some drawbacks:
+Optionally place tests next to your source code file
+
+== Intro
+
+So far, all tests have been placed under `src/jest`, cleanly separated from the source code. It is possible to place the tests in the same directory as the source code, but it has some drawbacks and complexity. 
+
+We will cover it all in this chapter.
 
 == Jest configuration
 
@@ -40,7 +46,7 @@ const serverSideConfig: Config.InitialProjectOptions = {
 
 == Build system
 
-In this tutorial tsup is used to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as normal source code. This is not what we want. We want the build system to ignore the tests.
+So far, we have been using Tsup to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as source code. This is not what we want. We want the build system to ignore the tests.
 
 This can be done by adding the test files as ignore patterns in the tsup configuration files.
 
@@ -223,3 +229,6 @@ import {
 } from '@jest/globals';
 ----
 
+== Summary
+
+That wraps up this tutorial, we hope you enjoyed it - Visit https://developer.enonic.com/docs/tutorials[the turoials section^] on the developer portal for more.

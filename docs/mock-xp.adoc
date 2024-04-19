@@ -1,13 +1,15 @@
 = Mock XP
 :sourcedir: ../
 
-In this chapter we introduce the Mock XP library.
+In this chapter we introduce Mock XP 
 
 == Introduction
 
-When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has a library called `@enonic/mock-xp` that can help you with some of the heavy lifting.
+When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has an NPM module called `@enonic/mock-xp` that can help you with some of the heavy lifting.
 
 == Install Mock XP
+
+Run the following command to install it:
 
 [source, shell]
 ----
@@ -16,21 +18,21 @@ npm install --save-dev @enonic/mock-xp
 
 == Source code
 
-Let's add a test for the following controller:
+Let's use the following controller file:
 
 .src/main/resources/controllers/preview.ts
-[source, typescript]
+[source, TypeScript]
 ----
 include::{sourcedir}src/main/resources/controllers/preview.ts[]
 ----
 
 == Tests
+ 
+In this test `mock-xp` is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type `person`) which reference the images.
 
-In order for the test file to not become overly large, it's been split it into smaller parts:
+In addition, mock-xp's `Log` is used to get nice colorful logging. In order for `libPortal.getContent()` to work, `request` property is set on the `libPortal` object.
 
-=== Mock Portal Library
-
-TODO: What does this do?
+For the test file to not become overly large, it's been split it into smaller parts:
 
 .src/jest/server/mockXP.ts
 [source, typescript]
@@ -38,24 +40,49 @@ TODO: What does this do?
 include::{sourcedir}src/jest/server/mockXP.ts[]
 ----
 
-=== The test
-
-In this test `mock-xp` is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type `person`) which reference the images.
-
-In addition, mock-xp's `Log` is used to get nice colorful logging.
-
-In order for `libPortal.getContent()` to work, `request` property is set on the `libPortal` object.
-
 .src/jest/server/preview.test.ts
 [source, typescript]
 ----
 include::{sourcedir}src/jest/server/preview.test.ts[]
 ----
 
+== Output
+
+Running the test produces the glorious result:
+
+    npm test src/jest/server/preview.test.ts 
+
+[source, Terminal]
+----
+> intro@1.0.0 test
+> jest --no-cache --coverage src/jest/server/preview.test.ts
+
+ PASS   SERVER  src/jest/server/preview.test.ts
+  preview
+    ✓ is able to render a page for Léa Seydoux (26 ms)
+    ✓ is able to render a page for Jeffrey Wright
+
+----------------------------|---------|----------|---------|---------|-------------------
+File                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------------------|---------|----------|---------|---------|-------------------
+All files                   |     100 |    54.54 |     100 |     100 |                   
+ jest/server                |     100 |      100 |     100 |     100 |                   
+  mockXP.ts                 |     100 |      100 |     100 |     100 |                   
+ main/resources/controllers |     100 |    16.66 |     100 |     100 |                   
+  preview.ts                |     100 |    16.66 |     100 |     100 | 16-34             
+----------------------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.839 s
+Ran all test suites matching /src\/jest\/server\/preview.test.ts/i.
+----
+
+
 == Summary
 
-This guide, showed how to write tests for Enonic XP applications using Jest in combination with Mock XP.
+This chapter demonstrated how to write tests using Jest in combination with Mock XP.
 
-Mock XP was used to mock the Enonic XP *portal* API.
+Mock XP was used to mock the Enonic https://developer.enonic.com/docs/xp/stable/api/lib-content[content^] and https://developer.enonic.com/docs/xp/stable/api/lib-portal[portal^] APIs.
 
-The next tutorial will show how to write a link:client-side[client-side] test for an Enonic XP application.
+Coming up, we demonstrate how to write a link:client-side[client-side] test.

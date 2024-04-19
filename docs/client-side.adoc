@@ -1,9 +1,13 @@
 = Client side
 :sourcedir: ../
 
-== Install Node modules
+This chapter covers setting up and running client-side tests
 
-[source, shell]
+== Node modules
+
+For this example, we're going to need some more modules.
+
+[source, Terminal]
 ----
 npm install --save-dev react react-dom react-test-renderer @types/react
 ----
@@ -14,7 +18,7 @@ npm install --save-dev react react-dom react-test-renderer @types/react
 
 == Source code
 
-Let's write a test for the following functional React component:
+Here is the react component we will be testing:
 
 .src/main/resources/assets/js/HelloWorld.tsx
 [source, typescript]
@@ -24,14 +28,48 @@ include::{sourcedir}src/main/resources/assets/js/HelloWorld.tsx[]
 
 == Test
 
+Adding the following test will let us test the component:
+
 .src/jest/client/HelloWorld.test.tsx
 [source, typescript]
 ----
 include::{sourcedir}src/jest/client/HelloWorld.test.tsx[]
 ----
 
+== Output
+
+Run the test, and see what happens:
+
+    npm test src/jest/client/HelloWorld.test.tsx 
+
+[source, Terminal]
+----
+> intro@1.0.0 test
+> jest --no-cache --coverage src/jest/client/HelloWorld.test.tsx
+
+ PASS   CLIENT  src/jest/client/HelloWorld.test.tsx
+  HelloWorld
+    ✓ should render (11 ms)
+
+----------------|---------|----------|---------|---------|-------------------
+File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------|---------|----------|---------|---------|-------------------
+All files       |     100 |      100 |     100 |     100 |                   
+ HelloWorld.tsx |     100 |      100 |     100 |     100 |                   
+----------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        2.1 s
+Ran all test suites matching /src\/jest\/client\/HelloWorld.test.tsx/i.
+----
+
+
 == Summary
 
-In this guide, we have learned how to write a test for a React component using Jest and React Test Renderer.
+You have now seen how to write a test for a React component using Jest and React Test Renderer.
 
-Now that there exists some tests, it may be useful to store coverage reports in a tool that can show progress over time. One such tool is Codecov. The following tutorial will show you how to integrate link:coverage[Codecov] with your project.
+Now that we have some tests, it may be useful to store coverage reports in a tool that can show progress over time. 
+One such tool is Codecov. 
+
+The following chapter will show you how to integrate link:coverage[Codecov] with your project.
