@@ -451,8 +451,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#execution">Execution</a>
 <ul class="sectlevel2">
-<li><a href="#package_json">package.json</a></li>
-<li><a href="#build_gradle">build.gradle</a></li>
+<li><a href="#using_npm">Using NPM</a></li>
+<li><a href="#using_enonic_cli">Using Enonic CLI</a></li>
 </ul>
 </li>
 <li><a href="#summary">Summary</a></li>
@@ -490,7 +490,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="node_modules"><a class="link" href="#node_modules">Node modules</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to write tests in TypeScript and run them using Jest, a bunch of node modules needs to be installed.</p>
+<p>In order to write tests in TypeScript and run them using Jest, a few Node modules needs to be installed.</p>
 </div>
 <div class="paragraph">
 <p>Run the following command at the root of the Enonic project:</p>
@@ -764,7 +764,7 @@ export default customJestConfig;</code></pre>
 <p>Finally, we wire the test command to execute Jest</p>
 </div>
 <div class="sect2">
-<h3 id="package_json"><a class="link" href="#package_json">package.json</a></h3>
+<h3 id="using_npm"><a class="link" href="#using_npm">Using NPM</a></h3>
 <div class="paragraph">
 <p>In order to run tests the following needs to be added to the <code>package.json</code> file:</p>
 </div>
@@ -800,9 +800,9 @@ You may also run a specific test like this: <code>npm test src/jest/server/fibon
 </div>
 </div>
 <div class="sect2">
-<h3 id="build_gradle"><a class="link" href="#build_gradle">build.gradle</a></h3>
+<h3 id="using_enonic_cli"><a class="link" href="#using_enonic_cli">Using Enonic CLI</a></h3>
 <div class="paragraph">
-<p>Enonic uses Gradle as the main build system, to support running test from Enonic CLI, update your <code>build.gradle</code> file with these lines:</p>
+<p>You may also run the tests using Enonic CLI. CLI uses the default build system (Gradle), you must update the <code>build.gradle</code> file with the following lines:</p>
 </div>
 <div class="listingblock">
 <div class="title">build.gradle</div>
@@ -824,7 +824,8 @@ test.dependsOn npmTest</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You may now tests with the following command as well:</p>
+<p>As you can see, this simply tells Gradle to invoke the NPM test.
+You may now tests with the following command as well:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -849,7 +850,7 @@ The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 11:21:33 UTC
+Last updated 2024-04-19 11:42:55 UTC
 </div>
 </div>
 </body>
