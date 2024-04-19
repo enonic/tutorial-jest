@@ -460,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To demonstrate the power of mocking, let&#8217;s make a simple Typescript wrapper, which uses a standard Enonic library:</p>
+<p>To demonstrate the power of mocking, let&#8217;s make a simple Typescript using a standard Enonic library:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/tutorial-jest/sanitize.ts</div>
@@ -579,7 +579,7 @@ describe('sanitize', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 11:42:55 UTC
+Last updated 2024-04-19 12:27:13 UTC
 </div>
 </div>
 </body>
