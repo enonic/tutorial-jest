@@ -441,20 +441,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#install_node_modules">Install Node modules</a></li>
+<li><a href="#node_modules">Node modules</a></li>
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#test">Test</a></li>
+<li><a href="#output">Output</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="install_node_modules"><a class="link" href="#install_node_modules">Install Node modules</a></h2>
+<div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>This chapter covers setting up and running client-side tests</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="node_modules"><a class="link" href="#node_modules">Node modules</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For this example, we&#8217;re going to need some more modules.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm install --save-dev react react-dom react-test-renderer @types/react</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install --save-dev react react-dom react-test-renderer @types/react</code></pre>
 </div>
 </div>
 </div>
@@ -463,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s write a test for the following functional React component:</p>
+<p>Here is the react component we will be testing:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/assets/js/HelloWorld.tsx</div>
@@ -481,6 +492,9 @@ export const HelloWorld = () =&gt; {
 <div class="sect1">
 <h2 id="test"><a class="link" href="#test">Test</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Adding the following test will let us test the component:</p>
+</div>
 <div class="listingblock">
 <div class="title">src/jest/client/HelloWorld.test.tsx</div>
 <div class="content">
@@ -508,20 +522,59 @@ describe('HelloWorld', () =&gt; {
 </div>
 </div>
 <div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Run the test, and see what happens:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>npm test src/jest/client/HelloWorld.test.tsx</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">&gt; intro@1.0.0 test
+&gt; jest --no-cache --coverage src/jest/client/HelloWorld.test.tsx
+
+ PASS   CLIENT  src/jest/client/HelloWorld.test.tsx
+  HelloWorld
+    ✓ should render (11 ms)
+
+----------------|---------|----------|---------|---------|-------------------
+File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+----------------|---------|----------|---------|---------|-------------------
+All files       |     100 |      100 |     100 |     100 |
+ HelloWorld.tsx |     100 |      100 |     100 |     100 |
+----------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        2.1 s
+Ran all test suites matching /src\/jest\/client\/HelloWorld.test.tsx/i.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this guide, we have learned how to write a test for a React component using Jest and React Test Renderer.</p>
+<p>You have now seen how to write a test for a React component using Jest and React Test Renderer.</p>
 </div>
 <div class="paragraph">
-<p>Now that there exists some tests, it may be useful to store coverage reports in a tool that can show progress over time. One such tool is Codecov. The following tutorial will show you how to integrate <a href="coverage">Codecov</a> with your project.</p>
+<p>Now that we have some tests, it may be useful to store coverage reports in a tool that can show progress over time.
+One such tool is Codecov.</p>
+</div>
+<div class="paragraph">
+<p>The following chapter will show you how to integrate <a href="coverage">Codecov</a> with your project.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-18 07:52:21 UTC
+Last updated 2024-04-19 11:21:33 UTC
 </div>
 </div>
 </body>

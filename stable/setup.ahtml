@@ -441,6 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#sample_project">Sample project</a></li>
 <li><a href="#node_modules">Node modules</a></li>
 <li><a href="#configuration">Configuration</a>
 <ul class="sectlevel2">
@@ -462,7 +463,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Setting up Jest in your Enonic project</p>
+<p>This chapter covers setting up Jest for your Enonic app</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sample_project"><a class="link" href="#sample_project">Sample project</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the Enonic intro app.</p>
+</div>
+<div class="paragraph">
+<p>To create a project for the tutorial, run the following command:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>enonic project create com.example.tutorial.jest -r tutorial-intro -d jest-tutorial</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create an app and place it in a folder called <code>jest-tutorial</code>.</p>
 </div>
 </div>
 </div>
@@ -470,14 +490,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="node_modules"><a class="link" href="#node_modules">Node modules</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to write tests in Typescript and run them using Jest, a bunch of node modules needs to be installed.</p>
+<p>In order to write tests in TypeScript and run them using Jest, a bunch of node modules needs to be installed.</p>
 </div>
 <div class="paragraph">
-<p>Run the following command at the root of your project:</p>
+<p>Run the following command at the root of the Enonic project:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm install --save-dev jest-environment-jsdom ts-node ts-jest</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install --save-dev jest-environment-jsdom ts-node ts-jest</code></pre>
 </div>
 </div>
 </div>
@@ -486,7 +506,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Next, you will need to add and tune a set of configuration files:</p>
+<p>Next, you will need to add and tune a few configuration files:</p>
 </div>
 <div class="sect2">
 <h3 id="jest_config_ts"><a class="link" href="#jest_config_ts">jest.config.ts</a></h3>
@@ -741,7 +761,7 @@ export default customJestConfig;</code></pre>
 <h2 id="execution"><a class="link" href="#execution">Execution</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Finally, we wire the test commands to execute Jest</p>
+<p>Finally, we wire the test command to execute Jest</p>
 </div>
 <div class="sect2">
 <h3 id="package_json"><a class="link" href="#package_json">package.json</a></h3>
@@ -829,7 +849,7 @@ The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-18 07:52:21 UTC
+Last updated 2024-04-19 11:21:33 UTC
 </div>
 </div>
 </body>

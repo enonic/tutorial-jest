@@ -444,12 +444,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#install_mock_xp">Install Mock XP</a></li>
 <li><a href="#source_code">Source code</a></li>
-<li><a href="#tests">Tests</a>
-<ul class="sectlevel2">
-<li><a href="#mock_portal_library">Mock Portal Library</a></li>
-<li><a href="#the_test">The test</a></li>
-</ul>
-</li>
+<li><a href="#tests">Tests</a></li>
+<li><a href="#output">Output</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
@@ -458,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter we introduce the Mock XP library.</p>
+<p>In this chapter we introduce Mock XP</p>
 </div>
 </div>
 </div>
@@ -466,13 +462,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has a library called <code>@enonic/mock-xp</code> that can help you with some of the heavy lifting.</p>
+<p>When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has an NPM module called <code>@enonic/mock-xp</code> that can help you with some of the heavy lifting.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="install_mock_xp"><a class="link" href="#install_mock_xp">Install Mock XP</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Run the following command to install it:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-shell" data-lang="shell">npm install --save-dev @enonic/mock-xp</code></pre>
@@ -484,12 +483,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s add a test for the following controller:</p>
+<p>Let&#8217;s use the following controller file:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/controllers/preview.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {Content} from '/lib/xp/portal';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {Content} from '/lib/xp/portal';
 import type {Request, Response} from '/index.d';
 
 
@@ -538,12 +537,13 @@ export function get(_request: Request): Response {
 <h2 id="tests"><a class="link" href="#tests">Tests</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order for the test file to not become overly large, it&#8217;s been split it into smaller parts:</p>
+<p>In this test <code>mock-xp</code> is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type <code>person</code>) which reference the images.</p>
 </div>
-<div class="sect2">
-<h3 id="mock_portal_library"><a class="link" href="#mock_portal_library">Mock Portal Library</a></h3>
 <div class="paragraph">
-<p>TODO: What does this do?</p>
+<p>In addition, mock-xp&#8217;s <code>Log</code> is used to get nice colorful logging. In order for <code>libPortal.getContent()</code> to work, <code>request</code> property is set on the <code>libPortal</code> object.</p>
+</div>
+<div class="paragraph">
+<p>For the test file to not become overly large, it&#8217;s been split it into smaller parts:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/server/mockXP.ts</div>
@@ -613,18 +613,6 @@ jest.mock('/lib/xp/portal', () =&gt; {
     }
 }, { virtual: true });</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="the_test"><a class="link" href="#the_test">The test</a></h3>
-<div class="paragraph">
-<p>In this test <code>mock-xp</code> is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type <code>person</code>) which reference the images.</p>
-</div>
-<div class="paragraph">
-<p>In addition, mock-xp&#8217;s <code>Log</code> is used to get nice colorful logging.</p>
-</div>
-<div class="paragraph">
-<p>In order for <code>libPortal.getContent()</code> to work, <code>request</code> property is set on the <code>libPortal</code> object.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/server/preview.test.ts</div>
@@ -762,25 +750,63 @@ describe('preview', () =&gt; {
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Running the test produces the glorious result:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>npm test src/jest/server/preview.test.ts</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">&gt; intro@1.0.0 test
+&gt; jest --no-cache --coverage src/jest/server/preview.test.ts
+
+ PASS   SERVER  src/jest/server/preview.test.ts
+  preview
+    ✓ is able to render a page for Léa Seydoux (26 ms)
+    ✓ is able to render a page for Jeffrey Wright
+
+----------------------------|---------|----------|---------|---------|-------------------
+File                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+----------------------------|---------|----------|---------|---------|-------------------
+All files                   |     100 |    54.54 |     100 |     100 |
+ jest/server                |     100 |      100 |     100 |     100 |
+  mockXP.ts                 |     100 |      100 |     100 |     100 |
+ main/resources/controllers |     100 |    16.66 |     100 |     100 |
+  preview.ts                |     100 |    16.66 |     100 |     100 | 16-34
+----------------------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.839 s
+Ran all test suites matching /src\/jest\/server\/preview.test.ts/i.</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide, showed how to write tests for Enonic XP applications using Jest in combination with Mock XP.</p>
+<p>This chapter demonstrated how to write tests using Jest in combination with Mock XP.</p>
 </div>
 <div class="paragraph">
-<p>Mock XP was used to mock the Enonic XP <strong>portal</strong> API.</p>
+<p>Mock XP was used to mock the Enonic <a href="https://developer.enonic.com/docs/xp/stable/api/lib-content" target="_blank" rel="noopener">content</a> and <a href="https://developer.enonic.com/docs/xp/stable/api/lib-portal" target="_blank" rel="noopener">portal</a> APIs.</p>
 </div>
 <div class="paragraph">
-<p>The next tutorial will show how to write a <a href="client-side">client-side</a> test for an Enonic XP application.</p>
+<p>Coming up, we demonstrate how to write a <a href="client-side">client-side</a> test.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-18 07:52:21 UTC
+Last updated 2024-04-19 11:21:33 UTC
 </div>
 </div>
 </body>

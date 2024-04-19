@@ -441,6 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#intro">Intro</a></li>
 <li><a href="#command_line">Command line</a></li>
 <li><a href="#package_json">package.json</a></li>
 <li><a href="#github_action">GitHub action</a></li>
@@ -452,7 +453,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://about.codecov.io/" target="_blank" rel="nofollow noopener">Codecov</a> is a nice reporting tool that can be used to visualize your test coverage over time and across multiple projects. It integrates nicely with GitHub and other CI/CD tools.</p>
+<p>Discover how to see test progress over time usig Codecov</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://about.codecov.io/" target="_blank" rel="noopener">Codecov</a> is a nice reporting tool that can be used to visualize your test coverage over time and across multiple projects. It integrates nicely with GitHub and other CI/CD tools.</p>
 </div>
 </div>
 </div>
@@ -460,7 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="command_line"><a class="link" href="#command_line">Command line</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get a nice test coverage report when running tests, simply add the <code>--coverage</code> option:</p>
+<p>To get a test coverage report when running tests, simply add the <code>--coverage</code> option:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -473,15 +482,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="package_json"><a class="link" href="#package_json">package.json</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get test coverage report every time you run</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm test</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>just add the <code>--coverage</code> option in the <code>package.json</code> 's <code>scripts</code> section like this:</p>
+<p>To get a coverage report every time you run <code>npm test</code>. Add the <code>--coverage</code> option in the <code>package.json</code> <code>scripts</code> section like this:</p>
 </div>
 <div class="listingblock">
 <div class="title">package.json</div>
@@ -558,14 +559,14 @@ jobs:
 <p>With the above setup, you will get a nice test coverage report every time you run <code>npm test</code> and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.</p>
 </div>
 <div class="paragraph">
-<p>The next tutorial will show how to <a href="colocate">colocate</a> tests with the source code they test.</p>
+<p>The final chapter will demonstrate how to <a href="colocate">colocate</a> tests with the source code.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-18 07:52:21 UTC
+Last updated 2024-04-19 11:21:33 UTC
 </div>
 </div>
 </body>

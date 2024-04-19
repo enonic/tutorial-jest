@@ -441,6 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#intro">Intro</a></li>
 <li><a href="#jest_configuration">Jest configuration</a></li>
 <li><a href="#build_system">Build system</a></li>
 <li><a href="#type_checking">Type checking</a>
@@ -455,6 +456,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#in_test_files_use_relative_imports_and_avoid_globals">In test files: Use relative imports and avoid globals.</a></li>
 </ul>
 </li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -462,7 +464,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial all tests have been placed under <code>src/jest</code>, separated away from the source code. It is possible to place the tests in the same directory as the source code, but it has some drawbacks:</p>
+<p>Optionally place tests next to your source code file</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>So far, all tests have been placed under <code>src/jest</code>, cleanly separated from the source code. It is possible to place the tests in the same directory as the source code, but it has some drawbacks and complexity.</p>
+</div>
+<div class="paragraph">
+<p>We will cover it all in this chapter.</p>
 </div>
 </div>
 </div>
@@ -509,7 +522,7 @@ const serverSideConfig: Config.InitialProjectOptions = {
 <h2 id="build_system"><a class="link" href="#build_system">Build system</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial tsup is used to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as normal source code. This is not what we want. We want the build system to ignore the tests.</p>
+<p>So far, we have been using Tsup to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as source code. This is not what we want. We want the build system to ignore the tests.</p>
 </div>
 <div class="paragraph">
 <p>This can be done by adding the test files as ignore patterns in the tsup configuration files.</p>
@@ -738,10 +751,18 @@ Test files can contain things like jest functions in the global scope that are n
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That wraps up this tutorial, we hope you enjoyed it - Visit <a href="https://developer.enonic.com/docs/tutorials" target="_blank" rel="noopener">the turoials section</a> on the developer portal for more.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-18 07:52:21 UTC
+Last updated 2024-04-19 11:21:33 UTC
 </div>
 </div>
 </body>
