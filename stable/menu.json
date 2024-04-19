@@ -9,11 +9,11 @@
         "document": "test"
       },
       {
-        "title": "3 - Mocking globals",
+        "title": "3 - Globals",
         "document": "globals"
       },
       {
-        "title": "4 - Mocking functions",
+        "title": "4 - Functions",
         "document": "mock"
       },
       {
