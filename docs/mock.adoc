@@ -5,7 +5,7 @@ This chapter covers mocking functions and Enonic libraries.
 
 == Source code
 
-To demonstrate the power of mocking, let's make a simple Typescript wrapper, which uses a standard Enonic library:
+To demonstrate the power of mocking, let's make a simple Typescript using a standard Enonic library:
 
 .src/main/resources/lib/tutorial-jest/sanitize.ts
 [source, TypeScript]
