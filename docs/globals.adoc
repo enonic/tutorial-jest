@@ -125,4 +125,4 @@ include::{sourcedir}src/jest/server/getAppConfig.test.ts[]
 
 In this tutorial, you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.
 
-Let's move on to the next tutorial to learn how to link:mock[mock functions] and write our first "real" test for Enonic server-side code.
+Let's move on to the next tutorial to learn how to <<mock#,mock functions>> and write our first "real" test for Enonic server-side code.

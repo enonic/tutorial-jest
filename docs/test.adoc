@@ -74,4 +74,4 @@ Ran all test suites matching /src\/jest\/server\/fibonacci.test.ts/i.
 
 This tutorial showed how to write and run a simple Jest test for Enonic XP projects.
 
-In order to write more advanced tests, we must introduce a new concept. Let's have a look at link:globals[mocking].
+In order to write more advanced tests, we must introduce a new concept. Let's have a look at <<globals#,mocking>>.

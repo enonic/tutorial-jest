@@ -64,4 +64,4 @@ Obviously this mock doesn't cover ascii-folding for the whole unicode range, but
 
 This guide showed how to mock an Enonic library invoked by a Typescript. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.
 
-Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the link:mock-xp[Mock XP] library.
+Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the <<mock-xp#,Mock XP>> library.

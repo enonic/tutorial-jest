@@ -72,4 +72,4 @@ You have now seen how to write a test for a React component using Jest and React
 Now that we have some tests, it may be useful to store coverage reports in a tool that can show progress over time. 
 One such tool is Codecov. 
 
-The following chapter will show you how to integrate link:coverage[Codecov] with your project.
+The following chapter will show you how to integrate <<coverage#,Codecov>> with your project.

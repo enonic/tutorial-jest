@@ -85,4 +85,4 @@ This chapter demonstrated how to write tests using Jest in combination with Mock
 
 Mock XP was used to mock the Enonic https://developer.enonic.com/docs/xp/stable/api/lib-content[content^] and https://developer.enonic.com/docs/xp/stable/api/lib-portal[portal^] APIs.
 
-Coming up, we demonstrate how to write a link:client-side[client-side] test.
+Coming up, we demonstrate how to write a <<client-side#,client-side>> test.

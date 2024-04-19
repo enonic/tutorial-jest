@@ -16,11 +16,11 @@ TIP: For more details, visit the https://jestjs.io/[Jest documentation^].
 
 This guide will show you how to:
 
-* link:setup[Set up] Jest in an existing Enonic XP app
-* Write a simple link:test[test] without any mocks
-* Write a test mocking link:globals[Globals]
-* Write a test for server-side code manually link:mock[mocking] Java libraries
-* Write a test for server-side code using link:mock-xp[Mock XP]
-* Write a test for link:client-side[client-side] code
-* Set up link:coverage[Coverage] with Github Actions
-* link:colocate[Colocate] tests with the code they test
+* <<setup#,Set up>> Jest in an existing Enonic XP app
+* Write a simple <<test#,test>> without any mocks
+* Write a test mocking <<globals#,Globals>>
+* Write a test for server-side code manually <<mock#,mocking>> Java libraries
+* Write a test for server-side code using <<mock-xp#, Mock XP>>
+* Write a test for <<client-side#, client-side>> code
+* Set up <<coverage#,Coverage>> with Github Actions
+* <<colocation#,Colocate>> tests with the code they test

@@ -124,4 +124,4 @@ enonic project test
 With the above setup in place, it is possible to write tests in Typescript and run them using Jest.
 The tests will be run on every build and the coverage will be reported.
 
-Let's learn how to write our first link:test[test].
+Let's learn how to write our first <<test#,test>>.
