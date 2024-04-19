@@ -16,7 +16,7 @@ This will create an app and place it in a folder called `jest-tutorial`.
 
 == Node modules
 
-In order to write tests in TypeScript and run them using Jest, a bunch of node modules needs to be installed.
+In order to write tests in TypeScript and run them using Jest, a few Node modules needs to be installed.
 
 Run the following command at the root of the Enonic project:
 
@@ -63,7 +63,7 @@ include::{sourcedir}src/jest/server/tsconfig.json[]
 
 Finally, we wire the test command to execute Jest
 
-=== package.json
+=== Using NPM
 
 In order to run tests the following needs to be added to the `package.json` file:
 
@@ -87,9 +87,9 @@ npm test
 NOTE: You may also run a specific test like this: `npm test src/jest/server/fibonacci.test.ts`
 
 
-=== build.gradle
+=== Using Enonic CLI
 
-Enonic uses Gradle as the main build system, to support running test from Enonic CLI, update your `build.gradle` file with these lines:
+You may also run the tests using Enonic CLI. CLI uses the default build system (Gradle), you must update the `build.gradle` file with the following lines:
 
 .build.gradle
 [source, gradle]
@@ -110,6 +110,7 @@ tasks.register('npmTest', NpmTask) {
 test.dependsOn npmTest
 ----
 
+As you can see, this simply tells Gradle to invoke the NPM test. 
 You may now tests with the following command as well:
 
 [source, shell]
