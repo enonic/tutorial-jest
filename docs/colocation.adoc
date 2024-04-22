@@ -4,7 +4,7 @@ Optionally place tests next to your source code file
 
 == Intro
 
-So far, all tests have been placed under `src/jest`, cleanly separated from the source code. It is possible to place the tests in the same directory as the source code, but it has some drawbacks and complexity. 
+So far, all tests have been placed under `src/jest`, cleanly separated from the source code. It is possible to place the tests in the same directory as the source code, but it has some drawbacks and complexity.
 
 We will cover it all in this chapter.
 
@@ -109,7 +109,7 @@ Each of them bringing their own include and exclude patters.
 
 In the current configuration include patterns with `\*.ts` and `*.tsx` are used.
 
-Obviously those patterns also matches any test files ending with `.ts` or `.tsx`.
+Obviously those patterns also matches test files ending with `\*.test.ts` or `*.test.tsx`.
 
 Here is how to make sure test files a type checked as `test files`, not as `source files`:
 

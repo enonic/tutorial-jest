@@ -12,9 +12,21 @@ For this example, we're going to need some more modules.
 npm install --save-dev react react-dom react-test-renderer @types/react
 ----
 
-// == Configuration
+== Configuration
 
-// TODO "jsx": "react-jsx",
+Since we are going to write a `tsx` file, we need to make sure the tsconfig.json file includes the jsx option.
+
+.src/main/resources/assets/tsconfig.json
+[source, json]
+----
+{
+  "compilerOptions": {
+    "jsx": "react",
+    // other compilerOptions...
+  },
+  // extends, files, include, exclude...
+}
+----
 
 == Source code
 
@@ -40,7 +52,10 @@ include::{sourcedir}src/jest/client/HelloWorld.test.tsx[]
 
 Run the test, and see what happens:
 
-    npm test src/jest/client/HelloWorld.test.tsx 
+[source, Terminal]
+----
+npm test src/jest/client/HelloWorld.test.tsx
+----
 
 [source, Terminal]
 ----
@@ -52,10 +67,10 @@ Run the test, and see what happens:
     ✓ should render (11 ms)
 
 ----------------|---------|----------|---------|---------|-------------------
-File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 ----------------|---------|----------|---------|---------|-------------------
-All files       |     100 |      100 |     100 |     100 |                   
- HelloWorld.tsx |     100 |      100 |     100 |     100 |                   
+All files       |     100 |      100 |     100 |     100 |
+ HelloWorld.tsx |     100 |      100 |     100 |     100 |
 ----------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total
@@ -69,7 +84,7 @@ Ran all test suites matching /src\/jest\/client\/HelloWorld.test.tsx/i.
 
 You have now seen how to write a test for a React component using Jest and React Test Renderer.
 
-Now that we have some tests, it may be useful to store coverage reports in a tool that can show progress over time. 
-One such tool is Codecov. 
+Now that we have some tests, it may be useful to store coverage reports in a tool that can show progress over time.
+One such tool is Codecov.
 
 The following chapter will show you how to integrate <<coverage#,Codecov>> with your project.

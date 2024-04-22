@@ -6,7 +6,7 @@ In this chapter, you'll add code, and test it with Jest
 == How it works
 
 * Test files import from *_sources_* and defines *_test cases_* with *_assertions_*.
-* Test files written for Jest uses `describe` and `it` functions to organize the test cases.
+* Test files written for Jest uses `describe` and (`test`/`it`) functions to organize the test cases.
 * The `expect` function is used to write *_assertions_* and returns an object which contains a bunch of *_Jest matchers_*.
 * The test below uses the `toEqual` matcher, see https://jestjs.io/docs/using-matchers for more matchers.
 
@@ -41,7 +41,7 @@ Run the tests:
 
 [source, terminal]
 ----
-npm test src/jest/server/fibonacci.test.ts 
+npm test src/jest/server/fibonacci.test.ts
 ----
 
 This should produce an output looking something like this:
@@ -57,10 +57,10 @@ This should produce an output looking something like this:
     ✓ should return the first 10 numbers in the fibonacci sequence (3 ms)
 
 --------------|---------|----------|---------|---------|-------------------
-File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 --------------|---------|----------|---------|---------|-------------------
-All files     |     100 |      100 |     100 |     100 |                   
- fibonacci.ts |     100 |      100 |     100 |     100 |                   
+All files     |     100 |      100 |     100 |     100 |
+ fibonacci.ts |     100 |      100 |     100 |     100 |
 --------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total

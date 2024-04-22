@@ -5,7 +5,7 @@ This chapter covers setting up Jest for your Enonic app
 
 == Sample project
 
-You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the Enonic intro app. 
+You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the Enonic intro app.
 
 To create a project for the tutorial, run the following command:
 
@@ -103,14 +103,14 @@ tasks.register('npmTest', NpmTask) {
     environment = [
         'FORCE_COLOR': 'true',
     ]
-    inputs.dir 'test'
+    inputs.dir 'src/jest'
     outputs.dir 'coverage'
 }
 
 test.dependsOn npmTest
 ----
 
-As you can see, this simply tells Gradle to invoke the NPM test. 
+As you can see, this simply tells Gradle to invoke the NPM test.
 You may now tests with the following command as well:
 
 [source, shell]

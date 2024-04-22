@@ -23,7 +23,7 @@ jest.mock('/lib/xp/common', () => ({
 
 
 describe('sanitize', () => {
-    it('should return the first 10 numbers in the fibonacci sequence', () => {
+    it('should remove, replace or fold "illegal" characters', () => {
         import('/lib/tutorial-jest/sanitize').then(({sanitize}) => {
             expect(sanitize("Piña CØLADÆ <script>alert('hi!');</script>"))
                 .toEqual('pina-coladae-script-alerthi-script');
