@@ -616,7 +616,7 @@ Test files can contain things like jest functions in the global scope that are n
 <p>In the current configuration include patterns with <code>*.ts</code> and <code>*.tsx</code> are used.</p>
 </div>
 <div class="paragraph">
-<p>Obviously those patterns also matches any test files ending with <code>.ts</code> or <code>.tsx</code>.</p>
+<p>Obviously those patterns also matches test files ending with <code>*.test.ts</code> or <code>*.test.tsx</code>.</p>
 </div>
 <div class="paragraph">
 <p>Here is how to make sure test files a type checked as <code>test files</code>, not as <code>source files</code>:</p>
@@ -762,7 +762,7 @@ Test files can contain things like jest functions in the global scope that are n
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 13:09:15 UTC
+Last updated 2024-04-22 07:40:30 UTC
 </div>
 </div>
 </body>

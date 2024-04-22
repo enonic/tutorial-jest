@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#node_modules">Node modules</a></li>
+<li><a href="#configuration">Configuration</a></li>
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#test">Test</a></li>
 <li><a href="#output">Output</a></li>
@@ -466,6 +467,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install --save-dev react react-dom react-test-renderer @types/react</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since we are going to write a <code>tsx</code> file, we need to make sure the tsconfig.json file includes the jsx option.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/assets/tsconfig.json</div>
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "compilerOptions": {
+    "jsx": "react",
+    // other compilerOptions...
+  },
+  // extends, files, include, exclude...
+}</code></pre>
 </div>
 </div>
 </div>
@@ -527,9 +548,9 @@ describe('HelloWorld', () =&gt; {
 <div class="paragraph">
 <p>Run the test, and see what happens:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>npm test src/jest/client/HelloWorld.test.tsx</pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm test src/jest/client/HelloWorld.test.tsx</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -574,7 +595,7 @@ One such tool is Codecov.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 13:09:15 UTC
+Last updated 2024-04-22 07:40:30 UTC
 </div>
 </div>
 </body>

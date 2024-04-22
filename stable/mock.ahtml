@@ -548,7 +548,7 @@ jest.mock('/lib/xp/common', () =&gt; ({
 
 
 describe('sanitize', () =&gt; {
-    it('should return the first 10 numbers in the fibonacci sequence', () =&gt; {
+    it('should remove, replace or fold "illegal" characters', () =&gt; {
         import('/lib/tutorial-jest/sanitize').then(({sanitize}) =&gt; {
             expect(sanitize("Piña CØLADÆ &lt;script&gt;alert('hi!');&lt;/script&gt;"))
                 .toEqual('pina-coladae-script-alerthi-script');
@@ -579,7 +579,7 @@ describe('sanitize', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 13:09:15 UTC
+Last updated 2024-04-22 07:40:30 UTC
 </div>
 </div>
 </body>

@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Test files import from <strong><em>sources</em></strong> and defines <strong><em>test cases</em></strong> with <strong><em>assertions</em></strong>.</p>
 </li>
 <li>
-<p>Test files written for Jest uses <code>describe</code> and <code>it</code> functions to organize the test cases.</p>
+<p>Test files written for Jest uses <code>describe</code> and (<code>test</code>/<code>it</code>) functions to organize the test cases.</p>
 </li>
 <li>
 <p>The <code>expect</code> function is used to write <strong><em>assertions</em></strong> and returns an object which contains a bunch of <strong><em>Jest matchers</em></strong>.</p>
@@ -601,7 +601,7 @@ Ran all test suites matching /src\/jest\/server\/fibonacci.test.ts/i.</code></pr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 13:09:15 UTC
+Last updated 2024-04-22 07:40:30 UTC
 </div>
 </div>
 </body>

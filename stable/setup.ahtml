@@ -816,7 +816,7 @@ You may also run a specific test like this: <code>npm test src/jest/server/fibon
     environment = [
         'FORCE_COLOR': 'true',
     ]
-    inputs.dir 'test'
+    inputs.dir 'src/jest'
     outputs.dir 'coverage'
 }
 
@@ -850,7 +850,7 @@ The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-19 13:09:15 UTC
+Last updated 2024-04-22 07:40:30 UTC
 </div>
 </div>
 </body>
