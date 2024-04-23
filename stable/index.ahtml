@@ -461,7 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 lot more.</p>
 </div>
 <div class="paragraph">
-<p>A special feature of this setup is that tests without can run standalone (outside of Enonic XP). Thus the tests will finish faster and be more flexible to execute.</p>
+<p>A special feature of this setup is that tests can be executed standalone, independently of Enonic XP. Thus, the tests will finish faster and be more flexible to execute.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -511,7 +511,7 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-23 08:15:45 UTC
+Last updated 2024-04-23 08:35:51 UTC
 </div>
 </div>
 </body>

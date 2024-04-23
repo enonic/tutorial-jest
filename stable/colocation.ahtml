@@ -755,14 +755,14 @@ Test files can contain things like jest functions in the global scope that are n
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This wraps up the tutorial, we hope you enjoyed it. Visit <a href="https://developer.enonic.com/docs/tutorials" target="_blank" rel="noopener">the tutorials section</a> on our Developer Portal for more.</p>
+<p>This wraps up the tutorial, we hope you enjoyed it. Visit <a href="https://developer.enonic.com/docs/tutorials">the tutorials section</a> on our Developer Portal for more.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-23 08:15:45 UTC
+Last updated 2024-04-23 08:35:51 UTC
 </div>
 </div>
 </body>
