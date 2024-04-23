@@ -231,4 +231,4 @@ import {
 
 == Summary
 
-This wraps up the tutorial, we hope you enjoyed it. Visit https://developer.enonic.com/docs/tutorials[the tutorials section^] on our Developer Portal for more.
+This wraps up the tutorial, we hope you enjoyed it. Visit https://developer.enonic.com/docs/tutorials[the tutorials section] on our Developer Portal for more.

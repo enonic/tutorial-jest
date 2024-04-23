@@ -10,7 +10,7 @@ This tutorial introduces you to the Jest testing framework, and how to integrate
 Jest is a highly adopted testing framework that supports TypeScript, mocking, and a lot,
 lot more.
 
-A special feature of this setup is that tests without can run standalone (outside of Enonic XP). Thus the tests will finish faster and be more flexible to execute.
+A special feature of this setup is that tests can be executed standalone, independently of Enonic XP. Thus, the tests will finish faster and be more flexible to execute.
 
 TIP: For more details, visit the https://jestjs.io/[Jest documentation^].
 
