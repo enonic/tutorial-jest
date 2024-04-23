@@ -5,7 +5,7 @@ This chapter introduces the concept of mocking.
 
 == Introduction
 
-Mocking the act of creating fake objects that stand in for real objects within the system. This way, you may test or simulate bigger parts of a system - even without running that system.
+Mocking is the concept of creating fake objects that stand in for real objects in the system. This way, you may test or simulate bigger parts of a system - even without that system being actually available.
 
 == Globals
 
@@ -82,7 +82,7 @@ globals: {
 ----
 
 A more flexible solution, that also let you mock functions, like `log.info` is to use a setup file.
-It will run before the execution of each test file:
+It will run before the execution of each test file.
 
 Create a setup file:
 
@@ -105,7 +105,7 @@ This will mock default values for the global `app` and `log` objects, and the va
 
 == Types
 
-To avoid type errors when accessing those objects, you can add a type declaration file referencing `@enonic-types/global`
+To avoid type errors when accessing those objects, you can add a type declaration file referencing `@enonic-types/global`.
 
 .src/jest/server/global.d.ts
 [source, typescript]
@@ -123,6 +123,6 @@ include::{sourcedir}src/jest/server/getAppConfig.test.ts[]
 
 == Summary
 
-In this tutorial, you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.
+In this chapter you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.
 
-Let's move on to the next tutorial to learn how to <<mock#,mock functions>> and write our first "real" test for Enonic server-side code.
+Let's move on to the next chapter and learn how to <<mock#,mock functions>> and write our first "real" test for Enonic server-side code.

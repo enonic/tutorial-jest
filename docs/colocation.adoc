@@ -1,6 +1,6 @@
 = Colocation
 
-Optionally place tests next to your source code file
+Optionally place tests next to your source code file.
 
 == Intro
 
@@ -10,7 +10,7 @@ We will cover it all in this chapter.
 
 == Jest configuration
 
-In order for jest to find and run the colocated tests, the test files must be included in the `testMatch` configuration. This can be done by adding the colocated test files as include patterns in the jest configuration files:
+In order for Jest to find and run the colocated tests, the test files must be included in the `testMatch` configuration. This can be done by adding the colocated test files as include patterns in the Jest configuration files:
 
 .jest.config.ts
 [source, Typescript]
@@ -48,7 +48,7 @@ const serverSideConfig: Config.InitialProjectOptions = {
 
 So far, we have been using Tsup to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as source code. This is not what we want. We want the build system to ignore the tests.
 
-This can be done by adding the test files as ignore patterns in the tsup configuration files.
+This can be done by adding the test files as ignore patterns in the Tsup configuration files.
 
 .tsup/constants.ts
 [source, Typescript]
@@ -105,11 +105,11 @@ When running type checks these tsconfig.json files are used:
 * src/jest/client/tsconfig.json
 * src/jest/server/tsconfig.json
 
-Each of them bringing their own include and exclude patters.
+, each of them bringing their own include and exclude patters.
 
 In the current configuration include patterns with `\*.ts` and `*.tsx` are used.
 
-Obviously those patterns also matches test files ending with `\*.test.ts` or `*.test.tsx`.
+Obviously those patterns also match test files ending with `\*.test.ts` or `*.test.tsx`.
 
 Here is how to make sure test files a type checked as `test files`, not as `source files`:
 
@@ -199,11 +199,11 @@ Here is how to make sure test files a type checked as `test files`, not as `sour
 
 == IDE
 
-Typically IDE's use the closest tsconfig.json to resolve import paths and global types.
+Typically, IDEs use the closest `tsconfig.json` to resolve import paths and global types.
 
 Which means that a test file colocated with source code is treated as source code by the IDE.
 
-I can think of a couple solutions to this:
+There may be a couple solutions to this:
 
 === Adding support for test syntax to all source files.
 
@@ -211,7 +211,7 @@ This is a bad option, because it may cause runtime problems if a developer adds 
 
 === In test files: Use relative imports and avoid globals.
 
-This can be achived by importing jest globals directly from `@jest/globals`.
+This can be achieved by importing jest globals directly from `@jest/globals`.
 
 ./src/main/resources/**/any.test.ts
 [source, Typescript]
@@ -231,4 +231,4 @@ import {
 
 == Summary
 
-That wraps up this tutorial, we hope you enjoyed it - Visit https://developer.enonic.com/docs/tutorials[the turoials section^] on the developer portal for more.
+This wraps up the tutorial, we hope you enjoyed it. Visit https://developer.enonic.com/docs/tutorials[the tutorials section^] on our Developer Portal for more.

@@ -1,7 +1,7 @@
 = Codecov
 :toc: right
 
-Discover how to see test progress over time usig Codecov 
+Discover how to see test progress over time using Codecov.
 
 == Intro
 
@@ -76,4 +76,4 @@ jobs:
 
 With the above setup, you will get a nice test coverage report every time you run `npm test` and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.
 
-The final chapter will demonstrate how to <<colocate#,colocate>> tests with the source code.
+The final chapter will demonstrate how to <<colocation#,colocate>> tests with the source code.

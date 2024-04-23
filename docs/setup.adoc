@@ -1,7 +1,7 @@
 = Setup
 :sourcedir: ../
 
-This chapter covers setting up Jest for your Enonic app
+This chapter covers setting up Jest for your Enonic app.
 
 == Sample project
 
@@ -16,9 +16,9 @@ This will create an app and place it in a folder called `jest-tutorial`.
 
 == Node modules
 
-In order to write tests in TypeScript and run them using Jest, a few Node modules needs to be installed.
+In order to write tests in TypeScript and run them using Jest, a few Node modules need to be installed.
 
-Run the following command at the root of the Enonic project:
+Run the following command at the root of the Enonic project you created in the previous step:
 
 [source, Terminal]
 ----
@@ -39,7 +39,7 @@ Jest needs to be configured to run Typescript tests. This is done by creating a 
 include::{sourcedir}jest.config.ts[]
 ----
 
-Read more about configuring Jest here: https://jestjs.io/docs/configuration
+Read more about configuring Jest https://jestjs.io/docs/configuration[here^].
 
 === tsconfig.json
 
@@ -61,7 +61,7 @@ include::{sourcedir}src/jest/server/tsconfig.json[]
 
 == Execution
 
-Finally, we wire the test command to execute Jest
+Finally, we wire the test command to execute Jest tests.
 
 === Using NPM
 
@@ -89,7 +89,7 @@ NOTE: You may also run a specific test like this: `npm test src/jest/server/fibo
 
 === Using Enonic CLI
 
-You may also run the tests using Enonic CLI. CLI uses the default build system (Gradle), you must update the `build.gradle` file with the following lines:
+You may also run the tests using Enonic CLI. CLI uses the default build system (Gradle), so you must update the `build.gradle` file with the following lines:
 
 .build.gradle
 [source, gradle]
@@ -110,8 +110,8 @@ tasks.register('npmTest', NpmTask) {
 test.dependsOn npmTest
 ----
 
-As you can see, this simply tells Gradle to invoke the NPM test.
-You may now tests with the following command as well:
+As you can see, this simply tells Gradle to invoke the NPM's test script.
+You may now test with the following command as well:
 
 [source, shell]
 ----

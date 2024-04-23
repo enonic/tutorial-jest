@@ -15,7 +15,7 @@ include::{sourcedir}src/main/resources/lib/tutorial-jest/sanitize.ts[]
 
 == Test without mock
 
-Trying to run this simple test ...
+Try to run this simple test:
 
 [source, TypeScript]
 ----
@@ -35,7 +35,7 @@ describe('sanitize', () => {
 });
 ----
 
-... will fail with the following error message:
+It should fail with the following error message:
 
 [source, Terminal]
 ----
@@ -62,6 +62,6 @@ Obviously this mock doesn't cover ascii-folding for the whole unicode range, but
 
 == Summary
 
-This guide showed how to mock an Enonic library invoked by a Typescript. This is neccessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.
+This chapter showed how to mock an Enonic library invoked by a Typescript. This is necessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.
 
 Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the <<mock-xp#,Mock XP>> library.
