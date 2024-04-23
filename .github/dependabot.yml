@@ -18,6 +18,10 @@ updates:
       - "ComLock"
     reviewers:
       - "ComLock"
+    ignore:
+      - dependency-name: "esbuild-sass-plugin"
+        versions:
+          - "*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
