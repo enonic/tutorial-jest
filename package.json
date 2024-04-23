@@ -14,7 +14,7 @@
     "@enonic-types/lib-task": "^7",
     "@enonic/js-utils": "^1.7.1",
     "@enonic/mock-xp": "^1.0.0",
-    "@swc/core": "^1.4.16",
+    "@swc/core": "^1.4.17",
     "@types/node": "^20.12.7",
     "@types/react": "^18.2.79",
     "@typescript-eslint/eslint-plugin": "^7",
