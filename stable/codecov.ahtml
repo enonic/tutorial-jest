@@ -453,7 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Discover how to see test progress over time usig Codecov</p>
+<p>Discover how to see test progress over time using Codecov.</p>
 </div>
 </div>
 </div>
@@ -559,14 +559,14 @@ jobs:
 <p>With the above setup, you will get a nice test coverage report every time you run <code>npm test</code> and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.</p>
 </div>
 <div class="paragraph">
-<p>The final chapter will demonstrate how to <a href="colocate.ahtml">colocate</a> tests with the source code.</p>
+<p>The final chapter will demonstrate how to <a href="colocation.ahtml">colocate</a> tests with the source code.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-22 07:40:30 UTC
+Last updated 2024-04-23 08:15:45 UTC
 </div>
 </div>
 </body>

@@ -465,7 +465,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Mocking the act of creating fake objects that stand in for real objects within the system. This way, you may test or simulate bigger parts of a system - even without running that system.</p>
+<p>Mocking is the concept of creating fake objects that stand in for real objects in the system. This way, you may test or simulate bigger parts of a system - even without that system being actually available.</p>
 </div>
 </div>
 </div>
@@ -594,7 +594,7 @@ describe('getAppConfig', () =&gt; {
 </div>
 <div class="paragraph">
 <p>A more flexible solution, that also let you mock functions, like <code>log.info</code> is to use a setup file.
-It will run before the execution of each test file:</p>
+It will run before the execution of each test file.</p>
 </div>
 <div class="paragraph">
 <p>Create a setup file:</p>
@@ -641,7 +641,7 @@ globalThis.log = {
 <h2 id="types"><a class="link" href="#types">Types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To avoid type errors when accessing those objects, you can add a type declaration file referencing <code>@enonic-types/global</code></p>
+<p>To avoid type errors when accessing those objects, you can add a type declaration file referencing <code>@enonic-types/global</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/server/global.d.ts</div>
@@ -704,17 +704,17 @@ describe('getAppConfig', () =&gt; {
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial, you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.</p>
+<p>In this chapter you learned how to mock global objects in the Enonic XP Framework when writing tests with Jest.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s move on to the next tutorial to learn how to <a href="mock.ahtml">mock functions</a> and write our first "real" test for Enonic server-side code.</p>
+<p>Let&#8217;s move on to the next chapter and learn how to <a href="mock.ahtml">mock functions</a> and write our first "real" test for Enonic server-side code.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-22 07:40:30 UTC
+Last updated 2024-04-23 08:15:45 UTC
 </div>
 </div>
 </body>

@@ -464,7 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Optionally place tests next to your source code file</p>
+<p>Optionally place tests next to your source code file.</p>
 </div>
 </div>
 </div>
@@ -483,7 +483,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="jest_configuration"><a class="link" href="#jest_configuration">Jest configuration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order for jest to find and run the colocated tests, the test files must be included in the <code>testMatch</code> configuration. This can be done by adding the colocated test files as include patterns in the jest configuration files:</p>
+<p>In order for Jest to find and run the colocated tests, the test files must be included in the <code>testMatch</code> configuration. This can be done by adding the colocated test files as include patterns in the Jest configuration files:</p>
 </div>
 <div class="listingblock">
 <div class="title">jest.config.ts</div>
@@ -525,7 +525,7 @@ const serverSideConfig: Config.InitialProjectOptions = {
 <p>So far, we have been using Tsup to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as source code. This is not what we want. We want the build system to ignore the tests.</p>
 </div>
 <div class="paragraph">
-<p>This can be done by adding the test files as ignore patterns in the tsup configuration files.</p>
+<p>This can be done by adding the test files as ignore patterns in the Tsup configuration files.</p>
 </div>
 <div class="listingblock">
 <div class="title">tsup/constants.ts</div>
@@ -610,13 +610,13 @@ Test files can contain things like jest functions in the global scope that are n
 </ul>
 </div>
 <div class="paragraph">
-<p>Each of them bringing their own include and exclude patters.</p>
+<p>, each of them bringing their own include and exclude patters.</p>
 </div>
 <div class="paragraph">
 <p>In the current configuration include patterns with <code>*.ts</code> and <code>*.tsx</code> are used.</p>
 </div>
 <div class="paragraph">
-<p>Obviously those patterns also matches test files ending with <code>*.test.ts</code> or <code>*.test.tsx</code>.</p>
+<p>Obviously those patterns also match test files ending with <code>*.test.ts</code> or <code>*.test.tsx</code>.</p>
 </div>
 <div class="paragraph">
 <p>Here is how to make sure test files a type checked as <code>test files</code>, not as <code>source files</code>:</p>
@@ -713,13 +713,13 @@ Test files can contain things like jest functions in the global scope that are n
 <h2 id="ide"><a class="link" href="#ide">IDE</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Typically IDE&#8217;s use the closest tsconfig.json to resolve import paths and global types.</p>
+<p>Typically, IDEs use the closest <code>tsconfig.json</code> to resolve import paths and global types.</p>
 </div>
 <div class="paragraph">
 <p>Which means that a test file colocated with source code is treated as source code by the IDE.</p>
 </div>
 <div class="paragraph">
-<p>I can think of a couple solutions to this:</p>
+<p>There may be a couple solutions to this:</p>
 </div>
 <div class="sect2">
 <h3 id="adding_support_for_test_syntax_to_all_source_files"><a class="link" href="#adding_support_for_test_syntax_to_all_source_files">Adding support for test syntax to all source files.</a></h3>
@@ -730,7 +730,7 @@ Test files can contain things like jest functions in the global scope that are n
 <div class="sect2">
 <h3 id="in_test_files_use_relative_imports_and_avoid_globals"><a class="link" href="#in_test_files_use_relative_imports_and_avoid_globals">In test files: Use relative imports and avoid globals.</a></h3>
 <div class="paragraph">
-<p>This can be achived by importing jest globals directly from <code>@jest/globals</code>.</p>
+<p>This can be achieved by importing jest globals directly from <code>@jest/globals</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title">/src/main/resources/**/any.test.ts</div>
@@ -755,14 +755,14 @@ Test files can contain things like jest functions in the global scope that are n
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>That wraps up this tutorial, we hope you enjoyed it - Visit <a href="https://developer.enonic.com/docs/tutorials" target="_blank" rel="noopener">the turoials section</a> on the developer portal for more.</p>
+<p>This wraps up the tutorial, we hope you enjoyed it. Visit <a href="https://developer.enonic.com/docs/tutorials" target="_blank" rel="noopener">the tutorials section</a> on our Developer Portal for more.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-22 07:40:30 UTC
+Last updated 2024-04-23 08:15:45 UTC
 </div>
 </div>
 </body>

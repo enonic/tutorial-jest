@@ -454,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter we introduce Mock XP</p>
+<p>In this chapter we introduce <a href="https://www.npmjs.com/package/@enonic/mock-xp" target="_blank" rel="noopener">Mock XP</a> - an NPM library to mock Enonic XP APIs and state.</p>
 </div>
 </div>
 </div>
@@ -799,14 +799,14 @@ Ran all test suites matching /src\/jest\/server\/preview.test.ts/i.</code></pre>
 <p>Mock XP was used to mock the Enonic <a href="https://developer.enonic.com/docs/xp/stable/api/lib-content" target="_blank" rel="noopener">content</a> and <a href="https://developer.enonic.com/docs/xp/stable/api/lib-portal" target="_blank" rel="noopener">portal</a> APIs.</p>
 </div>
 <div class="paragraph">
-<p>Coming up, we demonstrate how to write a <a href="client-side.ahtml">client-side</a> test.</p>
+<p>Next we demonstrate how to write a <a href="client-side.ahtml">client-side</a> test.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-22 07:40:30 UTC
+Last updated 2024-04-23 08:15:45 UTC
 </div>
 </div>
 </body>

@@ -454,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter covers setting up and running client-side tests</p>
+<p>This chapter covers setting up and running client-side tests.</p>
 </div>
 </div>
 </div>
@@ -475,7 +475,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since we are going to write a <code>tsx</code> file, we need to make sure the tsconfig.json file includes the jsx option.</p>
+<p>Since we are going to write a <code>tsx</code> file, we need to make sure the <code>tsconfig.json</code> file includes the <code>jsx</code> option.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/assets/tsconfig.json</div>
@@ -495,7 +495,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here is the react component we will be testing:</p>
+<p>Here is the React component we will be testing:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/assets/js/HelloWorld.tsx</div>
@@ -581,7 +581,7 @@ Ran all test suites matching /src\/jest\/client\/HelloWorld.test.tsx/i.</code></
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You have now seen how to write a test for a React component using Jest and React Test Renderer.</p>
+<p>You have now learned how to write a test for a React component using Jest and React Test Renderer.</p>
 </div>
 <div class="paragraph">
 <p>Now that we have some tests, it may be useful to store coverage reports in a tool that can show progress over time.
@@ -595,7 +595,7 @@ One such tool is Codecov.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-22 07:40:30 UTC
+Last updated 2024-04-23 08:15:45 UTC
 </div>
 </div>
 </body>
