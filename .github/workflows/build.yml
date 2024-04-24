@@ -11,5 +11,5 @@ jobs:
       - id: build-and-publish
         uses: enonic/release-tools/build-and-publish@master
         with:
-          repoUser: ${{ secrets.ARTIFACTORY_USERNAME }}
+          repoUser: ci
           repoPassword: ${{ secrets.ARTIFACTORY_PASSWORD }}
