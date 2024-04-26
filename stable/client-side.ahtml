@@ -555,7 +555,7 @@ describe('HelloWorld', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">&gt; intro@1.0.0 test
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">&gt; tutorial-jest@1.0.0 test
 &gt; jest --no-cache --coverage src/jest/client/HelloWorld.test.tsx
 
  PASS   CLIENT  src/jest/client/HelloWorld.test.tsx
@@ -595,7 +595,7 @@ One such tool is Codecov.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-23 08:35:51 UTC
+Last updated 2024-04-26 12:32:03 UTC
 </div>
 </div>
 </body>

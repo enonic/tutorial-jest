@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>enonic project create com.example.tutorial.jest -r tutorial-intro -d jest-tutorial</pre>
+<pre>enonic project create com.example.tutorial.jest -r tutorial-jest -d jest-tutorial</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -850,7 +850,7 @@ The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-23 08:35:51 UTC
+Last updated 2024-04-26 12:32:03 UTC
 </div>
 </div>
 </body>
