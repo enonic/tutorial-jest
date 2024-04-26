@@ -1,15 +1,11 @@
 import type { Config } from '@jest/types';
 
 
-import {
-  AND_BELOW,
-  DIR_SRC,
-} from './tsup/constants';
-
-
+const DIR_SRC = 'src/main/resources';
 const DIR_SRC_JEST = 'src/jest';
 const DIR_SRC_JEST_CLIENT = `${DIR_SRC_JEST}/client`;
 const DIR_SRC_JEST_SERVER = `${DIR_SRC_JEST}/server`;
+const AND_BELOW = '**';
 const SOURCE_FILES = `*.{ts,tsx}`;
 const TEST_EXT = `{spec,test}.{ts,tsx}`;
 const TEST_FILES = `*.${TEST_EXT}`;
