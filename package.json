@@ -1,7 +1,7 @@
 {
   "name": "tutorial-jest",
   "version": "1.0.0",
-  "description": "Introduction to React on Enonic XP",
+  "description": "Introduction to testing with Jest for Enonic XP",
   "devDependencies": {
     "@enonic-types/global": "^7",
     "@enonic-types/lib-cluster": "^7",
