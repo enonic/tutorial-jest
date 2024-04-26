@@ -54,7 +54,7 @@ Running the test produces the glorious result:
 
 [source, Terminal]
 ----
-> intro@1.0.0 test
+> tutorial-jest@1.0.0 test
 > jest --no-cache --coverage src/jest/server/preview.test.ts
 
  PASS   SERVER  src/jest/server/preview.test.ts

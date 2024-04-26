@@ -49,7 +49,7 @@ This should produce an output looking something like this:
 
 [source, terminal]
 ----
-> intro@1.0.0 test
+> tutorial-jest@1.0.0 test
 > jest --no-cache --coverage src/jest/server/fibonacci.test.ts
 
  PASS   SERVER  src/jest/server/fibonacci.test.ts

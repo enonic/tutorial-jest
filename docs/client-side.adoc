@@ -59,7 +59,7 @@ npm test src/jest/client/HelloWorld.test.tsx
 
 [source, Terminal]
 ----
-> intro@1.0.0 test
+> tutorial-jest@1.0.0 test
 > jest --no-cache --coverage src/jest/client/HelloWorld.test.tsx
 
  PASS   CLIENT  src/jest/client/HelloWorld.test.tsx
