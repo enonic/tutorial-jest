@@ -79,10 +79,8 @@ const serverSideConfig: Config.InitialProjectOptions = {
   // used to specify global functions. For that, you should use setupFiles.
   globals: {
     app: {
-      name: 'com.example.tutorial.jest',
-      config: {
-        default: 'true',
-      },
+      name: 'com.example.myproject',
+      config: {},
       version: '1.0.0'
     },
   },
@@ -95,8 +93,7 @@ const serverSideConfig: Config.InitialProjectOptions = {
   // Additionally, you can substitute captured regex groups using numbered
   // backreferences.
   moduleNameMapper: {
-    '/controllers/(.*)': `<rootDir>/${DIR_SRC}/controllers/$1`,
-    '/lib/tutorial-jest/(.*)': `<rootDir>/${DIR_SRC}/lib/tutorial-jest/$1`,
+    '/lib/myproject/(.*)': `<rootDir>/${DIR_SRC}/lib/myproject/$1`,
   },
 
   // A list of paths to modules that run some code to configure or set up the
@@ -135,6 +132,7 @@ const serverSideConfig: Config.InitialProjectOptions = {
 
 const customJestConfig: Config.InitialOptions = {
   coverageProvider: 'v8', // To get correct line numbers under jsdom
+  passWithNoTests: true,
   projects: [clientSideConfig, serverSideConfig],
 };
 

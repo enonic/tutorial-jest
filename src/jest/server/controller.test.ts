@@ -36,7 +36,7 @@ const leaSeydouxJpg = libContent.createMedia({
 });
 
 libContent.create({
-    contentType: 'com.example.tutorial.jest:person',
+    contentType: 'com.example.myproject:person',
     data: {
         bio: "French actress Léa Seydoux was born in 1985 in Paris, France, to Valérie Schlumberger, a philanthropist, and Henri Seydoux, a businessman.",
         dateofbirth: "1985-07-01",
@@ -57,7 +57,7 @@ const jeffreyWrightHpJpg = libContent.createMedia({
 });
 
 libContent.create({
-    contentType: 'com.example.tutorial.jest:person',
+    contentType: 'com.example.myproject:person',
     data: {
         bio: "Born and raised in Washington DC, Jeffrey Wright graduated from Amherst College in 1987. Although he studied Political Science while at Amherst, Wright left the school with a love for acting. Shortly after graduating he won an acting scholarship to NYU, but dropped out after only two months to pursue acting full-time.",
         dateofbirth: "1965-12-07",
@@ -79,7 +79,7 @@ describe('preview', () => {
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
         });
-        import('/controllers/preview').then(({get}) => {
+        import('/lib/myproject/controller').then(({get}) => {
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: `<!DOCTYPE html>
@@ -87,7 +87,7 @@ describe('preview', () => {
   <head>
     <meta charset=\"utf-8\">
     <title>Léa Seydoux</title>
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css\"/>
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.myproject:0123456789abcdef/styles.css\"/>
   </head>
   <body>
     <h1>Léa Seydoux</h1>
@@ -105,7 +105,7 @@ describe('preview', () => {
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
         });
-        import('/controllers/preview').then(({get}) => {
+        import('/lib/myproject/controller').then(({get}) => {
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: `<!DOCTYPE html>
@@ -113,7 +113,7 @@ describe('preview', () => {
   <head>
     <meta charset=\"utf-8\">
     <title>Jeffrey Wright</title>
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css\"/>
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.myproject:0123456789abcdef/styles.css\"/>
   </head>
   <body>
     <h1>Jeffrey Wright</h1>

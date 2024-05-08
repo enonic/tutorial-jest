@@ -7,15 +7,15 @@ This chapter covers mocking functions and Enonic libraries.
 
 To demonstrate the power of mocking, let's make a simple Typescript using a standard Enonic library:
 
-.src/main/resources/lib/tutorial-jest/sanitize.ts
+.src/main/resources/lib/myproject/sanitize.ts
 [source, TypeScript]
 ----
-include::{sourcedir}src/main/resources/lib/tutorial-jest/sanitize.ts[]
+include::{sourcedir}src/main/resources/lib/myproject/sanitize.ts[]
 ----
 
 == Test without mock
 
-Try to run this simple test:
+If you were to run this simple test:
 
 [source, TypeScript]
 ----
@@ -24,7 +24,7 @@ import {
     expect,
     test as it
 } from '@jest/globals';
-import { sanitize } from '/lib/tutorial-jest/sanitize';
+import { sanitize } from '/lib/myproject/sanitize';
 
 
 describe('sanitize', () => {
@@ -35,11 +35,11 @@ describe('sanitize', () => {
 });
 ----
 
-It should fail with the following error message:
+It would fail with the following error message:
 
 [source, Terminal]
 ----
-Cannot find module '/lib/xp/common' from 'src/main/resources/lib/tutorial-jest/sanitize.ts'
+Cannot find module '/lib/xp/common' from 'src/main/resources/lib/myproject/sanitize.ts'
 ----
 
 This happens because the module file `/lib/xp/common` isn't available in the test environment. It only exists inside the compiled Enonic application file, which is used at runtime in the Enonic XP server.

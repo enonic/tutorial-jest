@@ -20,10 +20,10 @@ npm install --save-dev @enonic/mock-xp
 
 Let's use the following controller file:
 
-.src/main/resources/controllers/preview.ts
+.src/main/resources/lib/myproject/controllers.ts
 [source, TypeScript]
 ----
-include::{sourcedir}src/main/resources/controllers/preview.ts[]
+include::{sourcedir}src/main/resources/lib/myproject/controllers.ts[]
 ----
 
 == Tests
@@ -40,42 +40,42 @@ For the test file to not become overly large, it's been split it into smaller pa
 include::{sourcedir}src/jest/server/mockXP.ts[]
 ----
 
-.src/jest/server/preview.test.ts
+.src/jest/server/controller.test.ts
 [source, typescript]
 ----
-include::{sourcedir}src/jest/server/preview.test.ts[]
+include::{sourcedir}src/jest/server/controller.test.ts[]
 ----
 
 == Output
 
 Running the test produces the glorious result:
 
-    npm test src/jest/server/preview.test.ts
+    npm run cov src/jest/server/controller.test.ts
 
 [source, Terminal]
 ----
 > tutorial-jest@1.0.0 test
-> jest --no-cache --coverage src/jest/server/preview.test.ts
+> jest --no-cache --coverage src/jest/server/controller.test.ts
 
- PASS   SERVER  src/jest/server/preview.test.ts
-  preview
+ PASS   SERVER  src/jest/server/controller.test.ts
+  controller
     ✓ is able to render a page for Léa Seydoux (26 ms)
     ✓ is able to render a page for Jeffrey Wright
 
-----------------------------|---------|----------|---------|---------|-------------------
-File                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
-----------------------------|---------|----------|---------|---------|-------------------
-All files                   |     100 |    54.54 |     100 |     100 |
- jest/server                |     100 |      100 |     100 |     100 |
-  mockXP.ts                 |     100 |      100 |     100 |     100 |
- main/resources/controllers |     100 |    16.66 |     100 |     100 |
-  preview.ts                |     100 |    16.66 |     100 |     100 | 16-34
-----------------------------|---------|----------|---------|---------|-------------------
+------------------------------|---------|----------|---------|---------|-------------------
+File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------------------------|---------|----------|---------|---------|-------------------
+All files                     |     100 |    54.54 |     100 |     100 |
+ jest/server                  |     100 |      100 |     100 |     100 |
+  mockXP.ts                   |     100 |      100 |     100 |     100 |
+ main/resources/lib/myproject |     100 |    16.66 |     100 |     100 |
+  controller.ts               |     100 |    16.66 |     100 |     100 | 16-34
+------------------------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 passed, 1 total
 Tests:       2 passed, 2 total
 Snapshots:   0 total
 Time:        1.839 s
-Ran all test suites matching /src\/jest\/server\/preview.test.ts/i.
+Ran all test suites matching /src\/jest\/server\/controller.test.ts/i.
 ----
 
 

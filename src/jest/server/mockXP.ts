@@ -20,7 +20,7 @@ export {
 } from '@enonic/mock-xp';
 
 
-const APP_KEY = 'com.example.tutorial.jest';
+const APP_KEY = 'com.example.myproject';
 const PROJECT_NAME = 'intro';
 
 

@@ -3,7 +3,7 @@
 :experimental:
 :sourcedir: ../
 
-This tutorial introduces you to the Jest testing framework, and how to integrate it in your Enonic application.
+This tutorial introduces you to the Jest testing framework, and how to integrate it in an Enonic application.
 
 == Introduction
 
@@ -16,7 +16,7 @@ TIP: For more details, visit the https://jestjs.io/[Jest documentation^].
 
 This guide will show you how to:
 
-* <<setup#,Set up>> Jest in an existing Enonic XP app
+* Create a <<project#,Project>> with Jest environment already setup.
 * Write a simple <<test#,test>> without any mocks
 * Write a test mocking <<globals#,Globals>>
 * Write a test for server-side code manually <<mock#,mocking>> Java libraries
@@ -24,3 +24,7 @@ This guide will show you how to:
 * Write a test for <<client-side#, client-side>> code
 * Set up <<coverage#,Coverage>> with Github Actions
 * <<colocation#,Colocate>> tests with the code they test
+
+== Additional reading
+
+If you want to learn how to add Jest to an existing project, read the https://developer.enonic.com/docs/starter-ts/stable/test[Testing] chapter of the https://developer.enonic.com/docs/starter-ts/stable[TypeScript Starter] documentation.

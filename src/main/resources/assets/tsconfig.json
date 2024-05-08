@@ -1,12 +1,15 @@
 {
-  "extends": "../../../../tsconfig.json",
+  // This file configures TypeScript for client-side assets.
+
+  // Read more about tsconfig.json at:
+  // https://www.typescriptlang.org/tsconfig
 
   // Specifies an array of filenames or patterns to include in the program.
   // These filenames are resolved relative to the directory containing the
   // tsconfig.json file.
   "include": [
+    "./**/*.ts",
     "./**/*.tsx",
-    "./**/*.ts"
   ],
 
   // Specifies an array of filenames or patterns that should be skipped when
@@ -18,25 +21,13 @@
   // It is not a mechanism that prevents a file from being included in the
   // codebase - it simply changes what the include setting finds.
   "exclude": [
-    "../../../../node_modules/typescript/lib/lib.es5.d.ts",
+    "./**/*.d.ts",
   ],
 
   "compilerOptions": {
-    "baseUrl": ".",
     "jsx": "react",
-    "moduleResolution": "node",
     "lib": [
-      "DOM",
-      "ES2020",
+      "DOM", // console, document, window, etc...
     ],
-
-    // A series of entries which re-map imports to lookup locations relative
-    // to the baseUrl if set, or to the tsconfig file itself otherwise.
-    "paths": {
-      // Empty to avoid access to src/main/resources via /
-    },
-
-    "rootDir": ".",
-    "target": "ES2020" // Modern browsers
-  }
+  },
 }

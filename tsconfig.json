@@ -1,79 +1,15 @@
-{ // https://www.typescriptlang.org/tsconfig
-  "compilerOptions": {
-    //──────────────────────────────────────────────────────────────────────
-    // Modules
-    //──────────────────────────────────────────────────────────────────────
-    "allowJs": true,
-    "allowUmdGlobalAccess": true,
+{
+  // This file should only include files that configures the build system.
+  // It should ignore all actual source files.
 
-    // Sets a base directory from which to resolve bare specifier module names.
-    // This resolution has higher priority than lookups from node_modules.
-    // This feature was designed for use in conjunction with AMD module
-    // loaders in the browser, and is not recommended in any other context.
-    // As of TypeScript 4.1, baseUrl is no longer required to be set when
-    // using paths.
-    "baseUrl": ".",
-
-    "moduleResolution": "node",
-
-    // A series of entries which re-map imports to lookup locations relative
-    // to the baseUrl if set, or to the tsconfig file itself otherwise.
-    "paths": {
-      "/lib/xp/*": ["node_modules/@enonic-types/lib-*"],
-      "/*": ["src/main/resources/*"], // So one can import local files using absolute path (same as Enonic does during runtime).
-    },
-
-    // By default all visible ”@types” packages are included in your compilation.
-    // Packages in node_modules/@types of any enclosing folder are considered visible.
-    // For example, that means packages within ./node_modules/@types/,
-    // ../node_modules/@types/, ../../node_modules/@types/, and so on.
-    // If typeRoots is specified, only packages under typeRoots will be included.
-    // All paths are relative to the tsconfig.json
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@enonic-types"
-    ],
-
-    // By default all visible ”@types” packages are included in your
-    // compilation. Packages in node_modules/@types of any enclosing folder
-    // are considered visible. For example, that means packages within
-    // ./node_modules/@types/, ../node_modules/@types/,
-    // ../../node_modules/@types/, and so on.
-    // If types is specified, only packages listed will be included in the
-    // global scope.
-    // This feature differs from typeRoots in that it is about specifying
-    // only the exact types you want included, whereas typeRoots supports
-    // saying you want particular folders.
-    "types": [
-      "global", // Already added via typeRoots? nope, doesn't work that way
-    ],
-
-    //──────────────────────────────────────────────────────────────────────
-    // Interop Constraints
-    //──────────────────────────────────────────────────────────────────────
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-
-    //──────────────────────────────────────────────────────────────────────
-    // Language and Environment
-    //──────────────────────────────────────────────────────────────────────
-    "lib": [],
-
-    //──────────────────────────────────────────────────────────────────────
-    // Completeness
-    //──────────────────────────────────────────────────────────────────────
-    "skipLibCheck": true,
-  },
+  // Read more about tsconfig.json at:
+  // https://www.typescriptlang.org/tsconfig
 
   // Specifies an array of filenames or patterns to include in the program.
   // These filenames are resolved relative to the directory containing the
   // tsconfig.json file.
   "include": [
-    // Make sure default types matches Nashorn
-    "node_modules/typescript/lib/lib.es5.d.ts",
-
-    "src/main/resources/**/*.ts",
-    "src/main/resources/**/*.tsx"
+    "**/*.ts"
   ],
 
   // Specifies an array of filenames or patterns that should be skipped when
@@ -85,7 +21,28 @@
   // It is not a mechanism that prevents a file from being included in the
   // codebase - it simply changes what the include setting finds.
   "exclude": [
-    "src/main/resources/assets/**/*.*",
-    "src/main/resources/static/**/*.*",
+    "**/*.d.ts",
+    "src/**/*.*", // Avoid Enonic XP source files
   ],
+
+  "compilerOptions": {
+    // Do NOT add this as it will resolve tsup to the local tsup folder, rather
+    // than the tsup node_module.
+    // "baseUrl": ".",
+
+    "lib": [
+      "es2023" // string.replaceAll
+    ],
+
+    // By default all visible ”@types” packages are included in your compilation.
+    // Packages in node_modules/@types of any enclosing folder are considered visible.
+    // For example, that means packages within ./node_modules/@types/,
+    // ../node_modules/@types/, ../../node_modules/@types/, and so on.
+    // If types is specified, only packages listed will be included in the global scope.
+    // This feature differs from typeRoots in that it is about specifying only the exact
+    // types you want included, whereas typeRoots supports saying you want particular folders.
+    "types": [
+      "node"
+    ],
+  },
 }
