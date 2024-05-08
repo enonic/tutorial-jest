@@ -15,6 +15,9 @@ import {
 import {readFileSync} from 'fs';
 import {join} from 'path';
 
+const IMAGE_FILENAME_1 = 'Lea-Seydoux.jpg';
+const IMAGE_FILENAME_2 = 'Jeffrey-Wright-hp.jpg';
+
 
 //──────────────────────────────────────────────────────────────────────────────
 // Test data
@@ -27,8 +30,8 @@ const personFolder = libContent.create({
 });
 
 const leaSeydouxJpg = libContent.createMedia({
-    data: readFileSync(join(__dirname, '..', 'Lea-Seydoux.jpg')) as unknown as ByteSource,
-    name: 'Lea-Seydoux.jpg',
+    data: readFileSync(join(__dirname, '..', IMAGE_FILENAME_1)) as unknown as ByteSource,
+    name: IMAGE_FILENAME_1,
     parentPath: personFolder._path,
     mimeType: 'image/jpeg',
     focalX: 0.5,
@@ -48,8 +51,8 @@ libContent.create({
 });
 
 const jeffreyWrightHpJpg = libContent.createMedia({
-    data: readFileSync(join(__dirname, '..', 'Jeffrey-Wright-hp.jpg')) as unknown as ByteSource,
-    name: 'Jeffrey-Wright-hp.jpg',
+    data: readFileSync(join(__dirname, '..', IMAGE_FILENAME_2)) as unknown as ByteSource,
+    name: IMAGE_FILENAME_2,
     parentPath: personFolder._path,
     mimeType: 'image/jpeg',
     focalX: 0.5,
