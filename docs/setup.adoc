@@ -9,7 +9,10 @@ You may follow the steps in this guide to configure Jest for an existing project
 
 To create a project for the tutorial, run the following command:
 
-  enonic project create -r starter-ts -d jest-tutorial
+[source, Terminal]
+----
+enonic project create jest-tutorial -r starter-ts
+----
 
 This will create an app and place it in a folder called `jest-tutorial`.
 
