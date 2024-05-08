@@ -27,16 +27,17 @@ TIP: You can read about them https://developer.enonic.com/docs/xp/stable/framewo
 
 Let's start by adding some more code we can test:
 
-.src/main/resources/lib/tutorial-jest/getAppConfig.ts
+.src/main/resources/lib/myproject/getAppConfig.ts
 [source, typescript]
 ----
-include::{sourcedir}src/main/resources/lib/tutorial-jest/getAppConfig.ts[]
+include::{sourcedir}src/main/resources/lib/myproject/getAppConfig.ts[]
 ----
 
 == Test without mock
 
 Then, we write a simple test for the function above:
 
+.src/jest/server/getAppConfig.ts
 [source, typescript]
 ----
 import {
@@ -44,7 +45,7 @@ import {
     expect,
     test as it
 } from '@jest/globals';
-import { getAppConfig } from './getAppConfig';
+import { getAppConfig } from '/lib/myproject/getAppConfig';
 
 
 describe('getAppConfig', () => {
@@ -61,9 +62,13 @@ If you try to run this test without mocking some props on the global object, it 
 ReferenceError: log is not defined
 ----
 
+NOTE: Since the starter-ts project template we used already have mocked the Enonic XP globals for us: you won't get that error.
+
 == Test with mock
 
-To fix that, both the `log` and `app` objects must be mocked.
+NOTE: All the configuration below is already set up for us by the starter-ts project template we used. 🎉 But here we explain the reasoning behind it.
+
+To avoid errors about globals not being defined, we have to mock the missing globals. In this example both the `log` and `app` objects must be mocked.
 
 This can be achieved in multiple ways. When it comes to static values like the global `app` object, the following can be added to the `serverSideConfig` within your `jest.config.ts` file:
 
@@ -72,10 +77,8 @@ This can be achieved in multiple ways. When it comes to static values like the g
 ----
 globals: {
     app: {
-        name: 'com.example.tutorial.jest',
-        config: {
-            default: true,
-        },
+        name: 'com.example.myproject',
+        config: {},
         version: '1.0.0'
     },
 },
@@ -84,7 +87,7 @@ globals: {
 A more flexible solution, that also let you mock functions, like `log.info` is to use a setup file.
 It will run before the execution of each test file.
 
-Create a setup file:
+Example setup file:
 
 .src/jest/server/setupFile.ts
 [source, typescript]
@@ -92,7 +95,7 @@ Create a setup file:
 include::{sourcedir}src/jest/server/setupFile.ts[]
 ----
 
-Then, register it in your `serverSideConfig`:
+Then, it must be registered it in the `serverSideConfig`:
 
 .jest.config.ts - serverSideConfig
 [source, typescript]
@@ -102,18 +105,15 @@ setupFiles: ['<rootDir>/src/jest/server/setupFile.ts'],
 
 This will mock default values for the global `app` and `log` objects, and the values can be augmented in the test files.
 
-
 == Types
 
-To avoid type errors when accessing those objects, you can add a type declaration file referencing `@enonic-types/global`.
+To avoid type errors when accessing global objects and functions in the test files, you can import types directly from the `src/jest/server/global.d.ts` file, which is already set up for us by the starter-ts project template we used.
 
 .src/jest/server/global.d.ts
 [source, typescript]
 ----
 include::{sourcedir}src/jest/server/global.d.ts[]
 ----
-
-Then, import and use those types in your test file:
 
 .src/jest/server/getAppConfig.test.ts
 [source, typescript]

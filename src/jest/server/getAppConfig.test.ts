@@ -1,4 +1,4 @@
-import type {App, Log} from './global';
+import type {App, Log} from './global.d';
 
 import {
     beforeAll,
@@ -15,7 +15,7 @@ declare module globalThis {
 }
 
 
-// Augment the app.config object for tests in this file.
+// Augment the app.config object for tests in this file only.
 globalThis.app.config.key = 'value';
 
 
@@ -25,9 +25,8 @@ describe('getAppConfig', () => {
         globalThis.log.debug = () => {};
     });
     it('should return the application config', () => {
-        import('/lib/tutorial-jest/getAppConfig').then(({getAppConfig}) => {
+        import('/lib/myproject/getAppConfig').then(({getAppConfig}) => {
             expect(getAppConfig()).toEqual({
-                default: 'true',
                 key: 'value'
             });
         });

@@ -21,6 +21,7 @@ Since we are going to write a `tsx` file, we need to make sure the `tsconfig.jso
 ----
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "jsx": "react",
     // other compilerOptions...
   },
@@ -32,10 +33,10 @@ Since we are going to write a `tsx` file, we need to make sure the `tsconfig.jso
 
 Here is the React component we will be testing:
 
-.src/main/resources/assets/js/HelloWorld.tsx
+.src/main/resources/assets/HelloWorld.tsx
 [source, typescript]
 ----
-include::{sourcedir}src/main/resources/assets/js/HelloWorld.tsx[]
+include::{sourcedir}src/main/resources/assets/HelloWorld.tsx[]
 ----
 
 == Test
@@ -54,7 +55,7 @@ Run the test, and see what happens:
 
 [source, Terminal]
 ----
-npm test src/jest/client/HelloWorld.test.tsx
+npm run cov src/jest/client/HelloWorld.test.tsx
 ----
 
 [source, Terminal]

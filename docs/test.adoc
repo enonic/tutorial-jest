@@ -14,10 +14,10 @@ In this chapter, you'll add code, and test it with Jest.
 
 Add the source file to your project:
 
-.src/main/resources/lib/tutorial-jest/fibonacci.ts
+.src/main/resources/lib/myproject/fibonacci.ts
 [source, TypeScript]
 ----
-include::{sourcedir}src/main/resources/lib/tutorial-jest/fibonacci.ts[]
+include::{sourcedir}src/main/resources/lib/myproject/fibonacci.ts[]
 ----
 
 NOTE: Source code should (as always) be placed within the `/src/main/resources` section of your project
@@ -41,7 +41,7 @@ Run the tests:
 
 [source, terminal]
 ----
-npm test src/jest/server/fibonacci.test.ts
+npm run cov src/jest/server/fibonacci.test.ts
 ----
 
 This should produce an output looking something like this:

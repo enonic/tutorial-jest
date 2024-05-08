@@ -1,0 +1,19 @@
+= Project
+
+== Create
+
+We start this tutorial by using our TypeScript starter.
+
+It comes with everything you need to start writing tests with Jest.
+
+TIP: If you want to learn how to add Jest to an existing project, read the https://developer.enonic.com/docs/starter-ts/stable/test[Testing] chapter of the https://developer.enonic.com/docs/starter-ts/stable[TypeScript Starter] documentation.
+
+To create a project for the tutorial, run the following command:
+
+  enonic project create -r starter-ts -d jest-tutorial
+
+This will create an app and place it in a folder called `jest-tutorial`.
+
+== Summary
+
+In the next chapter we will learn how to write a simple <<test#,test>> without any mocks.

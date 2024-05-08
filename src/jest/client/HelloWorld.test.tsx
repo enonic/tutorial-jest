@@ -5,7 +5,7 @@ import {
 } from '@jest/globals';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {HelloWorld} from '/assets/js/HelloWorld';
+import {HelloWorld} from '/assets/HelloWorld';
 
 
 describe('HelloWorld', () => {
