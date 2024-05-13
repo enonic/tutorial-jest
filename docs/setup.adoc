@@ -11,7 +11,7 @@ To create a project for the tutorial, run the following command:
 
 [source, Terminal]
 ----
-enonic project create jest-tutorial -r starter-ts
+enonic create jest-tutorial -r starter-ts
 ----
 
 This will create an app and place it in a folder called `jest-tutorial`.
