@@ -463,7 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>To demonstrate the power of mocking, let&#8217;s make a simple Typescript using a standard Enonic library:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/lib/tutorial-jest/sanitize.ts</div>
+<div class="title">src/main/resources/lib/myproject/sanitize.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export {sanitize} from '/lib/xp/common';</code></pre>
 </div>
@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="test_without_mock"><a class="link" href="#test_without_mock">Test without mock</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Try to run this simple test:</p>
+<p>If you were to run this simple test:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -483,7 +483,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     expect,
     test as it
 } from '@jest/globals';
-import { sanitize } from '/lib/tutorial-jest/sanitize';
+import { sanitize } from '/lib/myproject/sanitize';
 
 
 describe('sanitize', () =&gt; {
@@ -495,11 +495,11 @@ describe('sanitize', () =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>It should fail with the following error message:</p>
+<p>It would fail with the following error message:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">Cannot find module '/lib/xp/common' from 'src/main/resources/lib/tutorial-jest/sanitize.ts'</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">Cannot find module '/lib/xp/common' from 'src/main/resources/lib/myproject/sanitize.ts'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -545,7 +545,7 @@ jest.mock('/lib/xp/common', () =&gt; ({
 
 describe('sanitize', () =&gt; {
     it('should remove, replace or fold "illegal" characters', () =&gt; {
-        import('/lib/tutorial-jest/sanitize').then(({sanitize}) =&gt; {
+        import('/lib/myproject/sanitize').then(({sanitize}) =&gt; {
             expect(sanitize("Piña CØLADÆ &lt;script&gt;alert('hi!');&lt;/script&gt;"))
                 .toEqual('pina-coladae-script-alerthi-script');
         });
@@ -575,7 +575,7 @@ describe('sanitize', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-07 19:39:23 UTC
+Last updated 2024-05-13 08:15:33 UTC
 </div>
 </div>
 </body>

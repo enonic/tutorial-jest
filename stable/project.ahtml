@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Setup</title>
+<title>Project</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,41 +437,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Setup</h1>
+<h1>Project</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#sample_project">Sample project</a></li>
-<li><a href="#node_modules">Node modules</a></li>
-<li><a href="#configuration">Configuration</a>
-<ul class="sectlevel2">
-<li><a href="#jest_config_ts">jest.config.ts</a></li>
-<li><a href="#tsconfig_json">tsconfig.json</a></li>
-</ul>
-</li>
-<li><a href="#execution">Execution</a>
-<ul class="sectlevel2">
-<li><a href="#using_npm">Using NPM</a></li>
-<li><a href="#using_enonic_cli">Using Enonic CLI</a></li>
-</ul>
-</li>
+<li><a href="#create">Create</a></li>
+<li><a href="#tldr">TL;DR</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter covers setting up Jest for your Enonic app.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="sample_project"><a class="link" href="#sample_project">Sample project</a></h2>
+<h2 id="create"><a class="link" href="#create">Create</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the Enonic intro app.</p>
+<p>We start this tutorial by using our TypeScript starter.</p>
+</div>
+<div class="paragraph">
+<p>It comes with everything you need to start writing tests with Jest.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you want to learn how to add Jest to an existing project, read the <a href="https://developer.enonic.com/docs/starter-ts/stable/test">Testing</a> chapter of the <a href="https://developer.enonic.com/docs/starter-ts/stable">TypeScript Starter</a> documentation.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>To create a project for the tutorial, run the following command:</p>
@@ -487,341 +483,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="node_modules"><a class="link" href="#node_modules">Node modules</a></h2>
+<h2 id="tldr"><a class="link" href="#tldr">TL;DR</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to write tests in TypeScript and run them using Jest, a few Node modules need to be installed.</p>
-</div>
-<div class="paragraph">
-<p>Run the following command at the root of the Enonic project you created in the previous step:</p>
+<p>If you just want to read the tutorial, but not actually edit any files, you can create a project with the tutorial code already in place.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install --save-dev jest-environment-jsdom ts-node ts-jest</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Next, you will need to add and tune a few configuration files:</p>
-</div>
-<div class="sect2">
-<h3 id="jest_config_ts"><a class="link" href="#jest_config_ts">jest.config.ts</a></h3>
-<div class="paragraph">
-<p>Jest needs to be configured to run Typescript tests. This is done by creating a <code>jest.config.ts</code> file in the root of the project:</p>
-</div>
-<div class="listingblock">
-<div class="title">jest.config.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">import type { Config } from '@jest/types';
-
-
-const DIR_SRC = 'src/main/resources';
-const DIR_SRC_JEST = 'src/jest';
-const DIR_SRC_JEST_CLIENT = `${DIR_SRC_JEST}/client`;
-const DIR_SRC_JEST_SERVER = `${DIR_SRC_JEST}/server`;
-const AND_BELOW = '**';
-const SOURCE_FILES = `*.{ts,tsx}`;
-const TEST_EXT = `{spec,test}.{ts,tsx}`;
-const TEST_FILES = `*.${TEST_EXT}`;
-
-
-const commonConfig: Config.InitialProjectOptions = {
-  collectCoverageFrom: [
-    `${DIR_SRC}/${AND_BELOW}/${SOURCE_FILES}`,
-  ],
-
-  // Insert Jest's globals (expect, test, describe, beforeEach etc.) into the
-  // global environment. If you set this to false, you should import from @jest/globals, e.g.
-  // injectGlobals: true, // Doesn't seem to work?
-};
-
-const clientSideConfig: Config.InitialProjectOptions = {
-  ...commonConfig,
-  displayName: {
-    color: 'white',
-    name: 'CLIENT',
-  },
-
-  // A map from regular expressions to module names or to arrays of module
-  // names that allow to stub out resources, like images or styles with a
-  // single module.
-  // Use &lt;rootDir&gt; string token to refer to rootDir value if you want to use
-  // file paths.
-  // Additionally, you can substitute captured regex groups using numbered
-  // backreferences.
-  moduleNameMapper: {
-    '/assets/(.*)': `&lt;rootDir&gt;/${DIR_SRC}/assets/$1`,
-  },
-
-  // Run clientside tests with DOM globals such as document and window
-  testEnvironment: 'jsdom',
-
-  // The glob patterns Jest uses to detect test files. By default it looks for
-  // .js, .jsx, .ts and .tsx files inside of __tests__ folders, as well as any
-  // files with a suffix of .test or .spec (e.g. Component.test.js or
-  // Component.spec.js). It will also find files called test.js or spec.js.
-  // (default: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[jt]s?(x)"
-  // ])
-  testMatch: [
-    `&lt;rootDir&gt;/${DIR_SRC_JEST_CLIENT}/${AND_BELOW}/${TEST_FILES}`,
-  ],
-  transform: {
-    "^.+\\.(ts|js)x?$": [
-      'ts-jest',
-      {
-        tsconfig: `${DIR_SRC_JEST_CLIENT}/tsconfig.json`
-      }
-    ]
-  }
-};
-
-const serverSideConfig: Config.InitialProjectOptions = {
-  ...commonConfig,
-  displayName: {
-    color: 'blue',
-    name: 'SERVER',
-  },
-
-  // A set of global variables that need to be available in all test
-  // environments.
-  // If you specify a global reference value (like an object or array) here,
-  // and some code mutates that value in the midst of running a test, that
-  // mutation will not be persisted across test runs for other test files.
-  // In addition, the globals object must be json-serializable, so it can't be
-  // used to specify global functions. For that, you should use setupFiles.
-  globals: {
-    app: {
-      name: 'com.example.myproject',
-      config: {},
-      version: '1.0.0'
-    },
-  },
-
-  // A map from regular expressions to module names or to arrays of module
-  // names that allow to stub out resources, like images or styles with a
-  // single module.
-  // Use &lt;rootDir&gt; string token to refer to rootDir value if you want to use
-  // file paths.
-  // Additionally, you can substitute captured regex groups using numbered
-  // backreferences.
-  moduleNameMapper: {
-    '/lib/myproject/(.*)': `&lt;rootDir&gt;/${DIR_SRC}/lib/myproject/$1`,
-  },
-
-  // A list of paths to modules that run some code to configure or set up the
-  // testing environment. Each setupFile will be run once per test file. Since
-  // every test runs in its own environment, these scripts will be executed in
-  // the testing environment before executing setupFilesAfterEnv and before
-  // the test code itself.
-  setupFiles: [
-    `&lt;rootDir&gt;/${DIR_SRC_JEST_SERVER}/setupFile.ts`
-  ],
-
-  // Run serverside tests without DOM globals such as document and window
-  testEnvironment: 'node',
-
-  // The glob patterns Jest uses to detect test files. By default it looks for
-  // .js, .jsx, .ts and .tsx files inside of __tests__ folders, as well as any
-  // files with a suffix of .test or .spec (e.g. Component.test.js or
-  // Component.spec.js). It will also find files called test.js or spec.js.
-  // (default: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[jt]s?(x)"
-  // ])
-  testMatch: [
-    `&lt;rootDir&gt;/${DIR_SRC_JEST_SERVER}/${AND_BELOW}/${TEST_FILES}`,
-  ],
-
-  transform: {
-    "^.+\\.(ts|js)x?$": [
-      'ts-jest',
-      {
-          tsconfig: `${DIR_SRC_JEST_SERVER}/tsconfig.json`
-      }
-    ]
-  },
-};
-
-const customJestConfig: Config.InitialOptions = {
-  coverageProvider: 'v8', // To get correct line numbers under jsdom
-  passWithNoTests: true,
-  projects: [clientSideConfig, serverSideConfig],
-};
-
-export default customJestConfig;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Read more about configuring Jest <a href="https://jestjs.io/docs/configuration" target="_blank" rel="noopener">here</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="tsconfig_json"><a class="link" href="#tsconfig_json">tsconfig.json</a></h3>
-<div class="paragraph">
-<p>In an Enonic Typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple <code>tsconfig.json</code> files are used.</p>
-</div>
-<div class="paragraph">
-<p>When running tests the Typescript configuration files might need to look slightly different. This is the case for the <code>src/jest/client/tsconfig.json</code> and <code>src/jest/server/tsconfig.json</code> files:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/jest/client/tsconfig.json</div>
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "extends": "../../main/resources/assets/tsconfig.json",
-
-  "include": [
-    "./**/*.spec.ts",
-    "./**/*.spec.tsx",
-    "./**/*.test.ts",
-    "./**/*.test.tsx",
-  ],
-
-  "compilerOptions": {
-    // "baseUrl": ".",
-    "esModuleInterop": true,
-    // A series of entries which re-map imports to lookup locations relative
-    // to the baseUrl if set, or to the tsconfig file itself otherwise.
-    "paths": {
-      "/assets/*": ["../../main/resources/assets/*"],
-    },
-
-    "sourceMap": true, // Important to get correct line numbers when running coverage tests
-
-    // By default all visible ”@types” packages are included in your
-    // compilation. Packages in node_modules/@types of any enclosing folder
-    // are considered visible. For example, that means packages within
-    // ./node_modules/@types/, ../node_modules/@types/,
-    // ../../node_modules/@types/, and so on.
-    // If types is specified, only packages listed will be included in the
-    // global scope.
-    // This feature differs from typeRoots in that it is about specifying
-    // only the exact types you want included, whereas typeRoots supports
-    // saying you want particular folders.
-    // "types": [
-      // "jest", // Doesn't even work for test files in this folder?
-    // ],
-
-  }, // compilerOptions
-
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">src/jest/server/tsconfig.json</div>
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "extends": "../../main/resources/tsconfig.json",
-
-  // Specifies an array of filenames or patterns to include in the program.
-  // These filenames are resolved relative to the directory containing the
-  // tsconfig.json file.
-  "include": [
-    "./**/*.spec.ts",
-    "./**/*.spec.tsx",
-    "./**/*.test.ts",
-    "./**/*.test.tsx",
-  ],
-
-  "compilerOptions": {
-    // A series of entries which re-map imports to lookup locations relative
-    // to the baseUrl if set, or to the tsconfig file itself otherwise.
-    "paths": {
-      "/lib/xp/*": ["../../../node_modules/@enonic-types/lib-*"],
-      "/*": ["../../main/resources/*"],
-    },
-    "sourceMap": true, // Important to get correct line numbers when running coverage tests
-    "types": [
-      "@enonic-types/global",
-      // "jest", // Doesn't even work for test files in this folder?
-      "node", // console
-    ],
-  }, // compilerOptions
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="execution"><a class="link" href="#execution">Execution</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Finally, we wire the test command to execute Jest tests.</p>
-</div>
-<div class="sect2">
-<h3 id="using_npm"><a class="link" href="#using_npm">Using NPM</a></h3>
-<div class="paragraph">
-<p>In order to run tests the following needs to be added to the <code>package.json</code> file:</p>
-</div>
-<div class="listingblock">
-<div class="title">package.json</div>
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "scripts": {
-    "test": "jest --no-cache --coverage"
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You should now be able to run the tests with the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm test</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You may also run a specific test like this: <code>npm test src/jest/server/fibonacci.test.ts</code>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="using_enonic_cli"><a class="link" href="#using_enonic_cli">Using Enonic CLI</a></h3>
-<div class="paragraph">
-<p>You may also run the tests using Enonic CLI. CLI uses the default build system (Gradle), so you must update the <code>build.gradle</code> file with the following lines:</p>
-</div>
-<div class="listingblock">
-<div class="title">build.gradle</div>
-<div class="content">
-<pre class="highlight"><code class="language-gradle" data-lang="gradle">tasks.register('npmTest', NpmTask) {
-    args = [
-        'run',
-        'test'
-    ]
-    dependsOn npmInstall
-    environment = [
-        'FORCE_COLOR': 'true',
-    ]
-    inputs.dir 'src/jest'
-    outputs.dir 'coverage'
-}
-
-test.dependsOn npmTest</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>As you can see, this simply tells Gradle to invoke the NPM&#8217;s test script.
-You may now test with the following command as well:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">enonic project test</code></pre>
-</div>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic create myproject -r tutorial-jest</code></pre>
 </div>
 </div>
 </div>
@@ -830,11 +499,7 @@ You may now test with the following command as well:</p>
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the above setup in place, it is possible to write tests in Typescript and run them using Jest.
-The tests will be run on every build and the coverage will be reported.</p>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s learn how to write our first <a href="test.ahtml">test</a>.</p>
+<p>In the next chapter we will learn how to write a simple <a href="test.ahtml">test</a> without any mocks.</p>
 </div>
 </div>
 </div>

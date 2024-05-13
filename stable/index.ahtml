@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#additional_reading">Additional reading</a></li>
 </ul>
 </div>
 </div>
@@ -449,7 +450,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial introduces you to the Jest testing framework, and how to integrate it in your Enonic application.</p>
+<p>This tutorial introduces you to the Jest testing framework, and how to integrate it in an Enonic application.</p>
 </div>
 </div>
 </div>
@@ -481,7 +482,7 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 <div class="ulist">
 <ul>
 <li>
-<p><a href="setup.ahtml">Set up</a> Jest in an existing Enonic XP app</p>
+<p>Create a <a href="project.ahtml">Project</a> with Jest environment already setup.</p>
 </li>
 <li>
 <p>Write a simple <a href="test.ahtml">test</a> without any mocks</p>
@@ -508,10 +509,18 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="additional_reading"><a class="link" href="#additional_reading">Additional reading</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to learn how to add Jest to an existing project, read the <a href="https://developer.enonic.com/docs/starter-ts/stable/test">Testing</a> chapter of the <a href="https://developer.enonic.com/docs/starter-ts/stable">TypeScript Starter</a> documentation.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-07 19:39:23 UTC
+Last updated 2024-05-13 08:15:33 UTC
 </div>
 </div>
 </body>

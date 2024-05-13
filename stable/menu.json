@@ -1,8 +1,8 @@
 {
     "menuItems": [
       {
-        "title": "1 - Setup",
-        "document": "setup"
+        "title": "1 - Create project",
+        "document": "project"
       },
       {
         "title": "2 - Simple test",

@@ -483,10 +483,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s use the following controller file:</p>
+<p>Let&#8217;s create the following controller file:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/controllers/preview.ts</div>
+<div class="title">src/main/resources/lib/myproject/controller.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {Content} from '/lib/xp/portal';
 import type {Request, Response} from '/index.d';
@@ -570,7 +570,7 @@ export {
 } from '@enonic/mock-xp';
 
 
-const APP_KEY = 'com.example.tutorial.jest';
+const APP_KEY = 'com.example.myproject';
 const PROJECT_NAME = 'intro';
 
 
@@ -614,8 +614,20 @@ jest.mock('/lib/xp/portal', () =&gt; {
 }, { virtual: true });</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This test uses two image files, <code>lea-seydoux.jpg</code> and <code>jeffrey-wright.jpg</code>, which are not included in the starter-ts project template. You can use any image files you have available. Just make sure either to update the test to point to the correct files or to create the files in the correct location.
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
-<div class="title">src/jest/server/preview.test.ts</div>
+<div class="title">src/jest/server/controller.test.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {ByteSource} from '@enonic-types/core';
 
@@ -634,6 +646,9 @@ import {
 import {readFileSync} from 'fs';
 import {join} from 'path';
 
+const IMAGE_FILENAME_1 = 'Lea-Seydoux.jpg';
+const IMAGE_FILENAME_2 = 'Jeffrey-Wright-hp.jpg';
+
 
 //──────────────────────────────────────────────────────────────────────────────
 // Test data
@@ -646,8 +661,8 @@ const personFolder = libContent.create({
 });
 
 const leaSeydouxJpg = libContent.createMedia({
-    data: readFileSync(join(__dirname, '..', 'Lea-Seydoux.jpg')) as unknown as ByteSource,
-    name: 'Lea-Seydoux.jpg',
+    data: readFileSync(join(__dirname, '..', IMAGE_FILENAME_1)) as unknown as ByteSource,
+    name: IMAGE_FILENAME_1,
     parentPath: personFolder._path,
     mimeType: 'image/jpeg',
     focalX: 0.5,
@@ -655,7 +670,7 @@ const leaSeydouxJpg = libContent.createMedia({
 });
 
 libContent.create({
-    contentType: 'com.example.tutorial.jest:person',
+    contentType: 'com.example.myproject:person',
     data: {
         bio: "French actress Léa Seydoux was born in 1985 in Paris, France, to Valérie Schlumberger, a philanthropist, and Henri Seydoux, a businessman.",
         dateofbirth: "1985-07-01",
@@ -667,8 +682,8 @@ libContent.create({
 });
 
 const jeffreyWrightHpJpg = libContent.createMedia({
-    data: readFileSync(join(__dirname, '..', 'Jeffrey-Wright-hp.jpg')) as unknown as ByteSource,
-    name: 'Jeffrey-Wright-hp.jpg',
+    data: readFileSync(join(__dirname, '..', IMAGE_FILENAME_2)) as unknown as ByteSource,
+    name: IMAGE_FILENAME_2,
     parentPath: personFolder._path,
     mimeType: 'image/jpeg',
     focalX: 0.5,
@@ -676,7 +691,7 @@ const jeffreyWrightHpJpg = libContent.createMedia({
 });
 
 libContent.create({
-    contentType: 'com.example.tutorial.jest:person',
+    contentType: 'com.example.myproject:person',
     data: {
         bio: "Born and raised in Washington DC, Jeffrey Wright graduated from Amherst College in 1987. Although he studied Political Science while at Amherst, Wright left the school with a love for acting. Shortly after graduating he won an acting scholarship to NYU, but dropped out after only two months to pursue acting full-time.",
         dateofbirth: "1965-12-07",
@@ -698,7 +713,7 @@ describe('preview', () =&gt; {
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
         });
-        import('/controllers/preview').then(({get}) =&gt; {
+        import('/lib/myproject/controller').then(({get}) =&gt; {
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: `&lt;!DOCTYPE html&gt;
@@ -706,7 +721,7 @@ describe('preview', () =&gt; {
   &lt;head&gt;
     &lt;meta charset=\"utf-8\"&gt;
     &lt;title&gt;Léa Seydoux&lt;/title&gt;
-    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css\"/&gt;
+    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.myproject:0123456789abcdef/styles.css\"/&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &lt;h1&gt;Léa Seydoux&lt;/h1&gt;
@@ -724,7 +739,7 @@ describe('preview', () =&gt; {
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
         });
-        import('/controllers/preview').then(({get}) =&gt; {
+        import('/lib/myproject/controller').then(({get}) =&gt; {
             const response = get(libPortal.request);
             expect(response).toEqual({
                 body: `&lt;!DOCTYPE html&gt;
@@ -732,7 +747,7 @@ describe('preview', () =&gt; {
   &lt;head&gt;
     &lt;meta charset=\"utf-8\"&gt;
     &lt;title&gt;Jeffrey Wright&lt;/title&gt;
-    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.tutorial.jest:0123456789abcdef/styles.css\"/&gt;
+    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.myproject:0123456789abcdef/styles.css\"/&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &lt;h1&gt;Jeffrey Wright&lt;/h1&gt;
@@ -758,33 +773,33 @@ describe('preview', () =&gt; {
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>npm test src/jest/server/preview.test.ts</pre>
+<pre>npm run cov src/jest/server/controller.test.ts</pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-Terminal" data-lang="Terminal">&gt; tutorial-jest@1.0.0 test
-&gt; jest --no-cache --coverage src/jest/server/preview.test.ts
+&gt; jest --no-cache --coverage src/jest/server/controller.test.ts
 
- PASS   SERVER  src/jest/server/preview.test.ts
-  preview
+ PASS   SERVER  src/jest/server/controller.test.ts
+  controller
     ✓ is able to render a page for Léa Seydoux (26 ms)
     ✓ is able to render a page for Jeffrey Wright
 
-----------------------------|---------|----------|---------|---------|-------------------
-File                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
-----------------------------|---------|----------|---------|---------|-------------------
-All files                   |     100 |    54.54 |     100 |     100 |
- jest/server                |     100 |      100 |     100 |     100 |
-  mockXP.ts                 |     100 |      100 |     100 |     100 |
- main/resources/controllers |     100 |    16.66 |     100 |     100 |
-  preview.ts                |     100 |    16.66 |     100 |     100 | 16-34
-----------------------------|---------|----------|---------|---------|-------------------
+------------------------------|---------|----------|---------|---------|-------------------
+File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------------------------|---------|----------|---------|---------|-------------------
+All files                     |     100 |    54.54 |     100 |     100 |
+ jest/server                  |     100 |      100 |     100 |     100 |
+  mockXP.ts                   |     100 |      100 |     100 |     100 |
+ main/resources/lib/myproject |     100 |    16.66 |     100 |     100 |
+  controller.ts               |     100 |    16.66 |     100 |     100 | 16-34
+------------------------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 passed, 1 total
 Tests:       2 passed, 2 total
 Snapshots:   0 total
 Time:        1.839 s
-Ran all test suites matching /src\/jest\/server\/preview.test.ts/i.</code></pre>
+Ran all test suites matching /src\/jest\/server\/controller.test.ts/i.</code></pre>
 </div>
 </div>
 </div>
@@ -806,7 +821,7 @@ Ran all test suites matching /src\/jest\/server\/preview.test.ts/i.</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-07 19:39:23 UTC
+Last updated 2024-05-13 08:15:33 UTC
 </div>
 </div>
 </body>

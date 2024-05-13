@@ -524,7 +524,7 @@ You can read about them <a href="https://developer.enonic.com/docs/xp/stable/fra
 <p>Let&#8217;s start by adding some more code we can test:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/lib/tutorial-jest/getAppConfig.ts</div>
+<div class="title">src/main/resources/lib/myproject/getAppConfig.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">export const getAppConfig = () =&gt; {
     log.debug('getAppConfig() called');
@@ -543,13 +543,14 @@ You can read about them <a href="https://developer.enonic.com/docs/xp/stable/fra
 <p>Then, we write a simple test for the function above:</p>
 </div>
 <div class="listingblock">
+<div class="title">src/jest/server/getAppConfig.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">import {
     describe,
     expect,
     test as it
 } from '@jest/globals';
-import { getAppConfig } from './getAppConfig';
+import { getAppConfig } from '/lib/myproject/getAppConfig';
 
 
 describe('getAppConfig', () =&gt; {
@@ -567,13 +568,37 @@ describe('getAppConfig', () =&gt; {
 <pre class="highlight"><code class="language-shell" data-lang="shell">ReferenceError: log is not defined</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Since the starter-ts project template we used already have mocked the Enonic XP globals for us: you won&#8217;t get that error.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="test_with_mock"><a class="link" href="#test_with_mock">Test with mock</a></h2>
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All the configuration below is already set up for us by the starter-ts project template we used. 🎉 But here we explain the reasoning behind it.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>To fix that, both the <code>log</code> and <code>app</code> objects must be mocked.</p>
+<p>To avoid errors about globals not being defined, we have to mock the missing globals. In this example both the <code>log</code> and <code>app</code> objects must be mocked.</p>
 </div>
 <div class="paragraph">
 <p>This can be achieved in multiple ways. When it comes to static values like the global <code>app</code> object, the following can be added to the <code>serverSideConfig</code> within your <code>jest.config.ts</code> file:</p>
@@ -583,10 +608,8 @@ describe('getAppConfig', () =&gt; {
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">globals: {
     app: {
-        name: 'com.example.tutorial.jest',
-        config: {
-            default: true,
-        },
+        name: 'com.example.myproject',
+        config: {},
         version: '1.0.0'
     },
 },</code></pre>
@@ -597,12 +620,12 @@ describe('getAppConfig', () =&gt; {
 It will run before the execution of each test file.</p>
 </div>
 <div class="paragraph">
-<p>Create a setup file:</p>
+<p>Example setup file:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/server/setupFile.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {App, Log} from './global';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {App, Log} from './global.d';
 
 
 // Avoid type errors
@@ -624,7 +647,7 @@ globalThis.log = {
 </div>
 </div>
 <div class="paragraph">
-<p>Then, register it in your <code>serverSideConfig</code>:</p>
+<p>Then, it must be registered it in the <code>serverSideConfig</code>:</p>
 </div>
 <div class="listingblock">
 <div class="title">jest.config.ts - serverSideConfig</div>
@@ -641,7 +664,7 @@ globalThis.log = {
 <h2 id="types"><a class="link" href="#types">Types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To avoid type errors when accessing those objects, you can add a type declaration file referencing <code>@enonic-types/global</code>.</p>
+<p>To avoid type errors when accessing global objects and functions in the test files, you can import types directly from the <code>src/jest/server/global.d.ts</code> file, which is already set up for us by the starter-ts project template we used.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/server/global.d.ts</div>
@@ -655,13 +678,10 @@ export declare type Require = typeof require;
 export declare type Resolve = typeof resolve;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Then, import and use those types in your test file:</p>
-</div>
 <div class="listingblock">
 <div class="title">src/jest/server/getAppConfig.test.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {App, Log} from './global';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {App, Log} from './global.d';
 
 import {
     beforeAll,
@@ -678,7 +698,7 @@ declare module globalThis {
 }
 
 
-// Augment the app.config object for tests in this file.
+// Augment the app.config object for tests in this file only.
 globalThis.app.config.key = 'value';
 
 
@@ -688,9 +708,8 @@ describe('getAppConfig', () =&gt; {
         globalThis.log.debug = () =&gt; {};
     });
     it('should return the application config', () =&gt; {
-        import('/lib/tutorial-jest/getAppConfig').then(({getAppConfig}) =&gt; {
+        import('/lib/myproject/getAppConfig').then(({getAppConfig}) =&gt; {
             expect(getAppConfig()).toEqual({
-                default: 'true',
                 key: 'value'
             });
         });
@@ -714,7 +733,7 @@ describe('getAppConfig', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-07 19:39:23 UTC
+Last updated 2024-05-13 08:15:33 UTC
 </div>
 </div>
 </body>

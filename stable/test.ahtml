@@ -485,7 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Add the source file to your project:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/lib/tutorial-jest/fibonacci.ts</div>
+<div class="title">src/main/resources/lib/myproject/fibonacci.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export function fibonacci(n: number): number[] {
     const fib = [0, 1];
@@ -525,7 +525,7 @@ Source code should (as always) be placed within the <code>/src/main/resources</c
     expect,
     test as it
 } from '@jest/globals';
-import { fibonacci } from '/lib/tutorial-jest/fibonacci';
+import { fibonacci } from '/lib/myproject/fibonacci';
 
 
 describe('fibonacci', () =&gt; {
@@ -557,7 +557,7 @@ By default, your tests should be placed in <code>/src/jest</code>.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-terminal" data-lang="terminal">npm test src/jest/server/fibonacci.test.ts</code></pre>
+<pre class="highlight"><code class="language-terminal" data-lang="terminal">npm run cov src/jest/server/fibonacci.test.ts</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -601,7 +601,7 @@ Ran all test suites matching /src\/jest\/server\/fibonacci.test.ts/i.</code></pr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-07 19:39:23 UTC
+Last updated 2024-05-13 08:15:33 UTC
 </div>
 </div>
 </body>
