@@ -25,6 +25,7 @@
   ],
 
   "compilerOptions": {
+    "esModuleInterop": true,
     "jsx": "react",
     "lib": [
       "DOM", // console, document, window, etc...
