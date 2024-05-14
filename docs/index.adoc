@@ -16,12 +16,16 @@ TIP: For more details, visit the https://jestjs.io/[Jest documentation^].
 
 This guide will show you how to:
 
-* Create a <<project#,Project>> with Jest environment already setup.
-* Write a simple <<test#,test>> without any mocks
-* Write a test mocking <<globals#,Globals>>
-* Write a test for server-side code manually <<mock#,mocking>> Java libraries
-* Write a test for server-side code using <<mock-xp#, Mock XP>>
-* Write a test for <<client-side#, client-side>> code
+1. Create a <<project#,Project>> with Jest environment already setup.
+2. Write a simple <<test#,test>> without any mocks
+3. Write a test for server-side code manually <<mock#,mocking>> Java libraries
+4. Write a test for server-side code using <<mock-xp#, Mock XP>>
+5. Write a test for <<client-side#, client-side>> code
+
+== Advanced topics
+
+In addition to the main topics, you might want to learn about these advanced topics:
+
 * Set up <<coverage#,Coverage>> with Github Actions
 * <<colocation#,Colocate>> tests with the code they test
 
