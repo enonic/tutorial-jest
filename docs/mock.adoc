@@ -1,7 +1,11 @@
-= Mocking functions
+= Mocking
 :sourcedir: ../
 
-This chapter covers mocking functions and Enonic libraries.
+This chapter introduces the concept of `mocking`. It shows how to mock functions and Enonic libraries.
+
+== Introduction
+
+Mocking is the concept of creating fake functions or objects that stand in for real functions or objects in the system. This way, you may test or simulate parts of a system - even without that system being actually available.
 
 == Source code
 
