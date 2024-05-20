@@ -1,15 +1,21 @@
 name: Gradle Build
 
-on: [ push ]
+on: [push]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
-    outputs:
-      release: ${{ steps.build-and-publish.outputs.release }}
+
     steps:
-      - id: build-and-publish
-        uses: enonic/release-tools/build-and-publish@master
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
         with:
-          repoUser: ci
-          repoPassword: ${{ secrets.ARTIFACTORY_PASSWORD }}
+          java-version: 17
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - run: ./gradlew build --no-daemon
+
+      - uses: codecov/codecov-action@v4
