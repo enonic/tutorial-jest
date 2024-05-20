@@ -16,7 +16,7 @@ TIP: For more details, visit the https://jestjs.io/[Jest documentation^].
 
 This guide will show you how to:
 
-1. Create a <<project#,Project>> with Jest environment already setup.
+1. Create a <<project#,Project>> with Jest environment already set up.
 2. Write a simple <<test#,test>> without any mocks
 3. Write a test for server-side code manually <<mock#,mocking>> Java libraries
 4. Write a test for server-side code using <<mock-xp#, Mock XP>>
