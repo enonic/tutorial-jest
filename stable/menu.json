@@ -9,28 +9,29 @@
         "document": "test"
       },
       {
-        "title": "3 - Globals",
-        "document": "globals"
-      },
-      {
-        "title": "4 - Functions",
+        "title": "3 - Mocking",
         "document": "mock"
       },
       {
-        "title": "5 - Mock XP",
+        "title": "4 - Mock XP",
         "document": "mock-xp"
       },
       {
-        "title": "6 - Client side",
+        "title": "5 - Client side",
         "document": "client-side"
       },
       {
-        "title": "7 - Codecov",
-        "document": "codecov"
-      },
-      {
-        "title": "8 - Colocation",
-        "document": "colocation"
+        "title": "Advanced",
+        "menuItems": [
+          {
+            "title": "Codecov",
+            "document": "codecov"
+          },
+          {
+            "title": "Colocation",
+            "document": "colocation"
+          }
+        ]
       }
     ]
 }

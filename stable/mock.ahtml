@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Mocking functions</title>
+<title>Mocking</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,10 +437,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Mocking functions</h1>
+<h1>Mocking</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#source_code">Source code</a></li>
 <li><a href="#test_without_mock">Test without mock</a></li>
 <li><a href="#adding_the_mock">Adding the mock</a></li>
@@ -452,7 +453,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter covers mocking functions and Enonic libraries.</p>
+<p>This chapter introduces the concept of <code>mocking</code>. It shows how to mock functions and Enonic libraries.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mocking is the concept of creating fake functions or objects that stand in for real functions or objects in the system. This way, you may test or simulate parts of a system - even without that system being actually available.</p>
 </div>
 </div>
 </div>
@@ -575,7 +584,7 @@ describe('sanitize', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-13 08:15:33 UTC
+Last updated 2024-05-20 14:15:12 UTC
 </div>
 </div>
 </body>

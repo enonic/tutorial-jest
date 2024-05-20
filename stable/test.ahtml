@@ -594,14 +594,14 @@ Ran all test suites matching /src\/jest\/server\/fibonacci.test.ts/i.</code></pr
 <p>This chapter explained how to write and run a simple Jest test for an Enonic XP project.</p>
 </div>
 <div class="paragraph">
-<p>In order to write more advanced tests, we must introduce a new concept. Let&#8217;s have a look at <a href="globals.ahtml">mocking</a>.</p>
+<p>In order to write more advanced tests, we must introduce a new concept. Let&#8217;s have a look at <a href="mock.ahtml">mocking</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-13 08:15:33 UTC
+Last updated 2024-05-20 14:15:12 UTC
 </div>
 </div>
 </body>

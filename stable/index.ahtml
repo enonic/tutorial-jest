@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#advanced_topics">Advanced topics</a></li>
 <li><a href="#additional_reading">Additional reading</a></li>
 </ul>
 </div>
@@ -479,16 +480,13 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 <div class="paragraph">
 <p>This guide will show you how to:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Create a <a href="project.ahtml">Project</a> with Jest environment already setup.</p>
+<p>Create a <a href="project.ahtml">Project</a> with Jest environment already set up.</p>
 </li>
 <li>
 <p>Write a simple <a href="test.ahtml">test</a> without any mocks</p>
-</li>
-<li>
-<p>Write a test mocking <a href="globals.ahtml">Globals</a></p>
 </li>
 <li>
 <p>Write a test for server-side code manually <a href="mock.ahtml">mocking</a> Java libraries</p>
@@ -499,6 +497,18 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 <li>
 <p>Write a test for <a href="client-side.ahtml">client-side</a> code</p>
 </li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="advanced_topics"><a class="link" href="#advanced_topics">Advanced topics</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to the main topics, you might want to learn about these advanced topics:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Set up <a href="coverage.ahtml">Coverage</a> with Github Actions</p>
 </li>
@@ -520,7 +530,7 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-13 08:15:33 UTC
+Last updated 2024-05-20 14:15:12 UTC
 </div>
 </div>
 </body>
