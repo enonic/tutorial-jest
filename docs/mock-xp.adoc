@@ -40,7 +40,7 @@ For the test file to not become overly large, it's been split it into smaller pa
 include::{sourcedir}src/jest/server/mockXP.ts[]
 ----
 
-NOTE: This test uses two image files, `lea-seydoux.jpg` and `jeffrey-wright.jpg`, which are not included in the starter-ts project template. You can use any image files you have available. Just make sure either to update the test to point to the correct files or to create the files in the correct location.
+NOTE: This test uses two image files, `lea-seydoux.jpg` and `jeffrey-wright.jpg`, which are not included in this project template. You can use any image files you have available. Just make sure either to update the test to point to the correct files or to create the files in the correct location.
 
 .src/jest/server/controller.test.ts
 [source, typescript]

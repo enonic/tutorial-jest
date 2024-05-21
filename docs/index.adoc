@@ -31,4 +31,4 @@ In addition to the main topics, you might want to learn about these advanced top
 
 == Additional reading
 
-If you want to learn how to add Jest to an existing project, read the https://developer.enonic.com/docs/starter-ts/stable/test[Testing] chapter of the https://developer.enonic.com/docs/starter-ts/stable[TypeScript Starter] documentation.
+If you want to learn how to add Jest to an existing project, read the https://developer.enonic.com/docs/typescript-starter/stable/test[Testing] chapter of the https://developer.enonic.com/docs/typescript-starter/stable[TypeScript Starter] documentation.
