@@ -523,14 +523,14 @@ For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="no
 <h2 id="additional_reading"><a class="link" href="#additional_reading">Additional reading</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you want to learn how to add Jest to an existing project, read the <a href="https://developer.enonic.com/docs/starter-ts/stable/test">Testing</a> chapter of the <a href="https://developer.enonic.com/docs/starter-ts/stable">TypeScript Starter</a> documentation.</p>
+<p>If you want to learn how to add Jest to an existing project, read the <a href="https://developer.enonic.com/docs/typescript-starter/stable/test">Testing</a> chapter of the <a href="https://developer.enonic.com/docs/typescript-starter/stable">TypeScript Starter</a> documentation.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-20 14:15:12 UTC
+Last updated 2024-05-21 07:25:27 UTC
 </div>
 </div>
 </body>

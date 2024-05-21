@@ -621,7 +621,7 @@ jest.mock('/lib/xp/portal', () =&gt; {
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This test uses two image files, <code>lea-seydoux.jpg</code> and <code>jeffrey-wright.jpg</code>, which are not included in the starter-ts project template. You can use any image files you have available. Just make sure either to update the test to point to the correct files or to create the files in the correct location.
+This test uses two image files, <code>lea-seydoux.jpg</code> and <code>jeffrey-wright.jpg</code>, which are not included in this project template. You can use any image files you have available. Just make sure either to update the test to point to the correct files or to create the files in the correct location.
 </td>
 </tr>
 </table>
@@ -821,7 +821,7 @@ Ran all test suites matching /src\/jest\/server\/controller.test.ts/i.</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-20 14:15:12 UTC
+Last updated 2024-05-21 07:25:27 UTC
 </div>
 </div>
 </body>
