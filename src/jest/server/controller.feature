@@ -27,3 +27,14 @@ When I visit the page for the person named "jeffrey-wright"
 Then the page should have the title "Jeffrey Wright"
 And the css selector "h1" should have the text "Jeffrey Wright"
 And the css selector "img" should have the attribute "src" containing "Jeffrey-Wright-hp.jpg"
+
+Scenario Outline: Visiting a page for a person
+  When I visit the page for the person named <sanitizedName>
+  Then the page should have the title <name>
+  And the css selector "h1" should have the text <name>
+  And the css selector "img" should have the attribute "src" containing <filename>
+
+  Examples:
+  | sanitizedName | name           | filename              |
+  | lea-seydoux   | Léa Seydoux    | Lea-Seydoux.jpg       |
+  | jeffrey-wright| Jeffrey Wright | Jeffrey-Wright-hp.jpg |
