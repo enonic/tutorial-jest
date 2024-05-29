@@ -34,7 +34,13 @@ function sanitize(text: string): string {
     .replace(/[\(\)']+/, '')
     .replace(/[^a-z0-9-]+/g, '-')
     .replace(/^-|-$/, '');
+}
 
+function unQuote(text: string): string {
+  if (text.startsWith('"') && text.endsWith('"')) {
+    return text.slice(1, -1);
+  }
+  return text;
 }
 
 const getAttributeValue = (
@@ -124,10 +130,11 @@ export const steps: StepDefinitions = ({ given, and, when, then }) => {
     expect(person._name).toBe(name);
   });
 
-  when(/^I visit the page for the person named "(.*)"$/, (name) => {
+
+  when(/^I visit the page for the person named (.*)$/, (name) => {
     libPortal.request = new Request({
       repositoryId: server.context.repository,
-      path: `/admin/site/preview/intro/draft/persons/${name}`
+      path: `/admin/site/preview/intro/draft/persons/${unQuote(name)}`
     });
     import('/lib/myproject/controller').then(({get}) => {
       const response = get(libPortal.request);
@@ -144,20 +151,20 @@ export const steps: StepDefinitions = ({ given, and, when, then }) => {
     });
   });
 
-  then(/^the page should have the title "(.*)"$/, (title) => {
+  then(/^the page should have the title (.*)$/, (title) => {
     // console.log('currentDom:', currentDom.html());
     const titleEl = querySelector(currentDom, 'head title');
-    expect(titleEl.text()).toBe(title);
+    expect(titleEl.text()).toBe(unQuote(title));
   });
 
-  then(/^the css selector "(.*)" should have the text "(.*)"$/, (selector, text) => {
+  then(/^the css selector "(.*)" should have the text (.*)$/, (selector, text) => {
     const el = querySelector(currentDom, selector);
-    expect(el.text()).toBe(text);
+    expect(el.text()).toBe(unQuote(text));
   });
 
-  then(/^the css selector "(.*)" should have the attribute "(.*)" containing "(.*)"$/, (selector, attribute, value) => {
+  then(/^the css selector "(.*)" should have the attribute "(.*)" containing (.*)$/, (selector, attribute, value) => {
     const el = querySelector(currentDom, selector);
-    expect(getAttributeValue(el, attribute)).toContain(value);
+    expect(getAttributeValue(el, attribute)).toContain(unQuote(value));
   });
 }; // steps
 
