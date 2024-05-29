@@ -10,6 +10,7 @@ import type { StepDefinitions } from 'jest-cucumber';
 // import 'core-js/stable/array/from';
 import { expect } from '@jest/globals';
 import cheerio from 'cheerio'; // uses Array.from
+import toDiffableHtml from 'diffable-html';
 import {
   autoBindSteps,
   loadFeature
@@ -165,6 +166,11 @@ export const steps: StepDefinitions = ({ given, and, when, then }) => {
   then(/^the css selector "(.*)" should have the attribute "(.*)" containing (.*)$/, (selector, attribute, value) => {
     const el = querySelector(currentDom, selector);
     expect(getAttributeValue(el, attribute)).toContain(unQuote(value));
+  });
+
+  then(/^the html should be$/, (html: string) => {
+    const diffableHtml = toDiffableHtml(currentDom.html()).trim();
+    expect(html).toBe(diffableHtml);
   });
 }; // steps
 
