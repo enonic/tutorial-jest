@@ -23,10 +23,37 @@ And the css selector "h1" should have the text "Léa Seydoux"
 And the css selector "img" should have the attribute "src" containing "Lea-Seydoux.jpg"
 
 Scenario: Visiting Jeffrey Wright page
-When I visit the page for the person named "jeffrey-wright"
-Then the page should have the title "Jeffrey Wright"
-And the css selector "h1" should have the text "Jeffrey Wright"
-And the css selector "img" should have the attribute "src" containing "Jeffrey-Wright-hp.jpg"
+  When I visit the page for the person named "jeffrey-wright"
+  Then the page should have the title "Jeffrey Wright"
+  And the css selector "h1" should have the text "Jeffrey Wright"
+  And the css selector "img" should have the attribute "src" containing "Jeffrey-Wright-hp.jpg"
+  And the html should be
+    """
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>
+          Jeffrey Wright
+        </title>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.myproject:0123456789abcdef/styles.css"
+        >
+      </head>
+      <body>
+        <h1>
+          Jeffrey Wright
+        </h1>
+        <img src="/admin/site/preview/intro/draft/persons/jeffrey-wright/_/image/00000000-0000-4000-8000-000000000010:0123456789abcdef/width-500/Jeffrey-Wright-hp.jpg">
+        <h3>
+          This is a sample preview
+        </h3>
+        Use live integrations with your front-end, or just a mockup - like this  :-)
+      </body>
+    </html>
+    """
 
 Scenario Outline: Visiting a page for a person
   When I visit the page for the person named <sanitizedName>
