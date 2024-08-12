@@ -24,7 +24,7 @@
     "@enonic/mock-xp": "^1.0.0",
     "@eslint/js": "^9.9.0",
     "@swc/core": "^1.7.6",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.2.0",
     "@types/react": "^18.3.3",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
