@@ -29,7 +29,7 @@
     "@types/react": "^18.3.12",
     "cheerio": "^1.0.0-rc.12",
     "concurrently": "^9.1.2",
-    "diffable-html": "^5.0.0",
+    "diffable-html": "^6.0.1",
     "eslint": "^8.57.0",
     "jest-cucumber": "^4.5.0",
     "jest-environment-jsdom": "^29.7.0",
