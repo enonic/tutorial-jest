@@ -32,7 +32,7 @@ function sanitize(text: string): string {
   return text
     .toLowerCase()
     .replace('é', 'e')
-    .replace(/[\(\)']+/, '')
+    .replace(/[()']+/, '')
     .replace(/[^a-z0-9-]+/g, '-')
     .replace(/^-|-$/, '');
 }
@@ -64,7 +64,7 @@ const querySelector = (
 ) => cheerio(node.find(selector)[0]);
 
 
-export const steps: StepDefinitions = ({ given, and, when, then }) => {
+export const steps: StepDefinitions = ({ given, when, then }) => {
   const contentTypes = {};
   let currentContentTypeName;
   let currentDom;

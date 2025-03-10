@@ -88,13 +88,13 @@ describe('preview', () => {
                 body: `<!DOCTYPE html>
 <html>
   <head>
-    <meta charset=\"utf-8\">
+    <meta charset="utf-8">
     <title>Léa Seydoux</title>
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.myproject:0123456789abcdef/styles.css\"/>
+    <link rel="stylesheet" type="text/css" href="/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.myproject:0123456789abcdef/styles.css"/>
   </head>
   <body>
     <h1>Léa Seydoux</h1>
-    <img src=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/00000000-0000-4000-8000-000000000006:0123456789abcdef/width-500/Lea-Seydoux.jpg\"/>
+    <img src="/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/00000000-0000-4000-8000-000000000006:0123456789abcdef/width-500/Lea-Seydoux.jpg"/>
     <h3>This is a sample preview</h3>
     Use live integrations with your front-end, or just a mockup - like this  :-)
   </body>
@@ -114,13 +114,13 @@ describe('preview', () => {
                 body: `<!DOCTYPE html>
 <html>
   <head>
-    <meta charset=\"utf-8\">
+    <meta charset="utf-8">
     <title>Jeffrey Wright</title>
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.myproject:0123456789abcdef/styles.css\"/>
+    <link rel="stylesheet" type="text/css" href="/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.myproject:0123456789abcdef/styles.css"/>
   </head>
   <body>
     <h1>Jeffrey Wright</h1>
-    <img src=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/image/00000000-0000-4000-8000-000000000010:0123456789abcdef/width-500/Jeffrey-Wright-hp.jpg\"/>
+    <img src="/admin/site/preview/intro/draft/persons/jeffrey-wright/_/image/00000000-0000-4000-8000-000000000010:0123456789abcdef/width-500/Jeffrey-Wright-hp.jpg"/>
     <h3>This is a sample preview</h3>
     Use live integrations with your front-end, or just a mockup - like this  :-)
   </body>

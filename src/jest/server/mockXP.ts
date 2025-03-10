@@ -3,7 +3,7 @@ import type {
   getContent as getContentType,
   imageUrl as imageUrlType,
 } from '@enonic-types/lib-portal';
-import type {Log} from './global';
+import type {Log} from '@enonic-types/core';
 
 
 import {
@@ -34,7 +34,7 @@ export const server = new Server({
 
 // Avoid type errors below.
 // eslint-disable-next-line @typescript-eslint/no-namespace
-declare module globalThis {
+declare namespace globalThis {
   let log: Log
 }
 
