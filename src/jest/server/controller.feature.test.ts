@@ -140,7 +140,7 @@ export const steps: StepDefinitions = ({ given, and, when, then }) => {
     import('/lib/myproject/controller').then(({get}) => {
       const response = get(libPortal.request);
       // console.log('response:', response);
-      currentDom = cheerio.load(response.body, {
+      currentDom = cheerio.load(String(response.body), {
         // decodeEntities: true, // If set to true, entities within the document will be decoded. Defaults to true.
         // lowerCaseAttributeNames: false,// If set to true, all attribute names will be lowercased. This has noticeable impact on speed, so it defaults to false.
         lowerCaseTags: true, // If set to true, all tags will be lowercased. If xmlMode is disabled, this defaults to true.
