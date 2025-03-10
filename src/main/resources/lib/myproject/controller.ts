@@ -1,6 +1,5 @@
 import type {Content} from '/lib/xp/portal';
-import type {Request, Response} from '/index.d';
-
+import {SerializableRequest as Request, Response} from '@enonic-types/core';
 
 import {getContent, imageUrl, assetUrl} from '/lib/xp/portal';
 
