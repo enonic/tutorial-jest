@@ -96,15 +96,6 @@ const serverSideConfig: Config.InitialProjectOptions = {
     '/lib/myproject/(.*)': `<rootDir>/${DIR_SRC}/lib/myproject/$1`,
   },
 
-  // A list of paths to modules that run some code to configure or set up the
-  // testing environment. Each setupFile will be run once per test file. Since
-  // every test runs in its own environment, these scripts will be executed in
-  // the testing environment before executing setupFilesAfterEnv and before
-  // the test code itself.
-  setupFiles: [
-    `<rootDir>/${DIR_SRC_JEST_SERVER}/setupFile.ts`
-  ],
-
   // Run serverside tests without DOM globals such as document and window
   testEnvironment: 'node',
 

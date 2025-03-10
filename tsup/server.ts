@@ -28,7 +28,7 @@ export default function buildServerConfig(): Options {
     env: {
       BROWSER_SYNC_PORT: '3100',
     },
-    esbuildOptions(options, context) {
+    esbuildOptions(options) {
       // If you have libs with chunks, use this to avoid collisions
       options.chunkNames = '_chunks/[name]-[hash]';
 

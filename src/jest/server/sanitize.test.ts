@@ -15,7 +15,7 @@ jest.mock('/lib/xp/common', () => ({
         .replace('ñ', 'n')
         .replace('ø', 'o')
         .replace('æ', 'ae')
-        .replace(/[\(\)']+/, '')
+        .replace(/[()']+/, '')
         .replace(/[^a-z0-9-]+/g, '-')
         .replace(/^-|-$/, '')
     )
