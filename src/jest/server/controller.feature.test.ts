@@ -1,15 +1,15 @@
 import type { ByteSource } from '@enonic-types/core';
 import type {
-	AnyNode,
 	Cheerio,
 	SelectorType
 } from 'cheerio';
+import type {AnyNode} from 'domhandler';
 import type { StepDefinitions } from 'jest-cucumber';
 
 
 // import 'core-js/stable/array/from';
 import { expect } from '@jest/globals';
-import cheerio from 'cheerio'; // uses Array.from
+import * as cheerio from 'cheerio';
 import toDiffableHtml from 'diffable-html';
 import {
   autoBindSteps,
@@ -59,10 +59,12 @@ const getAttributeValue = (
 };
 
 const querySelector = (
-	node: Cheerio<AnyNode>,
-	selector: SelectorType
-) => cheerio(node.find(selector)[0]);
-
+  node: Cheerio<AnyNode>,
+  selector: SelectorType
+) => {
+  const $ = cheerio.load(''); // Ensure cheerio is loaded correctly
+  return $(node.find(selector)[0]);
+};
 
 export const steps: StepDefinitions = ({ given, when, then }) => {
   const contentTypes = {};
@@ -140,15 +142,7 @@ export const steps: StepDefinitions = ({ given, when, then }) => {
     import('/lib/myproject/controller').then(({get}) => {
       const response = get(libPortal.request);
       // console.log('response:', response);
-      currentDom = cheerio.load(String(response.body), {
-        // decodeEntities: true, // If set to true, entities within the document will be decoded. Defaults to true.
-        // lowerCaseAttributeNames: false,// If set to true, all attribute names will be lowercased. This has noticeable impact on speed, so it defaults to false.
-        lowerCaseTags: true, // If set to true, all tags will be lowercased. If xmlMode is disabled, this defaults to true.
-        // normalizeWhitespace: true, // Removes NEWLINES, but there are still multiple spaces
-        // scriptingEnabled: false, // Disable scripting in parse5, so noscript tags would be parsed.
-        xmlMode: false // Tags are lowercased // When xmlMode is false noscript tags are in the dom, but it's content doesn't show up in querySelector!
-        // xmlMode: true // Avoid stripping noscript tags?
-      }).root();
+      currentDom = cheerio.load(String(response.body)).root();
     });
   });
 
