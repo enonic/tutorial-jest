@@ -23,7 +23,7 @@
     "@enonic-types/lib-websocket": "^7.15.1",
     "@enonic/mock-xp": "^1.1.0-B1",
     "@eslint/js": "^9.27.0",
-    "@swc/core": "^1.11.24",
+    "@swc/core": "^1.11.29",
     "@types/diffable-html": "^5.0.2",
     "@types/node": "^22.15.21",
     "@types/react": "^18.3.12",
