@@ -30,7 +30,7 @@
     "cheerio": "^1.1.2",
     "concurrently": "^9.2.0",
     "diffable-html": "^6.0.1",
-    "eslint": "^9.33.0",
+    "eslint": "^9.34.0",
     "jest-cucumber": "^4.5.0",
     "jest-environment-jsdom": "^30.0.5",
     "react": "^18.3.1",
