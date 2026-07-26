@@ -11,7 +11,7 @@ export default tseslint.config(
     // object applies to all files matched by files.
     ignores: [
       'build/**/*.*',
-      'tsup/**/*.js'
+      'tsdown.config.ts'
     ],
   },
 

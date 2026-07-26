@@ -118,7 +118,6 @@ export const steps: StepDefinitions = ({ given, when, then }) => {
       data: readFileSync(join(__dirname, '..', filename)) as unknown as ByteSource,
       name: filename,
       parentPath: personFolder._path,
-      mimeType: 'image/jpeg',
       focalX: 0.5,
       focalY: 0.5,
     });

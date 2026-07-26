@@ -57,7 +57,7 @@ export const libPortal = new LibPortal({
 
 jest.mock('/lib/xp/portal', () => {
     return {
-        assetUrl: jest.fn<typeof assetUrlType>((params) => libPortal.assetUrl(params)),
+        assetUrl: jest.fn<typeof assetUrlType>((params) => libPortal.assetUrl(typeof params === 'string' ? {path: params} : params)),
         getContent: jest.fn<typeof getContentType>(() => libPortal.getContent()),
         imageUrl: jest.fn<typeof imageUrlType>((params) => libPortal.imageUrl(params)),
     }

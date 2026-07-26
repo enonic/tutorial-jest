@@ -9,7 +9,6 @@ declare type ContentWithPhotos = Content<{
 }>;
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function get(_request: Request): Response {
   const content = getContent<ContentWithPhotos>();
   const {data, displayName} = content;

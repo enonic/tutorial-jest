@@ -33,7 +33,6 @@ const leaSeydouxJpg = libContent.createMedia({
     data: readFileSync(join(__dirname, '..', IMAGE_FILENAME_1)) as unknown as ByteSource,
     name: IMAGE_FILENAME_1,
     parentPath: personFolder._path,
-    mimeType: 'image/jpeg',
     focalX: 0.5,
     focalY: 0.5,
 });
@@ -54,7 +53,6 @@ const jeffreyWrightHpJpg = libContent.createMedia({
     data: readFileSync(join(__dirname, '..', IMAGE_FILENAME_2)) as unknown as ByteSource,
     name: IMAGE_FILENAME_2,
     parentPath: personFolder._path,
-    mimeType: 'image/jpeg',
     focalX: 0.5,
     focalY: 0.5,
 });
