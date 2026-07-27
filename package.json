@@ -22,7 +22,7 @@
     "@enonic-types/lib-value": "^8.0.3",
     "@enonic-types/lib-websocket": "^8.0.3",
     "@enonic/mock-xp": "^2.0.1",
-    "@eslint/js": "^9.38.0",
+    "@eslint/js": "^10.0.1",
     "@swc/core": "^1.15.3",
     "@types/diffable-html": "^5.0.2",
     "@types/node": "^26.1.1",
