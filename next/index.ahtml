@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
-<title>Codecov</title>
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>Testing with Jest and Mock XP</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -116,7 +116,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -219,6 +218,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -437,15 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Codecov</h1>
+<h1>Testing with Jest and Mock XP</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#intro">Intro</a></li>
-<li><a href="#command_line">Command line</a></li>
-<li><a href="#package_json">package.json</a></li>
-<li><a href="#github_action">GitHub action</a></li>
-<li><a href="#summary">Summary</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#advanced_topics">Advanced topics</a></li>
+<li><a href="#additional_reading">Additional reading</a></li>
 </ul>
 </div>
 </div>
@@ -453,120 +451,86 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Discover how to see test progress over time using Codecov.</p>
+<p>This tutorial introduces you to the Jest testing framework, and how to integrate it in an Enonic application.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://about.codecov.io/" target="_blank" rel="noopener">Codecov</a> is a nice reporting tool that can be used to visualize your test coverage over time and across multiple projects. It integrates nicely with GitHub and other CI/CD tools.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="command_line"><a class="link" href="#command_line">Command line</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To get a test coverage report when running tests, simply add the <code>--coverage</code> option:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npx jest --coverage</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="package_json"><a class="link" href="#package_json">package.json</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To get a coverage report every time you run <code>npm test</code>. Add the <code>--coverage</code> option in the <code>package.json</code> <code>scripts</code> section like this:</p>
-</div>
-<div class="listingblock">
-<div class="title">package.json</div>
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "scripts": {
-    "test": "jest --no-cache --coverage"
-  }
-}</code></pre>
-</div>
+<p>Jest is a highly adopted testing framework that supports TypeScript, mocking, and a lot,
+lot more.</p>
 </div>
 <div class="paragraph">
-<p>This also enables the <code>npm test</code> in the <a href="#github_action">Github action</a> below to produce a coverage report for <a href="#codecov">Codecov</a>.</p>
+<p>A special feature of this setup is that tests can be executed standalone, independently of Enonic XP. Thus, the tests will finish faster and be more flexible to execute.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="github_action"><a class="link" href="#github_action">GitHub action</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Here is an example of how to set up a GitHub action to automatically send your test coverage to Codecov:</p>
-</div>
-<div class="admonitionblock caution">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Make sure the <code>npm test</code> command produces a coverage report. This is done by adding the <code>--coverage</code> option to the <code>jest</code> command as described <a href="#package_json">above</a>
+For more details, visit the <a href="https://jestjs.io/" target="_blank" rel="noopener">Jest documentation</a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="listingblock">
-<div class="title">.github/workflows/coverage.yml</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">name: Coverage
-
-on: [ push ]
-
-jobs:
-
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Test
-        run: npm test
-
-      - uses: codecov/codecov-action@v4</code></pre>
+<div class="paragraph">
+<p>This guide will show you how to:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a <a href="project.ahtml">Project</a> with Jest environment already set up.</p>
+</li>
+<li>
+<p>Write a simple <a href="test.ahtml">test</a> without any mocks</p>
+</li>
+<li>
+<p>Write a test for server-side code manually <a href="mock.ahtml">mocking</a> Java libraries</p>
+</li>
+<li>
+<p>Write a test for server-side code using <a href="mock-xp.ahtml">Mock XP</a></p>
+</li>
+<li>
+<p>Write a test for <a href="client-side.ahtml">client-side</a> code</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<h2 id="advanced_topics"><a class="link" href="#advanced_topics">Advanced topics</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the above setup, you will get a nice test coverage report every time you run <code>npm test</code> and also every time you push to GitHub. The report will be sent to Codecov where you can visualize it and track your progress over time.</p>
+<p>In addition to the main topics, you might want to learn about these advanced topics:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Set up <a href="coverage.ahtml">Coverage</a> with Github Actions</p>
+</li>
+<li>
+<p><a href="colocation.ahtml">Colocate</a> tests with the code they test</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="additional_reading"><a class="link" href="#additional_reading">Additional reading</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The final chapter will demonstrate how to <a href="colocation.ahtml">colocate</a> tests with the source code.</p>
+<p>If you want to learn how to add Jest to an existing project, read the <a href="https://developer.enonic.com/docs/typescript-starter/stable/test">Testing</a> chapter of the <a href="https://developer.enonic.com/docs/typescript-starter/stable">TypeScript Starter</a> documentation.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-15 18:47:28 UTC
+Last updated 2026-08-25 12:35:35 UTC
 </div>
 </div>
 </body>

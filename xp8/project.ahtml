@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
-<title>Mocking</title>
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>Project</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -116,7 +116,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -219,6 +218,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -437,136 +437,61 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Mocking</h1>
+<h1>Project</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#source_code">Source code</a></li>
-<li><a href="#test_without_mock">Test without mock</a></li>
-<li><a href="#adding_the_mock">Adding the mock</a></li>
+<li><a href="#create">Create</a></li>
+<li><a href="#tldr">TL;DR</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="create"><a class="link" href="#create">Create</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter introduces the concept of <code>mocking</code>. It shows how to mock functions and Enonic libraries.</p>
+<p>We start this tutorial by using our TypeScript starter.</p>
+</div>
+<div class="paragraph">
+<p>It comes with everything you need to start writing tests with Jest.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you want to learn how to add Jest to an existing project, read the <a href="https://developer.enonic.com/docs/typescript-starter/stable/test">Testing</a> chapter of the <a href="https://developer.enonic.com/docs/typescript-starter/stable">TypeScript Starter</a> documentation.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To create a project for the tutorial, run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic create jest-tutorial -r starter-ts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create an app and place it in a folder called <code>jest-tutorial</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="tldr"><a class="link" href="#tldr">TL;DR</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Mocking is the concept of creating fake functions or objects that stand in for real functions or objects in the system. This way, you may test or simulate parts of a system - even without that system being actually available.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To demonstrate the power of mocking, let&#8217;s make a simple Typescript using a standard Enonic library:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/main/resources/lib/myproject/sanitize.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export {sanitize} from '/lib/xp/common';</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="test_without_mock"><a class="link" href="#test_without_mock">Test without mock</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you were to run this simple test:</p>
+<p>If you just want to read the tutorial, but not actually edit any files, you can create a project with the tutorial code already in place.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {
-    describe,
-    expect,
-    test as it
-} from '@jest/globals';
-import { sanitize } from '/lib/myproject/sanitize';
-
-
-describe('sanitize', () =&gt; {
-    it('should remove, replace or fold "illegal" characters', () =&gt; {
-        expect(sanitize("Piña CØLADÆ &lt;script&gt;alert('hi!');&lt;/script&gt;"))
-            .toEqual('pina-coladae-script-alerthi-script');
-    });
-});</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic create myproject -r tutorial-jest</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>It would fail with the following error message:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">Cannot find module '/lib/xp/common' from 'src/main/resources/lib/myproject/sanitize.ts'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This happens because the module file <code>/lib/xp/common</code> isn&#8217;t available in the test environment. It only exists inside the compiled Enonic application file, which is used at runtime in the Enonic XP server.</p>
-</div>
-<div class="paragraph">
-<p>In order to run the test successfully, a "fake" version of the module must be made available in the test environment. This is where mocking comes in handy.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="adding_the_mock"><a class="link" href="#adding_the_mock">Adding the mock</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Add the following test to your project:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/jest/server/sanitize.test.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type { sanitize as sanitizeType } from '@enonic-types/lib-common';
-
-
-import {
-    describe,
-    expect,
-    jest,
-    test as it
-} from '@jest/globals';
-
-
-jest.mock('/lib/xp/common', () =&gt; ({
-    sanitize: jest.fn&lt;typeof sanitizeType&gt;().mockImplementation((text) =&gt; text
-        .toLowerCase()
-        .replace('ñ', 'n')
-        .replace('ø', 'o')
-        .replace('æ', 'ae')
-        .replace(/[\(\)']+/, '')
-        .replace(/[^a-z0-9-]+/g, '-')
-        .replace(/^-|-$/, '')
-    )
-}), { virtual: true });
-
-
-describe('sanitize', () =&gt; {
-    it('should remove, replace or fold "illegal" characters', () =&gt; {
-        import('/lib/myproject/sanitize').then(({sanitize}) =&gt; {
-            expect(sanitize("Piña CØLADÆ &lt;script&gt;alert('hi!');&lt;/script&gt;"))
-                .toEqual('pina-coladae-script-alerthi-script');
-        });
-    });
-});</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here, <code>sanitize</code> is no longer "statically" imported at the beginning of the file. This is because the mock must be set up before the import is done. That&#8217;s why a dynamic import in each test is used instead.</p>
-</div>
-<div class="paragraph">
-<p>Obviously this mock doesn&#8217;t cover ascii-folding for the whole unicode range, but is sufficient enough to run this test.</p>
 </div>
 </div>
 </div>
@@ -574,17 +499,14 @@ describe('sanitize', () =&gt; {
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter showed how to mock an Enonic library invoked by a Typescript. This is necessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.</p>
-</div>
-<div class="paragraph">
-<p>Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the <a href="mock-xp.ahtml">Mock XP</a> library.</p>
+<p>In the next chapter we will learn how to write a simple <a href="test.ahtml">test</a> without any mocks.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-15 18:47:28 UTC
+Last updated 2026-08-25 12:35:08 UTC
 </div>
 </div>
 </body>

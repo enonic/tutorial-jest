@@ -1,9 +1,17 @@
 {
   "versions": [
     {
-      "label": "stable",
+      "label": "xp8",
       "checkout": "master",
       "latest": true
+    },
+    {
+      "label": "xp7",
+      "checkout": "7.x"
+    },
+    {
+      "label": "next",
+      "checkout": "issue-632"
     }
   ]
 }

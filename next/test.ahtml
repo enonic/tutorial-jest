@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
-<title>Mock XP</title>
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>Simple test</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -116,7 +116,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -219,6 +218,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -437,15 +437,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Mock XP</h1>
+<h1>Simple test</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#install_mock_xp">Install Mock XP</a></li>
+<li><a href="#how_it_works">How it works</a></li>
 <li><a href="#source_code">Source code</a></li>
-<li><a href="#tests">Tests</a></li>
-<li><a href="#output">Output</a></li>
+<li><a href="#the_test">The test</a></li>
+<li><a href="#execution">Execution</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
@@ -454,28 +453,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter we introduce <a href="https://www.npmjs.com/package/@enonic/mock-xp" target="_blank" rel="noopener">Mock XP</a> - an NPM library to mock Enonic XP APIs and state.</p>
+<p>In this chapter, you&#8217;ll add code, and test it with Jest.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="how_it_works"><a class="link" href="#how_it_works">How it works</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>When it comes to mocking more complex things (such as interaction with Content and Node APIs) Enonic has an NPM module called <code>@enonic/mock-xp</code> that can help you with some of the heavy lifting.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="install_mock_xp"><a class="link" href="#install_mock_xp">Install Mock XP</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Run the following command to install it:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm install --save-dev @enonic/mock-xp</code></pre>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Test files import from <strong><em>sources</em></strong> and defines <strong><em>test cases</em></strong> with <strong><em>assertions</em></strong>.</p>
+</li>
+<li>
+<p>Test files written for Jest uses <code>describe</code> and (<code>test</code>/<code>it</code>) functions to organize the test cases.</p>
+</li>
+<li>
+<p>The <code>expect</code> function is used to write <strong><em>assertions</em></strong> and returns an object which contains a bunch of <strong><em>Jest matchers</em></strong>.</p>
+</li>
+<li>
+<p>The test below uses the <code>toEqual</code> matcher, see <a href="https://jestjs.io/docs/using-matchers" class="bare">https://jestjs.io/docs/using-matchers</a> for more matchers.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -483,135 +482,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s create the following controller file:</p>
+<p>Add the source file to your project:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/lib/myproject/controller.ts</div>
+<div class="title">src/main/resources/lib/myproject/fibonacci.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {Content} from '/lib/xp/portal';
-import type {Request, Response} from '/index.d';
-
-
-import {getContent, imageUrl, assetUrl} from '/lib/xp/portal';
-
-
-declare type ContentWithPhotos = Content&lt;{
-  photos?: string|string[]
-}&gt;;
-
-
-export function get(_request: Request): Response {
-  const content = getContent&lt;ContentWithPhotos&gt;();
-  const {data, displayName} = content;
-  const photoId = Array.isArray(data.photos) ? data.photos[0] : data.photos;
-  const imageSrc = photoId
-  ? imageUrl({
-    id: photoId,
-    scale: "width(500)",
-  })
-  : null;
-  const img = imageSrc ? `&lt;img src="${imageSrc}"/&gt;` : '';
-  const styleHref = assetUrl({path: 'styles.css'});
-  return {
-    body: `&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;${displayName || 'Preview of content without display name'}&lt;/title&gt;
-    &lt;link rel="stylesheet" type="text/css" href="${styleHref}"/&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;${displayName || 'Display name missing'}&lt;/h1&gt;
-    ${img}
-    &lt;h3&gt;This is a sample preview&lt;/h3&gt;
-    Use live integrations with your front-end, or just a mockup - like this  :-)
-  &lt;/body&gt;
-&lt;/html&gt;`
-  };
-};</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="tests"><a class="link" href="#tests">Tests</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In this test <code>mock-xp</code> is used to set up a project repo, a person folder, a couple of images, and a couple content items (of type <code>person</code>) which reference the images.</p>
-</div>
-<div class="paragraph">
-<p>In addition, mock-xp&#8217;s <code>Log</code> is used to get nice colorful logging. In order for <code>libPortal.getContent()</code> to work, <code>request</code> property is set on the <code>libPortal</code> object.</p>
-</div>
-<div class="paragraph">
-<p>For the test file to not become overly large, it&#8217;s been split it into smaller parts:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/jest/server/mockXP.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {
-  assetUrl as assetUrlType,
-  getContent as getContentType,
-  imageUrl as imageUrlType,
-} from '@enonic-types/lib-portal';
-import type {Log} from './global';
-
-
-import {
-    App,
-    LibContent,
-    LibPortal,
-    Server
-} from '@enonic/mock-xp';
-import {jest} from '@jest/globals';
-
-
-export {
-    Request,
-} from '@enonic/mock-xp';
-
-
-const APP_KEY = 'com.example.myproject';
-const PROJECT_NAME = 'intro';
-
-
-export const server = new Server({
-    loglevel: 'debug'
-}).createProject({
-    projectName: PROJECT_NAME
-}).setContext({
-    projectName: PROJECT_NAME
-});
-
-// Avoid type errors below.
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare module globalThis {
-  let log: Log
-}
-
-globalThis.log = server.log as Log;
-
-
-const app = new App({
-    key: APP_KEY
-});
-
-export const libContent = new LibContent({
-    server
-});
-
-export const libPortal = new LibPortal({
-    app,
-    server
-});
-
-
-jest.mock('/lib/xp/portal', () =&gt; {
-    return {
-        assetUrl: jest.fn&lt;typeof assetUrlType&gt;((params) =&gt; libPortal.assetUrl(params)),
-        getContent: jest.fn&lt;typeof getContentType&gt;(() =&gt; libPortal.getContent()),
-        imageUrl: jest.fn&lt;typeof imageUrlType&gt;((params) =&gt; libPortal.imageUrl(params)),
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export function fibonacci(n: number): number[] {
+    const fib = [0, 1];
+    for (let i = fib.length; i &lt; n; i++) {
+        fib[i] = fib[i - 2] + fib[i - 1];
     }
-}, { virtual: true });</code></pre>
+
+    return fib;
+}</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -621,185 +504,85 @@ jest.mock('/lib/xp/portal', () =&gt; {
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This test uses two image files, <code>lea-seydoux.jpg</code> and <code>jeffrey-wright.jpg</code>, which are not included in this project template. You can use any image files you have available. Just make sure either to update the test to point to the correct files or to create the files in the correct location.
+Source code should (as always) be placed within the <code>/src/main/resources</code> section of your project
 </td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_test"><a class="link" href="#the_test">The test</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now, add your test file:</p>
+</div>
 <div class="listingblock">
-<div class="title">src/jest/server/controller.test.ts</div>
+<div class="title">src/jest/server/fibonacci.test.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {ByteSource} from '@enonic-types/core';
-
-
-import {
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {
     describe,
     expect,
     test as it
 } from '@jest/globals';
-import {
-    Request,
-    libContent,
-    libPortal,
-    server,
-} from './mockXP';
-import {readFileSync} from 'fs';
-import {join} from 'path';
-
-const IMAGE_FILENAME_1 = 'Lea-Seydoux.jpg';
-const IMAGE_FILENAME_2 = 'Jeffrey-Wright-hp.jpg';
+import { fibonacci } from '/lib/myproject/fibonacci';
 
 
-//──────────────────────────────────────────────────────────────────────────────
-// Test data
-//──────────────────────────────────────────────────────────────────────────────
-const personFolder = libContent.create({
-    contentType: 'base:folder',
-    data: {},
-    name: 'persons',
-    parentPath: '/',
-});
-
-const leaSeydouxJpg = libContent.createMedia({
-    data: readFileSync(join(__dirname, '..', IMAGE_FILENAME_1)) as unknown as ByteSource,
-    name: IMAGE_FILENAME_1,
-    parentPath: personFolder._path,
-    mimeType: 'image/jpeg',
-    focalX: 0.5,
-    focalY: 0.5,
-});
-
-libContent.create({
-    contentType: 'com.example.myproject:person',
-    data: {
-        bio: "French actress Léa Seydoux was born in 1985 in Paris, France, to Valérie Schlumberger, a philanthropist, and Henri Seydoux, a businessman.",
-        dateofbirth: "1985-07-01",
-        photos: leaSeydouxJpg._id,
-    },
-    name: 'lea-seydoux',
-    displayName: 'Léa Seydoux',
-    parentPath: personFolder._path,
-});
-
-const jeffreyWrightHpJpg = libContent.createMedia({
-    data: readFileSync(join(__dirname, '..', IMAGE_FILENAME_2)) as unknown as ByteSource,
-    name: IMAGE_FILENAME_2,
-    parentPath: personFolder._path,
-    mimeType: 'image/jpeg',
-    focalX: 0.5,
-    focalY: 0.5,
-});
-
-libContent.create({
-    contentType: 'com.example.myproject:person',
-    data: {
-        bio: "Born and raised in Washington DC, Jeffrey Wright graduated from Amherst College in 1987. Although he studied Political Science while at Amherst, Wright left the school with a love for acting. Shortly after graduating he won an acting scholarship to NYU, but dropped out after only two months to pursue acting full-time.",
-        dateofbirth: "1965-12-07",
-        photos: jeffreyWrightHpJpg._id,
-    },
-    name: 'jeffrey-wright',
-    displayName: 'Jeffrey Wright',
-    parentPath: personFolder._path,
-});
-
-
-//──────────────────────────────────────────────────────────────────────────────
-// Test suite
-//──────────────────────────────────────────────────────────────────────────────
-describe('preview', () =&gt; {
-
-    it('is able to render a page for Léa Seydoux', () =&gt; {
-        libPortal.request = new Request({
-            repositoryId: server.context.repository,
-            path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
-        });
-        import('/lib/myproject/controller').then(({get}) =&gt; {
-            const response = get(libPortal.request);
-            expect(response).toEqual({
-                body: `&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset=\"utf-8\"&gt;
-    &lt;title&gt;Léa Seydoux&lt;/title&gt;
-    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/asset/com.example.myproject:0123456789abcdef/styles.css\"/&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Léa Seydoux&lt;/h1&gt;
-    &lt;img src=\"/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/00000000-0000-4000-8000-000000000006:0123456789abcdef/width-500/Lea-Seydoux.jpg\"/&gt;
-    &lt;h3&gt;This is a sample preview&lt;/h3&gt;
-    Use live integrations with your front-end, or just a mockup - like this  :-)
-  &lt;/body&gt;
-&lt;/html&gt;`
-            });
-        });
-    }); // Léa Seydoux
-
-    it('is able to render a page for Jeffrey Wright', () =&gt; {
-        libPortal.request = new Request({
-            repositoryId: server.context.repository,
-            path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
-        });
-        import('/lib/myproject/controller').then(({get}) =&gt; {
-            const response = get(libPortal.request);
-            expect(response).toEqual({
-                body: `&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset=\"utf-8\"&gt;
-    &lt;title&gt;Jeffrey Wright&lt;/title&gt;
-    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/asset/com.example.myproject:0123456789abcdef/styles.css\"/&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Jeffrey Wright&lt;/h1&gt;
-    &lt;img src=\"/admin/site/preview/intro/draft/persons/jeffrey-wright/_/image/00000000-0000-4000-8000-000000000010:0123456789abcdef/width-500/Jeffrey-Wright-hp.jpg\"/&gt;
-    &lt;h3&gt;This is a sample preview&lt;/h3&gt;
-    Use live integrations with your front-end, or just a mockup - like this  :-)
-  &lt;/body&gt;
-&lt;/html&gt;`
-            });
-        });
-    }); // Jeffrey Wright
-
-}); // describe preview</code></pre>
+describe('fibonacci', () =&gt; {
+    it('should return the first 10 numbers in the fibonacci sequence', () =&gt; {
+        expect(fibonacci(10)).toEqual([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
+    });
+});</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+By default, your tests should be placed in <code>/src/jest</code>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<h2 id="execution"><a class="link" href="#execution">Execution</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Running the test produces the glorious result:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>npm run cov src/jest/server/controller.test.ts</pre>
-</div>
+<p>Run the tests:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">&gt; tutorial-jest@1.0.0 test
-&gt; jest --no-cache --coverage src/jest/server/controller.test.ts
+<pre class="highlight"><code class="language-terminal" data-lang="terminal">npm run cov src/jest/server/fibonacci.test.ts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This should produce an output looking something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-terminal" data-lang="terminal">&gt; tutorial-jest@1.0.0 test
+&gt; jest --no-cache --coverage src/jest/server/fibonacci.test.ts
 
- PASS   SERVER  src/jest/server/controller.test.ts
-  controller
-    ✓ is able to render a page for Léa Seydoux (26 ms)
-    ✓ is able to render a page for Jeffrey Wright
+ PASS   SERVER  src/jest/server/fibonacci.test.ts
+  fibonacci
+    ✓ should return the first 10 numbers in the fibonacci sequence (3 ms)
 
-------------------------------|---------|----------|---------|---------|-------------------
-File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
-------------------------------|---------|----------|---------|---------|-------------------
-All files                     |     100 |    54.54 |     100 |     100 |
- jest/server                  |     100 |      100 |     100 |     100 |
-  mockXP.ts                   |     100 |      100 |     100 |     100 |
- main/resources/lib/myproject |     100 |    16.66 |     100 |     100 |
-  controller.ts               |     100 |    16.66 |     100 |     100 | 16-34
-------------------------------|---------|----------|---------|---------|-------------------
+--------------|---------|----------|---------|---------|-------------------
+File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+--------------|---------|----------|---------|---------|-------------------
+All files     |     100 |      100 |     100 |     100 |
+ fibonacci.ts |     100 |      100 |     100 |     100 |
+--------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 passed, 1 total
-Tests:       2 passed, 2 total
+Tests:       1 passed, 1 total
 Snapshots:   0 total
-Time:        1.839 s
-Ran all test suites matching /src\/jest\/server\/controller.test.ts/i.</code></pre>
+Time:        1.029 s
+Ran all test suites matching /src\/jest\/server\/fibonacci.test.ts/i.</code></pre>
 </div>
 </div>
 </div>
@@ -808,20 +591,17 @@ Ran all test suites matching /src\/jest\/server\/controller.test.ts/i.</code></p
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter demonstrated how to write tests using Jest in combination with Mock XP.</p>
+<p>This chapter explained how to write and run a simple Jest test for an Enonic XP project.</p>
 </div>
 <div class="paragraph">
-<p>Mock XP was used to mock the Enonic <a href="https://developer.enonic.com/docs/xp/stable/api/lib-content" target="_blank" rel="noopener">content</a> and <a href="https://developer.enonic.com/docs/xp/stable/api/lib-portal" target="_blank" rel="noopener">portal</a> APIs.</p>
-</div>
-<div class="paragraph">
-<p>Next we demonstrate how to write a <a href="client-side.ahtml">client-side</a> test.</p>
+<p>In order to write more advanced tests, we must introduce a new concept. Let&#8217;s have a look at <a href="mock.ahtml">mocking</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-15 18:47:28 UTC
+Last updated 2026-08-25 12:35:35 UTC
 </div>
 </div>
 </body>
