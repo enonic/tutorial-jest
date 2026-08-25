@@ -32,13 +32,7 @@ export const server = new Server({
     projectName: PROJECT_NAME
 });
 
-// Avoid type errors below.
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace globalThis {
-  let log: Log
-}
-
-globalThis.log = server.log as Log;
+(globalThis as unknown as {log: Log}).log = server.log as Log;
 
 
 const app = new App({

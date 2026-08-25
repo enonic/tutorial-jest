@@ -11,6 +11,9 @@ declare type ContentWithPhotos = Content<{
 
 export function get(_request: Request): Response {
   const content = getContent<ContentWithPhotos>();
+  if (!content) {
+    return {status: 404};
+  }
   const {data, displayName} = content;
   const photoId = Array.isArray(data.photos) ? data.photos[0] : data.photos;
   const imageSrc = photoId

@@ -14,7 +14,7 @@ npm install --save-dev react react-dom react-test-renderer @types/react
 
 == Configuration
 
-Since we are going to write a `tsx` file, we need to make sure the `tsconfig.json` file includes the `jsx` option.
+Since we are going to write a `tsx` file, we need to make sure the `tsconfig.json` file includes the `jsx` option, so that type checking understands JSX. (Jest needs no change: the SWC transform in `jest.config.mjs` already parses TSX.)
 
 .src/main/resources/assets/tsconfig.json
 [source, json]
