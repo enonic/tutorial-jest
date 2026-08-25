@@ -5,7 +5,7 @@ This chapter covers setting up Jest for your Enonic app.
 
 == Sample project
 
-You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the Enonic intro app.
+You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the TypeScript starter.
 
 To create a project for the tutorial, run the following command:
 
@@ -25,22 +25,24 @@ Run the following command at the root of the Enonic project you created in the p
 
 [source, Terminal]
 ----
-npm install --save-dev jest-environment-jsdom ts-node ts-jest
+npm install --save-dev jest jest-environment-jsdom @swc/core @swc/jest
 ----
 
 == Configuration
 
 Next, you will need to add and tune a few configuration files:
 
-=== jest.config.ts
+=== jest.config.mjs
 
-Jest needs to be configured to run Typescript tests. This is done by creating a `jest.config.ts` file in the root of the project:
+Jest needs to be configured to run Typescript tests. This is done by creating a `jest.config.mjs` file in the root of the project:
 
-.jest.config.ts
-[source, Typescript]
+.jest.config.mjs
+[source, JavaScript]
 ----
-include::{sourcedir}jest.config.ts[]
+include::{sourcedir}jest.config.mjs[]
 ----
+
+Test files are transpiled by SWC (via `@swc/jest`), which strips the types without checking them — type errors in tests are caught by your editor. This is also why the config is a plain `.mjs` file: the project uses TypeScript 7, the native compiler, whose npm package does not ship the JavaScript compiler API that `ts-jest` and `ts-node` (needed for a `jest.config.ts`) depend on.
 
 Read more about configuring Jest https://jestjs.io/docs/configuration[here^].
 
@@ -48,7 +50,7 @@ Read more about configuring Jest https://jestjs.io/docs/configuration[here^].
 
 In an Enonic Typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple `tsconfig.json` files are used.
 
-When running tests the Typescript configuration files might need to look slightly different. This is the case for the `src/jest/client/tsconfig.json` and `src/jest/server/tsconfig.json` files:
+Test files need a slightly different Typescript configuration than the sources they test. Jest itself does not read these files (SWC only strips types), but they give your editor the right type context for the test files. This is the purpose of the `src/jest/client/tsconfig.json` and `src/jest/server/tsconfig.json` files:
 
 .src/jest/client/tsconfig.json
 [source, json]
