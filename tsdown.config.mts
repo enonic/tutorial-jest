@@ -23,8 +23,8 @@ function entries(dir: string, exts: string, ignore: string[] = []): Record<strin
   );
 }
 
-const serverEntry = entries(SRC, '{ts,js}', [`${SRC_ASSETS}/**`, `${SRC}/**/*.d.ts`]);
-const assetEntry = entries(SRC_ASSETS, '{tsx,ts,jsx,js}');
+const serverEntry = entries(SRC, '{ts,js}', ['**/*.d.ts', `${SRC_ASSETS}/**`]);
+const assetEntry = entries(SRC_ASSETS, '{tsx,ts,jsx,js}', ['**/*.d.ts']);
 
 // XP resolves an absolute import at runtime against the app's own resources
 // first, then against the modules provided by the runtime: XP's own libraries
@@ -34,8 +34,14 @@ const assetEntry = entries(SRC_ASSETS, '{tsx,ts,jsx,js}');
 // of runtime modules to maintain. A mistyped specifier is caught by
 // `check:types` (TS2307), not by the bundler.
 const SRC_EXTS = ['.ts', '.tsx', '.js', '.jsx'];
+const appSourceCache = new Map<string, boolean>();
 function isAppSource(id: string): boolean {
-  return SRC_EXTS.some(ext => existsSync(`${SRC}${id}${ext}`) || existsSync(`${SRC}${id}/index${ext}`));
+  let hit = appSourceCache.get(id);
+  if (hit === undefined) {
+    hit = SRC_EXTS.some(ext => existsSync(`${SRC}${id}${ext}`) || existsSync(`${SRC}${id}/index${ext}`));
+    appSourceCache.set(id, hit);
+  }
+  return hit;
 }
 const isRuntimeModule = (id: string, _importer: string | undefined, isResolved: boolean): boolean =>
   !isResolved && id.startsWith('/') && !isAppSource(id);

@@ -35,15 +35,17 @@ In addition, mock-xp's `Log` is used to get nice colorful logging. In order for 
 For the test file to not become overly large, it's been split it into smaller parts:
 
 .src/jest/server/mockXP.ts
-[source, typescript]
+[source, TypeScript]
 ----
 include::{sourcedir}src/jest/server/mockXP.ts[]
 ----
 
+NOTE: `jest.mock()` is only hoisted above the imports by SWC when `jest` is the global from `@types/jest`, not when it is imported from `@jest/globals` as here. The code under test is therefore loaded with a dynamic `import()` inside each test, after the mocks have been registered.
+
 NOTE: This test uses two image files, `lea-seydoux.jpg` and `jeffrey-wright.jpg`, which are not included in this project template. You can use any image files you have available. Just make sure either to update the test to point to the correct files or to create the files in the correct location.
 
 .src/jest/server/controller.test.ts
-[source, typescript]
+[source, TypeScript]
 ----
 include::{sourcedir}src/jest/server/controller.test.ts[]
 ----

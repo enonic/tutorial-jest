@@ -75,15 +75,15 @@ libContent.create({
 //──────────────────────────────────────────────────────────────────────────────
 describe('preview', () => {
 
-    it('is able to render a page for Léa Seydoux', () => {
+    it('is able to render a page for Léa Seydoux', async () => {
         libPortal.request = new Request({
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
         });
-        import('/lib/myproject/controller').then(({get}) => {
-            const response = get(libPortal.request);
-            expect(response).toEqual({
-                body: `<!DOCTYPE html>
+        const {get} = await import('/lib/myproject/controller');
+        const response = get(libPortal.request);
+        expect(response).toEqual({
+            body: `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -97,19 +97,18 @@ describe('preview', () => {
     Use live integrations with your front-end, or just a mockup - like this  :-)
   </body>
 </html>`
-            });
         });
     }); // Léa Seydoux
 
-    it('is able to render a page for Jeffrey Wright', () => {
+    it('is able to render a page for Jeffrey Wright', async () => {
         libPortal.request = new Request({
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
         });
-        import('/lib/myproject/controller').then(({get}) => {
-            const response = get(libPortal.request);
-            expect(response).toEqual({
-                body: `<!DOCTYPE html>
+        const {get} = await import('/lib/myproject/controller');
+        const response = get(libPortal.request);
+        expect(response).toEqual({
+            body: `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -123,7 +122,6 @@ describe('preview', () => {
     Use live integrations with your front-end, or just a mockup - like this  :-)
   </body>
 </html>`
-            });
         });
     }); // Jeffrey Wright
 
