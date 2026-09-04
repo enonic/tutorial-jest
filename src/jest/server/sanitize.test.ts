@@ -23,10 +23,9 @@ jest.mock('/lib/xp/common', () => ({
 
 
 describe('sanitize', () => {
-    it('should remove, replace or fold "illegal" characters', () => {
-        import('/lib/myproject/sanitize').then(({sanitize}) => {
-            expect(sanitize("Piña CØLADÆ <script>alert('hi!');</script>"))
-                .toEqual('pina-coladae-script-alerthi-script');
-        });
+    it('should remove, replace or fold "illegal" characters', async () => {
+        const {sanitize} = await import('/lib/myproject/sanitize');
+        expect(sanitize("Piña CØLADÆ <script>alert('hi!');</script>"))
+            .toEqual('pina-coladae-script-alerthi-script');
     });
 });

@@ -32,7 +32,7 @@ export const server = new Server({
     projectName: PROJECT_NAME
 });
 
-(globalThis as unknown as {log: Log}).log = server.log as Log;
+Object.defineProperty(globalThis, 'log', {value: server.log as Log, writable: true, configurable: true});
 
 
 const app = new App({

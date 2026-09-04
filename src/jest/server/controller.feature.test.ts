@@ -1,4 +1,5 @@
 import type { ByteSource } from '@enonic-types/core';
+import type { CreateContentParams } from '@enonic-types/lib-content';
 import type {
 	Cheerio,
 	SelectorType
@@ -67,10 +68,13 @@ const querySelector = (
 };
 
 export const steps: StepDefinitions = ({ given, when, then }) => {
-  const contentTypes = {};
-  let currentContentTypeName;
-  let currentDom;
-  let aContent;
+  const contentTypes: Record<string, {
+    contentType: string;
+    data: Record<string, {type: string; minimum: number; maximum: number}>;
+  }> = {};
+  let currentContentTypeName: string;
+  let currentDom: Cheerio<AnyNode>;
+  let aContent: CreateContentParams<Record<string, string[]>, string> | undefined;
 
   const personFolder = libContent.create({
     contentType: 'base:folder',
@@ -108,8 +112,8 @@ export const steps: StepDefinitions = ({ given, when, then }) => {
   });
 
   when(/^I fill in "(.*)" as the displayName$/, (displayName) => {
-    aContent.displayName = displayName;
-    aContent.name = sanitize(displayName);
+    aContent!.displayName = displayName;
+    aContent!.name = sanitize(displayName);
     // console.log('aContent:', aContent);
   });
 
@@ -121,28 +125,27 @@ export const steps: StepDefinitions = ({ given, when, then }) => {
       focalX: 0.5,
       focalY: 0.5,
     });
-    aContent.data[field].push(leaSeydouxJpg._id);
+    aContent!.data[field].push(leaSeydouxJpg._id);
   });
 
   then(/^I should be able to get a person using the _name "(.*)"$/, (name) => {
-    libContent.create(aContent);
+    libContent.create(aContent!);
     aContent = undefined;
     const person = libContent.get({key: `/persons/${name}`});
     // console.log('person:', person);
-    expect(person._name).toBe(name);
+    expect(person?._name).toBe(name);
   });
 
 
-  when(/^I visit the page for the person named (.*)$/, (name) => {
+  when(/^I visit the page for the person named (.*)$/, async (name) => {
     libPortal.request = new Request({
       repositoryId: server.context.repository,
       path: `/admin/site/preview/intro/draft/persons/${unQuote(name)}`
     });
-    import('/lib/myproject/controller').then(({get}) => {
-      const response = get(libPortal.request);
-      // console.log('response:', response);
-      currentDom = cheerio.load(String(response.body)).root();
-    });
+    const {get} = await import('/lib/myproject/controller');
+    const response = get(libPortal.request);
+    // console.log('response:', response);
+    currentDom = cheerio.load(String(response.body)).root();
   });
 
   then(/^the page should have the title (.*)$/, (title) => {
@@ -162,7 +165,7 @@ export const steps: StepDefinitions = ({ given, when, then }) => {
   });
 
   then(/^the html should be$/, (html: string) => {
-    const diffableHtml = toDiffableHtml(currentDom.html()).trim();
+    const diffableHtml = toDiffableHtml(currentDom.html() ?? '').trim();
     expect(html).toBe(diffableHtml);
   });
 }; // steps

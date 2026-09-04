@@ -43,13 +43,13 @@ So far, we have been using tsdown to build the sources. Its configuration discov
 
 This can be done by passing the test files as ignore patterns to the `entries()` helper in the tsdown configuration file:
 
-.tsdown.config.ts
-[source, Typescript]
+.tsdown.config.mts
+[source, TypeScript]
 ----
 const TEST_FILES = '**/*.{spec,test}.{ts,tsx}';
 
-const serverEntry = entries(SRC, '{ts,js}', [`${SRC_ASSETS}/**`, `${SRC}/**/*.d.ts`, `${SRC}/${TEST_FILES}`]);
-const assetEntry = entries(SRC_ASSETS, '{tsx,ts,jsx,js}', [`${SRC_ASSETS}/${TEST_FILES}`]);
+const serverEntry = entries(SRC, '{ts,js}', ['**/*.d.ts', `${SRC_ASSETS}/**`, `${SRC}/${TEST_FILES}`]);
+const assetEntry = entries(SRC_ASSETS, '{tsx,ts,jsx,js}', ['**/*.d.ts', `${SRC_ASSETS}/${TEST_FILES}`]);
 ----
 
 == Type checking
@@ -155,7 +155,7 @@ This is a bad option, because it may cause runtime problems if a developer adds 
 This can be achieved by importing jest globals directly from `@jest/globals`.
 
 ./src/main/resources/**/any.test.ts
-[source, Typescript]
+[source, TypeScript]
 ----
 import {
   afterAll,

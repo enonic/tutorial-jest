@@ -8,10 +8,6 @@
       {
         "label": "xp7",
         "checkout": "7.x"
-      },
-      {
-        "label": "next",
-        "checkout": "issue-632"
       }
     ]
   }

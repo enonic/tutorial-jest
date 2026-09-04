@@ -27,7 +27,9 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "jsx": "react",
+    "target": "ES2023",
     "lib": [
+      "ES2023",
       "DOM", // console, document, window, etc...
     ],
   },

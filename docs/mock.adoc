@@ -9,7 +9,7 @@ Mocking is the concept of creating fake functions or objects that stand in for r
 
 == Source code
 
-To demonstrate the power of mocking, let's make a simple Typescript using a standard Enonic library:
+To demonstrate the power of mocking, let's make a simple TypeScript using a standard Enonic library:
 
 .src/main/resources/lib/myproject/sanitize.ts
 [source, TypeScript]
@@ -55,7 +55,7 @@ In order to run the test successfully, a "fake" version of the module must be ma
 Add the following test to your project:
 
 .src/jest/server/sanitize.test.ts
-[source, typescript]
+[source, TypeScript]
 ----
 include::{sourcedir}src/jest/server/sanitize.test.ts[]
 ----
@@ -66,6 +66,6 @@ Obviously this mock doesn't cover ascii-folding for the whole unicode range, but
 
 == Summary
 
-This chapter showed how to mock an Enonic library invoked by a Typescript. This is necessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.
+This chapter showed how to mock an Enonic library invoked by a TypeScript. This is necessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.
 
 Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the <<mock-xp#,Mock XP>> library.
