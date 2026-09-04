@@ -469,7 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="source_code"><a class="link" href="#source_code">Source code</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To demonstrate the power of mocking, let&#8217;s make a simple Typescript using a standard Enonic library:</p>
+<p>To demonstrate the power of mocking, let&#8217;s make a simple TypeScript using a standard Enonic library:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/lib/myproject/sanitize.ts</div>
@@ -528,7 +528,7 @@ describe('sanitize', () =&gt; {
 <div class="listingblock">
 <div class="title">src/jest/server/sanitize.test.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type { sanitize as sanitizeType } from '@enonic-types/lib-common';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type { sanitize as sanitizeType } from '@enonic-types/lib-common';
 
 
 import {
@@ -553,11 +553,10 @@ jest.mock('/lib/xp/common', () =&gt; ({
 
 
 describe('sanitize', () =&gt; {
-    it('should remove, replace or fold "illegal" characters', () =&gt; {
-        import('/lib/myproject/sanitize').then(({sanitize}) =&gt; {
-            expect(sanitize("Piña CØLADÆ &lt;script&gt;alert('hi!');&lt;/script&gt;"))
-                .toEqual('pina-coladae-script-alerthi-script');
-        });
+    it('should remove, replace or fold "illegal" characters', async () =&gt; {
+        const {sanitize} = await import('/lib/myproject/sanitize');
+        expect(sanitize("Piña CØLADÆ &lt;script&gt;alert('hi!');&lt;/script&gt;"))
+            .toEqual('pina-coladae-script-alerthi-script');
     });
 });</code></pre>
 </div>
@@ -574,7 +573,7 @@ describe('sanitize', () =&gt; {
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter showed how to mock an Enonic library invoked by a Typescript. This is necessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.</p>
+<p>This chapter showed how to mock an Enonic library invoked by a TypeScript. This is necessary when you want to test your code in a controlled environment, without having to rely on the actual library being present.</p>
 </div>
 <div class="paragraph">
 <p>Writing mocks for entire libraries can be a bit tedious, so in the next chapter we will rather use the <a href="mock-xp.ahtml">Mock XP</a> library.</p>
@@ -584,7 +583,7 @@ describe('sanitize', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-25 12:35:34 UTC
+Last updated 2026-09-04 10:02:31 UTC
 </div>
 </div>
 </body>

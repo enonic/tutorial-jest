@@ -483,27 +483,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="jest_configuration"><a class="link" href="#jest_configuration">Jest configuration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order for Jest to find and run the colocated tests, the test files must be included in the <code>testMatch</code> configuration. This can be done by adding the colocated test files as include patterns in the Jest configuration files:</p>
+<p>In order for Jest to find and run the colocated tests, the test files must be included in the <code>testMatch</code> configuration. This can be done by adding the colocated test files as include patterns in the Jest configuration file:</p>
 </div>
 <div class="listingblock">
-<div class="title">jest.config.ts</div>
+<div class="title">jest.config.mjs</div>
 <div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">import {
-  // ...
-  DIR_SRC_ASSETS,
-  DIR_SRC_STATIC,
-} from './tsup/constants';
+<pre class="highlight"><code class="language-JavaScript" data-lang="JavaScript">const DIR_SRC_ASSETS = `${DIR_SRC}/assets`;
 
-const clientSideConfig: Config.InitialProjectOptions = {
+const clientSideConfig = {
   // ...
   testMatch: [
     // ... other testMatches
     `&lt;rootDir&gt;/${DIR_SRC_ASSETS}/${AND_BELOW}/${TEST_FILES}`,
-    `&lt;rootDir&gt;/${DIR_SRC_STATIC}/${AND_BELOW}/${TEST_FILES}`,
   ],
 };
 
-const serverSideConfig: Config.InitialProjectOptions = {
+const serverSideConfig = {
   // ...
   testMatch: [
     // ... other testMatches
@@ -511,7 +506,6 @@ const serverSideConfig: Config.InitialProjectOptions = {
   ],
   testPathIgnorePatterns: [
     `&lt;rootDir&gt;/${DIR_SRC_ASSETS}/`,
-    `&lt;rootDir&gt;/${DIR_SRC_STATIC}/`,
   ],
 };</code></pre>
 </div>
@@ -522,52 +516,18 @@ const serverSideConfig: Config.InitialProjectOptions = {
 <h2 id="build_system"><a class="link" href="#build_system">Build system</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>So far, we have been using Tsup to build the sources. If the tests are placed in the same directories as the source code, the build system will process the tests as source code. This is not what we want. We want the build system to ignore the tests.</p>
+<p>So far, we have been using tsdown to build the sources. Its configuration discovers every source file with <code>glob</code> and turns each of them into an entry. If the tests are placed in the same directories as the source code, the build system will process the tests as source code. This is not what we want. We want the build system to ignore the tests.</p>
 </div>
 <div class="paragraph">
-<p>This can be done by adding the test files as ignore patterns in the Tsup configuration files.</p>
+<p>This can be done by passing the test files as ignore patterns to the <code>entries()</code> helper in the tsdown configuration file:</p>
 </div>
 <div class="listingblock">
-<div class="title">tsup/constants.ts</div>
+<div class="title">tsdown.config.mts</div>
 <div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">export const TEST_EXT = `{spec,test}.{ts,tsx}`;</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">tsup/client-asset.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">const FILES_ASSETS = globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_ASSETS}`, {
-  ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${TEST_EXT}`
-})
-  // Windows compatibility
-  .map(s =&gt; s.replaceAll('\\', '/'));</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">tsup/client-static.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">const FILES_ASSETS = globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_STATIC}`, {
-  ignore: globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${TEST_EXT}`
-})
-  // Windows compatibility
-  .map(s =&gt; s.replaceAll('\\', '/'));</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">tsup/server.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">const FILES_SERVER = globSync(
-  `${DIR_SRC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`,
-  {
-    absolute: false,
-    ignore: globSync(`${DIR_SRC_ASSETS}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`).concat(
-      globSync(`${DIR_SRC_STATIC}/${AND_BELOW}/*.${GLOB_EXTENSIONS_SERVER}`),
-      globSync(`${DIR_SRC}/${AND_BELOW}/*.${TEST_EXT}`), // Avoid compiling test files
-    )
-  }
-)
-  // Windows compatibility
-  .map(s =&gt; s.replaceAll('\\', '/'));</code></pre>
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const TEST_FILES = '**/*.{spec,test}.{ts,tsx}';
+
+const serverEntry = entries(SRC, '{ts,js}', ['**/*.d.ts', `${SRC_ASSETS}/**`, `${SRC}/${TEST_FILES}`]);
+const assetEntry = entries(SRC_ASSETS, '{tsx,ts,jsx,js}', ['**/*.d.ts', `${SRC_ASSETS}/${TEST_FILES}`]);</code></pre>
 </div>
 </div>
 </div>
@@ -593,14 +553,18 @@ Test files can contain things like jest functions in the global scope that are n
 <div class="ulist">
 <ul>
 <li>
-<p>tsconfig.json</p>
+<p>src/main/resources/tsconfig.json</p>
 </li>
 <li>
 <p>src/main/resources/assets/tsconfig.json</p>
 </li>
-<li>
-<p>src/main/resources/static/tsconfig.json</p>
-</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>, while these give the editor its type context for the test files:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>src/jest/client/tsconfig.json</p>
 </li>
@@ -610,7 +574,7 @@ Test files can contain things like jest functions in the global scope that are n
 </ul>
 </div>
 <div class="paragraph">
-<p>, each of them bringing their own include and exclude patters.</p>
+<p>Each of them brings its own include and exclude patterns.</p>
 </div>
 <div class="paragraph">
 <p>In the current configuration include patterns with <code>*.ts</code> and <code>*.tsx</code> are used.</p>
@@ -624,7 +588,7 @@ Test files can contain things like jest functions in the global scope that are n
 <div class="sect2">
 <h3 id="exclude_from_source_code_type_checking"><a class="link" href="#exclude_from_source_code_type_checking">Exclude from source code type checking</a></h3>
 <div class="listingblock">
-<div class="title">tsconfig.json</div>
+<div class="title">src/main/resources/tsconfig.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
   // ... other settings
@@ -653,21 +617,6 @@ Test files can contain things like jest functions in the global scope that are n
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/tsconfig.json</div>
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  // ... other settings
-  "exclude": [
-    // ... other excludes
-    "./**/*.spec.ts",
-    "./**/*.test.ts",
-    "./**/*.spec.tsx",
-    "./**/*.test.tsx"
-  ]
-}</code></pre>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="include_in_test_code_type_checking"><a class="link" href="#include_in_test_code_type_checking">Include in test code type checking</a></h3>
@@ -681,10 +630,6 @@ Test files can contain things like jest functions in the global scope that are n
     "../../main/resources/assets/**/*.spec.tsx",
     "../../main/resources/assets/**/*.test.ts",
     "../../main/resources/assets/**/*.test.tsx",
-    "../../main/resources/static/**/*.spec.ts",
-    "../../main/resources/static/**/*.spec.tsx",
-    "../../main/resources/static/**/*.test.ts",
-    "../../main/resources/static/**/*.test.tsx",
   ]</code></pre>
 </div>
 </div>
@@ -702,7 +647,6 @@ Test files can contain things like jest functions in the global scope that are n
   "exclude": [
     // ... other excludes
     "../../main/resources/assets/**/*.*",
-    "../../main/resources/static/**/*.*",
   ]</code></pre>
 </div>
 </div>
@@ -735,7 +679,7 @@ Test files can contain things like jest functions in the global scope that are n
 <div class="listingblock">
 <div class="title">/src/main/resources/**/any.test.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">import {
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {
   afterAll,
   afterEach,
   beforeAll,
@@ -762,7 +706,7 @@ Test files can contain things like jest functions in the global scope that are n
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-25 12:35:34 UTC
+Last updated 2026-09-04 10:02:31 UTC
 </div>
 </div>
 </body>

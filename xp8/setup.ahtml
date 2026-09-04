@@ -445,7 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#node_modules">Node modules</a></li>
 <li><a href="#configuration">Configuration</a>
 <ul class="sectlevel2">
-<li><a href="#jest_config_ts">jest.config.ts</a></li>
+<li><a href="#jest_config_mjs">jest.config.mjs</a></li>
 <li><a href="#tsconfig_json">tsconfig.json</a></li>
 </ul>
 </li>
@@ -471,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="sample_project"><a class="link" href="#sample_project">Sample project</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the Enonic intro app.</p>
+<p>You may follow the steps in this guide to configure Jest for an existing project. For simplicity, we will base this tutorial on the TypeScript starter.</p>
 </div>
 <div class="paragraph">
 <p>To create a project for the tutorial, run the following command:</p>
@@ -497,7 +497,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install --save-dev jest-environment-jsdom ts-node ts-jest</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install --save-dev jest jest-environment-jsdom @swc/core @swc/jest</code></pre>
 </div>
 </div>
 </div>
@@ -509,17 +509,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Next, you will need to add and tune a few configuration files:</p>
 </div>
 <div class="sect2">
-<h3 id="jest_config_ts"><a class="link" href="#jest_config_ts">jest.config.ts</a></h3>
+<h3 id="jest_config_mjs"><a class="link" href="#jest_config_mjs">jest.config.mjs</a></h3>
 <div class="paragraph">
-<p>Jest needs to be configured to run Typescript tests. This is done by creating a <code>jest.config.ts</code> file in the root of the project:</p>
+<p>Jest needs to be configured to run TypeScript tests. This is done by creating a <code>jest.config.mjs</code> file in the root of the project:</p>
 </div>
 <div class="listingblock">
-<div class="title">jest.config.ts</div>
+<div class="title">jest.config.mjs</div>
 <div class="content">
-<pre class="highlight"><code class="language-Typescript" data-lang="Typescript">import type { Config } from '@jest/types';
-
-
-const DIR_SRC = 'src/main/resources';
+<pre class="highlight"><code class="language-JavaScript" data-lang="JavaScript">const DIR_SRC = 'src/main/resources';
 const DIR_SRC_JEST = 'src/jest';
 const DIR_SRC_JEST_CLIENT = `${DIR_SRC_JEST}/client`;
 const DIR_SRC_JEST_SERVER = `${DIR_SRC_JEST}/server`;
@@ -529,17 +526,34 @@ const TEST_EXT = `{spec,test}.{ts,tsx}`;
 const TEST_FILES = `*.${TEST_EXT}`;
 
 
-const commonConfig: Config.InitialProjectOptions = {
+// TypeScript (and TSX) test files are transpiled by SWC. Unlike ts-jest, SWC
+// only strips types — it does not type-check. Type errors in tests are caught
+// by your editor and the `check:types` script.
+const transform = {
+  '^.+\\.(ts|js)x?$': [
+    '@swc/jest',
+    {
+      jsc: {
+        parser: {
+          syntax: 'typescript',
+          tsx: true,
+        },
+        target: 'es2022',
+      },
+      sourceMaps: 'inline', // Important to get correct line numbers when running coverage tests
+    },
+  ],
+};
+
+const commonConfig = {
   collectCoverageFrom: [
     `${DIR_SRC}/${AND_BELOW}/${SOURCE_FILES}`,
   ],
 
-  // Insert Jest's globals (expect, test, describe, beforeEach etc.) into the
-  // global environment. If you set this to false, you should import from @jest/globals, e.g.
-  // injectGlobals: true, // Doesn't seem to work?
+  transform,
 };
 
-const clientSideConfig: Config.InitialProjectOptions = {
+const clientSideConfig = {
   ...commonConfig,
   displayName: {
     color: 'white',
@@ -571,17 +585,9 @@ const clientSideConfig: Config.InitialProjectOptions = {
   testMatch: [
     `&lt;rootDir&gt;/${DIR_SRC_JEST_CLIENT}/${AND_BELOW}/${TEST_FILES}`,
   ],
-  transform: {
-    "^.+\\.(ts|js)x?$": [
-      'ts-jest',
-      {
-        tsconfig: `${DIR_SRC_JEST_CLIENT}/tsconfig.json`
-      }
-    ]
-  }
 };
 
-const serverSideConfig: Config.InitialProjectOptions = {
+const serverSideConfig = {
   ...commonConfig,
   displayName: {
     color: 'blue',
@@ -628,18 +634,10 @@ const serverSideConfig: Config.InitialProjectOptions = {
   testMatch: [
     `&lt;rootDir&gt;/${DIR_SRC_JEST_SERVER}/${AND_BELOW}/${TEST_FILES}`,
   ],
-
-  transform: {
-    "^.+\\.(ts|js)x?$": [
-      'ts-jest',
-      {
-          tsconfig: `${DIR_SRC_JEST_SERVER}/tsconfig.json`
-      }
-    ]
-  },
 };
 
-const customJestConfig: Config.InitialOptions = {
+/** @type {import('jest').Config} */
+const customJestConfig = {
   coverageProvider: 'v8', // To get correct line numbers under jsdom
   passWithNoTests: true,
   projects: [clientSideConfig, serverSideConfig],
@@ -649,16 +647,19 @@ export default customJestConfig;</code></pre>
 </div>
 </div>
 <div class="paragraph">
+<p>Test files are transpiled by SWC (via <code>@swc/jest</code>), which strips the types without checking them — type errors in tests are caught by your editor. This is also why the config is a plain <code>.mjs</code> file: the project uses TypeScript 7, the native compiler, whose npm package no longer exports the classic compiler API (<code>createProgram</code>, <code>transpileModule</code>) that <code>ts-jest</code> and <code>ts-node</code> (needed for a <code>jest.config.ts</code>) depend on — only <code>tsc</code> and an explicitly unstable <code>typescript/unstable/*</code> surface remain.</p>
+</div>
+<div class="paragraph">
 <p>Read more about configuring Jest <a href="https://jestjs.io/docs/configuration" target="_blank" rel="noopener">here</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="tsconfig_json"><a class="link" href="#tsconfig_json">tsconfig.json</a></h3>
 <div class="paragraph">
-<p>In an Enonic Typescript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple <code>tsconfig.json</code> files are used.</p>
+<p>In an Enonic TypeScript project there can be both server-side and client-side code. In order for such code to be properly type checked and compiled, multiple <code>tsconfig.json</code> files are used.</p>
 </div>
 <div class="paragraph">
-<p>When running tests the Typescript configuration files might need to look slightly different. This is the case for the <code>src/jest/client/tsconfig.json</code> and <code>src/jest/server/tsconfig.json</code> files:</p>
+<p>Test files need a slightly different TypeScript configuration than the sources they test. Jest itself does not read these files (SWC only strips types), but they give your editor the right type context for the test files. This is the purpose of the <code>src/jest/client/tsconfig.json</code> and <code>src/jest/server/tsconfig.json</code> files:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/jest/client/tsconfig.json</div>
@@ -694,9 +695,9 @@ export default customJestConfig;</code></pre>
     // This feature differs from typeRoots in that it is about specifying
     // only the exact types you want included, whereas typeRoots supports
     // saying you want particular folders.
-    // "types": [
-      // "jest", // Doesn't even work for test files in this folder?
-    // ],
+    "types": [
+      "node",
+    ],
 
   }, // compilerOptions
 
@@ -720,12 +721,44 @@ export default customJestConfig;</code></pre>
   ],
 
   "compilerOptions": {
+    "lib": [
+      "ES2023",
+    ],
+    "module": "commonjs",
+
     // Import CommonJS modules in compliance with es6 modules spec
     "esModuleInterop": true,
 
     // A series of entries which re-map imports to lookup locations relative
     // to the baseUrl if set, or to the tsconfig file itself otherwise.
     "paths": {
+      // Keep in sync with src/main/resources/tsconfig.json — explicit entries
+      // make the IDE's auto-import suggest the runtime-correct specifiers.
+      "/lib/xp/admin": ["../../../node_modules/@enonic-types/lib-admin/admin"],
+      "/lib/xp/app": ["../../../node_modules/@enonic-types/lib-app/app"],
+      "/lib/xp/auditlog": ["../../../node_modules/@enonic-types/lib-auditlog/auditlog"],
+      "/lib/xp/auth": ["../../../node_modules/@enonic-types/lib-auth/auth"],
+      "/lib/xp/cluster": ["../../../node_modules/@enonic-types/lib-cluster/cluster"],
+      "/lib/xp/common": ["../../../node_modules/@enonic-types/lib-common/common"],
+      "/lib/xp/content": ["../../../node_modules/@enonic-types/lib-content/content"],
+      "/lib/xp/context": ["../../../node_modules/@enonic-types/lib-context/context"],
+      "/lib/xp/event": ["../../../node_modules/@enonic-types/lib-event/event"],
+      "/lib/xp/export": ["../../../node_modules/@enonic-types/lib-export/export"],
+      "/lib/xp/grid": ["../../../node_modules/@enonic-types/lib-grid/grid"],
+      "/lib/xp/i18n": ["../../../node_modules/@enonic-types/lib-i18n/i18n"],
+      "/lib/xp/io": ["../../../node_modules/@enonic-types/lib-io/io"],
+      "/lib/xp/mail": ["../../../node_modules/@enonic-types/lib-mail/mail"],
+      "/lib/xp/node": ["../../../node_modules/@enonic-types/lib-node/node"],
+      "/lib/xp/portal": ["../../../node_modules/@enonic-types/lib-portal/portal"],
+      "/lib/xp/project": ["../../../node_modules/@enonic-types/lib-project/project"],
+      "/lib/xp/repo": ["../../../node_modules/@enonic-types/lib-repo/repo"],
+      "/lib/xp/scheduler": ["../../../node_modules/@enonic-types/lib-scheduler/scheduler"],
+      "/lib/xp/schema": ["../../../node_modules/@enonic-types/lib-schema/schema"],
+      "/lib/xp/sse": ["../../../node_modules/@enonic-types/lib-sse/sse"],
+      "/lib/xp/task": ["../../../node_modules/@enonic-types/lib-task/task"],
+      "/lib/xp/value": ["../../../node_modules/@enonic-types/lib-value/value"],
+      "/lib/xp/vhost": ["../../../node_modules/@enonic-types/lib-vhost/vhost"],
+      "/lib/xp/websocket": ["../../../node_modules/@enonic-types/lib-websocket/websocket"],
       "/lib/xp/*": ["../../../node_modules/@enonic-types/lib-*"],
       "/*": ["../../main/resources/*"],
     },
@@ -824,7 +857,7 @@ You may now test with the following command as well:</p>
 <h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the above setup in place, it is possible to write tests in Typescript and run them using Jest.
+<p>With the above setup in place, it is possible to write tests in TypeScript and run them using Jest.
 The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div class="paragraph">
@@ -835,7 +868,7 @@ The tests will be run on every build and the coverage will be reported.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-25 12:35:34 UTC
+Last updated 2026-09-04 10:02:31 UTC
 </div>
 </div>
 </body>

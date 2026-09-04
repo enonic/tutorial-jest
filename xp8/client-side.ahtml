@@ -475,7 +475,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since we are going to write a <code>tsx</code> file, we need to make sure the <code>tsconfig.json</code> file includes the <code>jsx</code> option.</p>
+<p>Since we are going to write a <code>tsx</code> file, we need to make sure the <code>tsconfig.json</code> file includes the <code>jsx</code> option, so that type checking understands JSX. (Jest needs no change: the SWC transform in <code>jest.config.mjs</code> already parses TSX.)</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/assets/tsconfig.json</div>
@@ -501,7 +501,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">src/main/resources/assets/HelloWorld.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import React from 'react';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react';
 
 
 export const HelloWorld = () =&gt; {
@@ -520,7 +520,7 @@ export const HelloWorld = () =&gt; {
 <div class="listingblock">
 <div class="title">src/jest/client/HelloWorld.test.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import {
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {
     describe,
     expect,
     test as it
@@ -596,7 +596,7 @@ One such tool is Codecov.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-25 12:35:34 UTC
+Last updated 2026-09-04 10:02:31 UTC
 </div>
 </div>
 </body>

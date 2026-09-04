@@ -501,6 +501,9 @@ declare type ContentWithPhotos = Content&lt;{
 
 export function get(_request: Request): Response {
   const content = getContent&lt;ContentWithPhotos&gt;();
+  if (!content) {
+    return {status: 404};
+  }
   const {data, displayName} = content;
   const photoId = Array.isArray(data.photos) ? data.photos[0] : data.photos;
   const imageSrc = photoId
@@ -547,7 +550,7 @@ export function get(_request: Request): Response {
 <div class="listingblock">
 <div class="title">src/jest/server/mockXP.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {
   assetUrl as assetUrlType,
   getContent as getContentType,
   imageUrl as imageUrlType,
@@ -581,13 +584,7 @@ export const server = new Server({
     projectName: PROJECT_NAME
 });
 
-// Avoid type errors below.
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace globalThis {
-  let log: Log
-}
-
-globalThis.log = server.log as Log;
+Object.defineProperty(globalThis, 'log', {value: server.log as Log, writable: true, configurable: true});
 
 
 const app = new App({
@@ -620,6 +617,18 @@ jest.mock('/lib/xp/portal', () =&gt; {
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
+<code>jest.mock()</code> is only hoisted above the imports by SWC when <code>jest</code> is the global from <code>@types/jest</code>, not when it is imported from <code>@jest/globals</code> as here. The code under test is therefore loaded with a dynamic <code>import()</code> inside each test, after the mocks have been registered.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 This test uses two image files, <code>lea-seydoux.jpg</code> and <code>jeffrey-wright.jpg</code>, which are not included in this project template. You can use any image files you have available. Just make sure either to update the test to point to the correct files or to create the files in the correct location.
 </td>
 </tr>
@@ -628,7 +637,7 @@ This test uses two image files, <code>lea-seydoux.jpg</code> and <code>jeffrey-w
 <div class="listingblock">
 <div class="title">src/jest/server/controller.test.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {ByteSource} from '@enonic-types/core';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {ByteSource} from '@enonic-types/core';
 
 
 import {
@@ -705,15 +714,15 @@ libContent.create({
 //──────────────────────────────────────────────────────────────────────────────
 describe('preview', () =&gt; {
 
-    it('is able to render a page for Léa Seydoux', () =&gt; {
+    it('is able to render a page for Léa Seydoux', async () =&gt; {
         libPortal.request = new Request({
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/lea-seydoux'
         });
-        import('/lib/myproject/controller').then(({get}) =&gt; {
-            const response = get(libPortal.request);
-            expect(response).toEqual({
-                body: `&lt;!DOCTYPE html&gt;
+        const {get} = await import('/lib/myproject/controller');
+        const response = get(libPortal.request);
+        expect(response).toEqual({
+            body: `&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
@@ -727,19 +736,18 @@ describe('preview', () =&gt; {
     Use live integrations with your front-end, or just a mockup - like this  :-)
   &lt;/body&gt;
 &lt;/html&gt;`
-            });
         });
     }); // Léa Seydoux
 
-    it('is able to render a page for Jeffrey Wright', () =&gt; {
+    it('is able to render a page for Jeffrey Wright', async () =&gt; {
         libPortal.request = new Request({
             repositoryId: server.context.repository,
             path: '/admin/site/preview/intro/draft/persons/jeffrey-wright'
         });
-        import('/lib/myproject/controller').then(({get}) =&gt; {
-            const response = get(libPortal.request);
-            expect(response).toEqual({
-                body: `&lt;!DOCTYPE html&gt;
+        const {get} = await import('/lib/myproject/controller');
+        const response = get(libPortal.request);
+        expect(response).toEqual({
+            body: `&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
@@ -753,7 +761,6 @@ describe('preview', () =&gt; {
     Use live integrations with your front-end, or just a mockup - like this  :-)
   &lt;/body&gt;
 &lt;/html&gt;`
-            });
         });
     }); // Jeffrey Wright
 
@@ -818,7 +825,7 @@ Ran all test suites matching /src\/jest\/server\/controller.test.ts/i.</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-25 12:35:34 UTC
+Last updated 2026-09-04 10:02:31 UTC
 </div>
 </div>
 </body>
