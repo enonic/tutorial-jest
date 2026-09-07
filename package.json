@@ -31,7 +31,7 @@
     "@swc/core": "^1.15.47",
     "@swc/jest": "^0.2.39",
     "@types/diffable-html": "^5.0.2",
-    "@types/node": "^26.4.0",
+    "@types/node": "^26.4.1",
     "@types/react": "^18.3.12",
     "@types/react-test-renderer": "^18.3.1",
     "cheerio": "^1.2.0",
