@@ -40,7 +40,7 @@
     "glob": "^13.0.6",
     "jest": "^30.5.1",
     "jest-cucumber": "^4.5.0",
-    "jest-environment-jsdom": "^30.5.0",
+    "jest-environment-jsdom": "^30.5.1",
     "oxlint": "^1.82.0",
     "react": "^18.3.1",
     "react-test-renderer": "^18.3.1",
