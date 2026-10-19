@@ -26,7 +26,7 @@
     "@enonic-types/lib-task": "^8.0.4",
     "@enonic-types/lib-value": "^8.1.0",
     "@enonic-types/lib-vhost": "^8.1.0",
-    "@enonic-types/lib-websocket": "^8.0.4",
+    "@enonic-types/lib-websocket": "^8.1.0",
     "@enonic/mock-xp": "^2.0.2",
     "@swc/core": "^1.16.13",
     "@swc/jest": "^0.2.39",
